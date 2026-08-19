@@ -1,0 +1,411 @@
+/* =========================================
+   STUDENT PROGRESS PAGE
+========================================= */
+
+.student-progress-page {
+  min-height: 100vh;
+  padding: 40px;
+  background: #f5f7fb;
+  color: #1f2937;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.progress-header {
+  margin-bottom: 35px;
+}
+
+.progress-header p {
+  margin: 0 0 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #6366f1;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.progress-header h1 {
+  margin: 0 0 10px;
+  font-size: 34px;
+  font-weight: 700;
+}
+
+.progress-header span {
+  color: #6b7280;
+  font-size: 16px;
+}
+
+
+/* =========================================
+   PROGRESS SUMMARY
+========================================= */
+
+.progress-summary {
+  display: grid;
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 24px;
+  margin-bottom: 30px;
+}
+
+
+.progress-card {
+  background: #ffffff;
+  padding: 28px;
+  border-radius: 16px;
+
+  border: 1px solid #e5e7eb;
+
+  box-shadow:
+    0 4px 15px
+    rgba(0, 0, 0, 0.05);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+
+.progress-card:hover {
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 8px 22px
+    rgba(0, 0, 0, 0.08);
+}
+
+
+.progress-card h3 {
+  margin: 0 0 15px;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  color: #6b7280;
+}
+
+
+.progress-card strong {
+  display: block;
+
+  font-size: 32px;
+  font-weight: 700;
+
+  color: #111827;
+}
+
+
+/* =========================================
+   OVERALL PROGRESS
+========================================= */
+
+.overall-progress {
+  background: #ffffff;
+
+  padding: 30px;
+
+  border-radius: 16px;
+
+  border: 1px solid #e5e7eb;
+
+  box-shadow:
+    0 4px 15px
+    rgba(0, 0, 0, 0.05);
+
+  margin-bottom: 30px;
+}
+
+
+.progress-title {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  margin-bottom: 18px;
+}
+
+
+.progress-title h2 {
+  margin: 0;
+
+  font-size: 21px;
+
+  font-weight: 700;
+}
+
+
+.progress-title span {
+  font-size: 18px;
+
+  font-weight: 700;
+
+  color: #6366f1;
+}
+
+
+/* =========================================
+   PROGRESS BAR
+========================================= */
+
+.progress-bar {
+  width: 100%;
+
+  height: 14px;
+
+  background: #e5e7eb;
+
+  border-radius: 50px;
+
+  overflow: hidden;
+}
+
+
+.progress-fill {
+  height: 100%;
+
+  border-radius: 50px;
+
+  background: #6366f1;
+
+  transition:
+    width 0.5s ease;
+}
+
+
+/* =========================================
+   CONTINUE LEARNING
+========================================= */
+
+.continue-learning {
+  background: #ffffff;
+
+  padding: 30px;
+
+  border-radius: 16px;
+
+  border: 1px solid #e5e7eb;
+
+  box-shadow:
+    0 4px 15px
+    rgba(0, 0, 0, 0.05);
+}
+
+
+.continue-learning h2 {
+  margin: 0 0 8px;
+
+  font-size: 22px;
+}
+
+
+.continue-learning p {
+  margin: 0 0 22px;
+
+  color: #6b7280;
+
+  font-size: 15px;
+}
+
+
+.continue-learning a {
+  display: inline-block;
+
+  padding: 12px 22px;
+
+  border-radius: 10px;
+
+  background: #6366f1;
+
+  color: #ffffff;
+
+  text-decoration: none;
+
+  font-size: 15px;
+
+  font-weight: 600;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+
+.continue-learning a:hover {
+  background: #4f46e5;
+
+  transform: translateY(-2px);
+}
+
+
+/* =========================================
+   ERROR
+========================================= */
+
+.progress-error {
+  max-width: 600px;
+
+  margin: 50px auto;
+
+  padding: 20px;
+
+  border-radius: 12px;
+
+  background: #fee2e2;
+
+  color: #b91c1c;
+
+  border: 1px solid #fecaca;
+
+  text-align: center;
+
+  font-weight: 600;
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 900px) {
+
+  .student-progress-page {
+    padding: 30px;
+  }
+
+
+  .progress-summary {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+
+  .progress-header h1 {
+    font-size: 30px;
+  }
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+  .student-progress-page {
+    padding: 20px 15px;
+  }
+
+
+  .progress-header {
+    margin-bottom: 25px;
+  }
+
+
+  .progress-header h1 {
+    font-size: 26px;
+  }
+
+
+  .progress-header span {
+    font-size: 14px;
+  }
+
+
+  .progress-summary {
+    grid-template-columns: 1fr;
+
+    gap: 15px;
+  }
+
+
+  .progress-card {
+    padding: 22px;
+  }
+
+
+  .progress-card strong {
+    font-size: 28px;
+  }
+
+
+  .overall-progress {
+    padding: 22px;
+  }
+
+
+  .progress-title h2 {
+    font-size: 18px;
+  }
+
+
+  .progress-title span {
+    font-size: 16px;
+  }
+
+
+  .progress-bar {
+    height: 12px;
+  }
+
+
+  .continue-learning {
+    padding: 22px;
+  }
+
+
+  .continue-learning h2 {
+    font-size: 20px;
+  }
+
+
+  .continue-learning a {
+    width: 100%;
+
+    text-align: center;
+
+    box-sizing: border-box;
+  }
+
+}
+
+.certificate-button {
+  margin-top: 20px;
+
+  padding: 12px 20px;
+
+  border: none;
+  border-radius: 10px;
+
+  background: #2563eb;
+  color: white;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.certificate-button:hover {
+  background: #1d4ed8;
+
+  transform: translateY(-2px);
+}
+
+.certificate-button:disabled {
+  opacity: 0.6;
+
+  cursor: not-allowed;
+
+  transform: none;
+}

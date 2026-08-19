@@ -1,0 +1,335 @@
+/* =========================================
+   EDIT COURSE PAGE
+========================================= */
+
+.edit-course-page {
+  min-height: calc(100vh - 72px);
+  padding: 50px 20px;
+  background: #f5f8ff;
+}
+
+
+/* =========================================
+   CONTAINER
+========================================= */
+
+.edit-course-container {
+  width: 100%;
+  max-width: 850px;
+  margin: 0 auto;
+  padding: 40px;
+
+  background: #ffffff;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+
+  box-shadow:
+    0 10px 30px rgba(15, 23, 42, 0.06);
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.edit-course-header {
+  margin-bottom: 35px;
+}
+
+.edit-course-header p {
+  margin: 0 0 8px;
+
+  color: #2563eb;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.edit-course-header h1 {
+  margin: 0;
+
+  color: #172554;
+
+  font-size: 34px;
+  font-weight: 700;
+}
+
+
+/* =========================================
+   FORM
+========================================= */
+
+.course-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+
+/* =========================================
+   FORM GROUP
+========================================= */
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  color: #334155;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+
+/* =========================================
+   INPUTS
+========================================= */
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  box-sizing: border-box;
+
+  padding: 13px 14px;
+
+  border: 1px solid #cbd5e1;
+  border-radius: 9px;
+
+  outline: none;
+
+  background: #ffffff;
+
+  color: #334155;
+
+  font-family: inherit;
+  font-size: 14px;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+
+/* =========================================
+   TEXTAREA
+========================================= */
+
+.form-group textarea {
+  min-height: 140px;
+
+  resize: vertical;
+
+  line-height: 1.6;
+}
+
+
+/* =========================================
+   FOCUS
+========================================= */
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  border-color: #2563eb;
+
+  box-shadow:
+    0 0 0 3px rgba(37, 99, 235, 0.10);
+}
+
+
+/* =========================================
+   PLACEHOLDER
+========================================= */
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: #94a3b8;
+}
+
+
+/* =========================================
+   TWO-COLUMN ROW
+========================================= */
+
+.form-row {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 20px;
+}
+
+
+/* =========================================
+   SAVE BUTTON
+========================================= */
+
+.create-course-submit {
+  width: 100%;
+
+  margin-top: 10px;
+
+  padding: 14px 20px;
+
+  border: none;
+  border-radius: 9px;
+
+  background: #2563eb;
+
+  color: #ffffff;
+
+  font-family: inherit;
+
+  font-size: 15px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.create-course-submit:hover {
+  background: #1d4ed8;
+
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 6px 15px rgba(37, 99, 235, 0.20);
+}
+
+.create-course-submit:active {
+  transform: translateY(0);
+}
+
+.create-course-submit:disabled {
+  opacity: 0.6;
+
+  cursor: not-allowed;
+
+  transform: none;
+
+  box-shadow: none;
+}
+
+
+/* =========================================
+   ERROR MESSAGE
+========================================= */
+
+.form-error {
+  margin-bottom: 20px;
+
+  padding: 13px 15px;
+
+  border: 1px solid #fecaca;
+  border-radius: 9px;
+
+  background: #fee2e2;
+
+  color: #b91c1c;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+
+/* =========================================
+   LOADING STATE
+========================================= */
+
+.edit-course-page.loading {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-height: calc(100vh - 72px);
+
+  color: #64748b;
+
+  font-size: 15px;
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 768px) {
+
+  .edit-course-page {
+    padding: 35px 18px;
+  }
+
+  .edit-course-container {
+    padding: 30px 25px;
+  }
+
+  .edit-course-header h1 {
+    font-size: 30px;
+  }
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+  .edit-course-page {
+    padding: 25px 15px;
+  }
+
+  .edit-course-container {
+    padding: 25px 18px;
+
+    border-radius: 15px;
+  }
+
+  .edit-course-header {
+    margin-bottom: 28px;
+  }
+
+  .edit-course-header h1 {
+    font-size: 26px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+
+    gap: 20px;
+  }
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    padding: 12px;
+  }
+  .create-course-submit {
+    padding: 13px;
+  }
+
+}
+@media (max-width: 400px) {
+  .edit-course-container {
+    padding: 22px 15px;
+  }
+  .edit-course-header h1 {
+    font-size: 24px;
+  }
+  .edit-course-header p {
+    font-size: 11px;
+  }
+}

@@ -1,0 +1,497 @@
+/* ==========================================
+   INSTRUCTOR ASSIGNMENT SUBMISSIONS
+========================================== */
+
+.instructor-submissions-page {
+  min-height: 100vh;
+  padding: 40px;
+  background: #f7f8fc;
+}
+
+
+/* ==========================================
+   HEADER
+========================================== */
+
+.instructor-submissions-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 30px;
+}
+
+.instructor-submissions-header p {
+  margin: 0 0 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #7c3aed;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.instructor-submissions-header h1 {
+  margin: 0;
+  font-size: 32px;
+  color: #1f2937;
+}
+
+.instructor-submissions-header span {
+  display: block;
+  margin-top: 8px;
+  color: #6b7280;
+  font-size: 15px;
+}
+
+.back-assignments-button {
+  text-decoration: none;
+  padding: 12px 18px;
+  border-radius: 10px;
+  background: white;
+  color: #374151;
+  border: 1px solid #e5e7eb;
+  font-weight: 600;
+  transition: 0.2s ease;
+}
+
+.back-assignments-button:hover {
+  background: #f3f4f6;
+}
+
+
+/* ==========================================
+   ASSIGNMENT CARD
+========================================== */
+
+.submission-assignment-card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  padding: 25px;
+  margin-bottom: 28px;
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+}
+
+.submission-assignment-card > div:first-child {
+  flex: 1;
+}
+
+.submission-assignment-card span {
+  color: #7c3aed;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.submission-assignment-card h2 {
+  margin: 8px 0;
+  color: #1f2937;
+  font-size: 23px;
+}
+
+.submission-assignment-card p {
+  margin: 0;
+  color: #6b7280;
+  line-height: 1.6;
+}
+
+.submission-assignment-stats {
+  display: flex;
+  gap: 15px;
+}
+
+.submission-assignment-stats div {
+  min-width: 120px;
+  padding: 18px;
+  border-radius: 14px;
+  background: #f8f7ff;
+  text-align: center;
+}
+
+.submission-assignment-stats span {
+  display: block;
+  color: #6b7280;
+  font-size: 12px;
+}
+
+.submission-assignment-stats strong {
+  display: block;
+  margin-top: 7px;
+  color: #1f2937;
+  font-size: 24px;
+}
+
+
+/* ==========================================
+   ERROR / MESSAGE
+========================================== */
+
+.submissions-message {
+  padding: 50px;
+  text-align: center;
+  color: #6b7280;
+}
+
+.submissions-error {
+  margin-bottom: 20px;
+  padding: 14px 18px;
+  border-radius: 10px;
+  background: #fef2f2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+}
+
+
+/* ==========================================
+   EMPTY STATE
+========================================== */
+
+.submissions-empty {
+  padding: 60px 20px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  text-align: center;
+}
+
+.submissions-empty > div {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f3e8ff;
+  color: #7c3aed;
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.submissions-empty h2 {
+  margin: 0 0 8px;
+  color: #1f2937;
+}
+
+.submissions-empty p {
+  margin: 0;
+  color: #6b7280;
+}
+
+
+/* ==========================================
+   SUBMISSIONS LIST
+========================================== */
+
+.submissions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+
+/* ==========================================
+   STUDENT SUBMISSION CARD
+========================================== */
+
+.student-submission-card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  padding: 25px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+}
+
+
+/* ==========================================
+   STUDENT
+========================================== */
+
+.submission-student {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.student-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #ede9fe;
+  color: #7c3aed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.submission-student h3 {
+  margin: 0 0 4px;
+  color: #1f2937;
+}
+
+.submission-student p {
+  margin: 0;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+
+/* ==========================================
+   ANSWER
+========================================== */
+
+.submission-answer {
+  padding: 22px 0;
+}
+
+.submission-section-title {
+  margin-bottom: 10px;
+  color: #374151;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.submission-answer p {
+  margin: 0;
+  padding: 16px;
+  border-radius: 12px;
+  background: #f9fafb;
+  color: #374151;
+  line-height: 1.7;
+  white-space: pre-wrap;
+}
+
+
+/* ==========================================
+   META
+========================================== */
+
+.submission-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 15px 0;
+  border-top: 1px solid #f0f0f0;
+  border-bottom: 1px solid #f0f0f0;
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.graded-status,
+.submitted-status {
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-weight: 700;
+}
+
+.graded-status {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.submitted-status {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+
+/* ==========================================
+   EXISTING GRADE
+========================================== */
+
+.existing-grade {
+  margin-top: 20px;
+  padding: 18px;
+  border-radius: 12px;
+  background: #f8f7ff;
+}
+
+.existing-grade > div {
+  margin-bottom: 12px;
+}
+
+.existing-grade > div:last-child {
+  margin-bottom: 0;
+}
+
+.existing-grade span {
+  display: block;
+  margin-bottom: 5px;
+  color: #6b7280;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.existing-grade strong {
+  color: #7c3aed;
+  font-size: 22px;
+}
+
+.existing-grade p {
+  margin: 0;
+  color: #374151;
+  line-height: 1.6;
+}
+
+
+/* ==========================================
+   GRADE BUTTON
+========================================== */
+
+.grade-submission-button {
+  margin-top: 20px;
+  padding: 11px 18px;
+  border: none;
+  border-radius: 9px;
+  background: #7c3aed;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.grade-submission-button:hover {
+  background: #6d28d9;
+}
+
+
+/* ==========================================
+   GRADING FORM
+========================================== */
+
+.grading-form {
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 14px;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+}
+
+.grading-form > div {
+  margin-bottom: 16px;
+}
+
+.grading-form label {
+  display: block;
+  margin-bottom: 7px;
+  color: #374151;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.grading-form input,
+.grading-form textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 11px 13px;
+  border: 1px solid #d1d5db;
+  border-radius: 9px;
+  background: white;
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+}
+
+.grading-form input:focus,
+.grading-form textarea:focus {
+  border-color: #7c3aed;
+}
+
+.grading-form textarea {
+  resize: vertical;
+}
+
+.grading-actions {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 0 !important;
+}
+
+.grading-actions button {
+  padding: 11px 18px;
+  border: none;
+  border-radius: 9px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.grading-actions button:first-child {
+  background: #7c3aed;
+  color: white;
+}
+
+.grading-actions button:last-child {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media (max-width: 900px) {
+
+  .instructor-submissions-page {
+    padding: 25px;
+  }
+
+  .submission-assignment-card {
+    flex-direction: column;
+  }
+
+  .submission-assignment-stats {
+    width: 100%;
+  }
+
+  .submission-assignment-stats div {
+    flex: 1;
+  }
+
+}
+
+
+@media (max-width: 650px) {
+
+  .instructor-submissions-page {
+    padding: 18px;
+  }
+
+  .instructor-submissions-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .instructor-submissions-header h1 {
+    font-size: 26px;
+  }
+
+  .submission-assignment-stats {
+    flex-direction: column;
+  }
+
+  .submission-meta {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .student-submission-card {
+    padding: 18px;
+  }
+
+  .grading-actions {
+    flex-direction: column;
+  }
+
+  .grading-actions button {
+    width: 100%;
+  }
+
+}

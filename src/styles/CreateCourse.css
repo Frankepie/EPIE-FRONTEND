@@ -1,0 +1,121 @@
+.create-course-page {
+  min-height: calc(100vh - 72px);
+  padding: 50px 20px;
+  background: #f5f8ff;
+}
+.create-course-container {
+  max-width: 850px;
+  margin: 0 auto;
+  padding: 40px;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow:0 10px 30px rgba(15,23, 42, 0.06   );
+}
+.create-course-header {
+  margin-bottom: 35px;
+}
+.create-course-header p {
+  margin: 0 0 8px;
+  color: #2563eb;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.create-course-header h1 {
+  margin: 0 0 10px;
+  color: #172554;
+  font-size: 34px;
+}
+.create-course-header span {
+  color: #64748b;
+}
+.course-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.form-group label {
+  color: #334155;
+  font-size: 14px;
+  font-weight: 600;
+}
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 13px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 9px;
+  outline: none;
+  color: #334155;
+  font-family: inherit;
+  font-size: 14px;
+  background: #ffffff;
+}
+.form-group textarea {
+  resize: vertical;
+}
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  border-color: #2563eb;
+  box-shadow:0 0 0 3px rgba(37, 99, 235, 0.10   );
+}
+.form-row {
+  display: grid;
+  grid-template-columns:1fr 1fr;
+  gap: 20px;
+}
+.create-course-submit {
+  margin-top: 10px;
+  padding: 14px;
+  border: none;
+  border-radius: 9px;
+  background: #2563eb;
+  color: white;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.create-course-submit:hover {
+  background: #1d4ed8;
+}
+.create-course-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.form-error,
+.form-success {
+  margin-bottom: 20px;
+  padding: 13px 15px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+.form-error {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+.form-success {
+  background: #dcfce7;
+  color: #15803d;
+}
+@media (max-width: 650px) {
+  .create-course-page {
+    padding: 30px 15px;
+  }
+  .create-course-container {
+    padding: 25px 20px;
+  }
+  .create-course-header h1 {
+    font-size: 28px;
+  }
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}

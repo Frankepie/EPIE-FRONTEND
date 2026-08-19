@@ -1,0 +1,330 @@
+/* ==========================================
+   CERTIFICATES PAGE
+========================================== */
+
+.certificates-page {
+  min-height: 100vh;
+  padding: 40px;
+  background: #f8fafc;
+}
+
+
+/* ==========================================
+   HEADER
+========================================== */
+
+.certificates-header {
+  max-width: 1200px;
+  margin: 0 auto 35px;
+}
+
+
+.certificates-label {
+  margin: 0 0 8px;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  letter-spacing: 1.5px;
+
+  color: #2563eb;
+}
+
+
+.certificates-header h1 {
+  margin: 0 0 10px;
+
+  font-size: 36px;
+
+  color: #172033;
+}
+
+
+.certificates-description {
+  margin: 0;
+
+  font-size: 16px;
+
+  color: #64748b;
+}
+
+
+/* ==========================================
+   CERTIFICATE GRID
+========================================== */
+
+.certificates-grid {
+  max-width: 1200px;
+
+  margin: 0 auto;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(auto-fit, minmax(320px, 1fr));
+
+  gap: 25px;
+}
+
+
+/* ==========================================
+   CERTIFICATE CARD
+========================================== */
+
+.certificate-card {
+  background: white;
+
+  border-radius: 18px;
+
+  padding: 25px;
+
+  border: 1px solid #e2e8f0;
+
+  box-shadow:
+    0 8px 25px rgba(15, 23, 42, 0.06);
+
+  display: flex;
+
+  gap: 20px;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+
+.certificate-card:hover {
+  transform: translateY(-4px);
+
+  box-shadow:
+    0 14px 35px rgba(15, 23, 42, 0.1);
+}
+
+
+/* ==========================================
+   ICON
+========================================== */
+
+.certificate-card-icon {
+  width: 55px;
+  height: 55px;
+
+  min-width: 55px;
+
+  border-radius: 14px;
+
+  background: #eff6ff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 28px;
+}
+
+
+/* ==========================================
+   CONTENT
+========================================== */
+
+.certificate-card-content {
+  flex: 1;
+}
+
+
+.certificate-status {
+  display: inline-block;
+
+  margin-bottom: 8px;
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  letter-spacing: 1px;
+
+  color: #16a34a;
+}
+
+
+.certificate-card-content h2 {
+  margin: 0 0 8px;
+
+  font-size: 21px;
+
+  color: #172033;
+}
+
+
+.certificate-card-content p {
+  margin: 0 0 20px;
+
+  font-size: 14px;
+
+  line-height: 1.6;
+
+  color: #64748b;
+}
+
+
+/* ==========================================
+   CERTIFICATE INFORMATION
+========================================== */
+
+.certificate-info {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 12px;
+
+  padding-top: 15px;
+
+  border-top: 1px solid #e2e8f0;
+}
+
+
+.certificate-info div {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 3px;
+}
+
+
+.certificate-info span {
+  font-size: 11px;
+
+  color: #94a3b8;
+}
+
+
+.certificate-info strong {
+  font-size: 13px;
+
+  color: #334155;
+
+  word-break: break-word;
+}
+
+
+/* ==========================================
+   EMPTY STATE
+========================================== */
+
+.certificates-empty {
+  max-width: 650px;
+
+  margin: 70px auto;
+
+  padding: 50px 30px;
+
+  text-align: center;
+
+  background: white;
+
+  border-radius: 20px;
+
+  border: 1px solid #e2e8f0;
+
+  box-shadow:
+    0 8px 25px rgba(15, 23, 42, 0.05);
+}
+
+
+.certificate-empty-icon {
+  font-size: 55px;
+
+  margin-bottom: 15px;
+}
+
+
+.certificates-empty h2 {
+  margin: 0 0 10px;
+
+  font-size: 25px;
+
+  color: #172033;
+}
+
+
+.certificates-empty p {
+  margin: 0;
+
+  color: #64748b;
+}
+
+
+/* ==========================================
+   LOADING
+========================================== */
+
+.certificates-loading {
+  padding: 80px 20px;
+
+  text-align: center;
+
+  font-size: 17px;
+
+  color: #64748b;
+}
+
+
+/* ==========================================
+   ERROR
+========================================== */
+
+.certificates-error {
+  max-width: 700px;
+
+  margin: 50px auto;
+
+  padding: 20px;
+
+  border-radius: 12px;
+
+  background: #fef2f2;
+
+  border: 1px solid #fecaca;
+
+  color: #dc2626;
+
+  text-align: center;
+}
+
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 600px) {
+
+  .certificates-page {
+    padding: 25px 18px;
+  }
+
+
+  .certificates-header h1 {
+    font-size: 29px;
+  }
+
+
+  .certificates-grid {
+    grid-template-columns: 1fr;
+  }
+
+
+  .certificate-card {
+    padding: 20px;
+
+    flex-direction: column;
+  }
+
+
+  .certificate-card-icon {
+    width: 50px;
+    height: 50px;
+  }
+
+}

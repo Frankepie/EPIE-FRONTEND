@@ -1,0 +1,377 @@
+/* ==========================================
+   MY BOOKMARKS PAGE
+========================================== */
+
+.my-bookmarks-page {
+  min-height: 100vh;
+  padding: 32px;
+  background: #f6f8fc;
+}
+
+
+/* ==========================================
+   HEADER
+========================================== */
+
+.my-bookmarks-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.my-bookmarks-header-content span {
+  display: inline-block;
+  margin-bottom: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #667085;
+  letter-spacing: 0.8px;
+}
+
+.my-bookmarks-header-content h1 {
+  margin: 0;
+  font-size: 32px;
+  color: #172033;
+}
+
+.my-bookmarks-header-content p {
+  margin: 8px 0 0;
+  color: #667085;
+  font-size: 15px;
+}
+
+
+/* ==========================================
+   BOOKMARK COUNT
+========================================== */
+
+.bookmark-count-card {
+  min-width: 130px;
+  padding: 16px 20px;
+  background: #ffffff;
+  border: 1px solid #e6eaf0;
+  border-radius: 14px;
+  text-align: center;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+}
+
+.bookmark-count-card strong {
+  display: block;
+  font-size: 25px;
+  color: #2563eb;
+}
+
+.bookmark-count-card span {
+  font-size: 13px;
+  color: #667085;
+}
+
+
+/* ==========================================
+   ERROR
+========================================== */
+
+.my-bookmarks-error {
+  margin-bottom: 20px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  background: #fff1f2;
+  border: 1px solid #fecdd3;
+  color: #be123c;
+  font-size: 14px;
+}
+
+
+/* ==========================================
+   LOADING
+========================================== */
+
+.my-bookmarks-loading {
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #667085;
+  font-size: 16px;
+}
+
+
+/* ==========================================
+   BOOKMARK LIST
+========================================== */
+
+.bookmarks-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+
+/* ==========================================
+   BOOKMARK CARD
+========================================== */
+
+.bookmark-card {
+  display: flex;
+  flex-direction: column;
+  padding: 22px;
+  background: #ffffff;
+  border: 1px solid #e6eaf0;
+  border-radius: 16px;
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.04);
+  transition: transform 0.2s ease,
+              box-shadow 0.2s ease;
+}
+
+.bookmark-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+
+/* ==========================================
+   TOP SECTION
+========================================== */
+
+.bookmark-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 18px;
+}
+
+.bookmark-icon {
+  width: 46px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 12px;
+  background: #eff6ff;
+  font-size: 22px;
+}
+
+.bookmark-date {
+  font-size: 12px;
+  color: #98a2b3;
+}
+
+
+/* ==========================================
+   COURSE / MODULE INFORMATION
+========================================== */
+
+.bookmark-course {
+  margin-bottom: 7px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #2563eb;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+.bookmark-module {
+  margin-bottom: 10px;
+  font-size: 13px;
+  color: #667085;
+}
+
+.bookmark-card h2 {
+  margin: 0 0 10px;
+  font-size: 20px;
+  line-height: 1.35;
+  color: #172033;
+}
+
+.bookmark-description {
+  margin: 0;
+  color: #667085;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+
+/* ==========================================
+   ACTIONS
+========================================== */
+
+.bookmark-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid #eef1f5;
+}
+
+.open-bookmark-button,
+.remove-bookmark-button {
+  border: none;
+  border-radius: 9px;
+  padding: 11px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.open-bookmark-button {
+  flex: 1;
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.open-bookmark-button:hover {
+  background: #1d4ed8;
+}
+
+.remove-bookmark-button {
+  background: #fff1f2;
+  color: #be123c;
+}
+
+.remove-bookmark-button:hover {
+  background: #ffe4e6;
+}
+
+.open-bookmark-button:disabled,
+.remove-bookmark-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+
+/* ==========================================
+   EMPTY STATE
+========================================== */
+
+.bookmarks-empty {
+  padding: 70px 25px;
+  background: #ffffff;
+  border: 1px solid #e6eaf0;
+  border-radius: 18px;
+  text-align: center;
+}
+
+.bookmarks-empty-icon {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #eff6ff;
+  font-size: 32px;
+}
+
+.bookmarks-empty h2 {
+  margin: 0 0 10px;
+  color: #172033;
+  font-size: 23px;
+}
+
+.bookmarks-empty p {
+  max-width: 500px;
+  margin: 0 auto 22px;
+  color: #667085;
+  line-height: 1.6;
+}
+
+.bookmarks-empty a {
+  display: inline-block;
+  padding: 11px 18px;
+  border-radius: 9px;
+  background: #2563eb;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+
+/* ==========================================
+   TABLET
+========================================== */
+
+@media (max-width: 900px) {
+
+  .my-bookmarks-page {
+    padding: 25px;
+  }
+
+  .bookmarks-list {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 600px) {
+
+  .my-bookmarks-page {
+    padding: 18px;
+  }
+
+  .my-bookmarks-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .my-bookmarks-header-content h1 {
+    font-size: 26px;
+  }
+
+  .bookmark-count-card {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .bookmark-card {
+    padding: 18px;
+  }
+
+  .bookmark-card h2 {
+    font-size: 18px;
+  }
+
+  .bookmark-actions {
+    flex-direction: column;
+  }
+
+  .open-bookmark-button,
+  .remove-bookmark-button {
+    width: 100%;
+  }
+
+}
+
+
+/* ==========================================
+   SMALL MOBILE
+========================================== */
+
+@media (max-width: 400px) {
+
+  .my-bookmarks-page {
+    padding: 14px;
+  }
+
+  .bookmark-card-top {
+    gap: 10px;
+  }
+
+  .bookmark-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 19px;
+  }
+
+}

@@ -1,0 +1,327 @@
+/* ==========================================
+   SETTINGS PAGE
+========================================== */
+
+.settings-page {
+  min-height: 100vh;
+
+  padding: 35px;
+
+  background: #f5f6fb;
+
+  box-sizing: border-box;
+}
+
+
+/* ==========================================
+   HEADER
+========================================== */
+
+.settings-header {
+  max-width: 1000px;
+
+  margin: 0 auto 30px;
+}
+
+.settings-header p {
+  margin: 0 0 8px;
+
+  color: #5136a5;
+
+  font-size: 14px;
+
+  font-weight: 600;
+}
+
+.settings-header h1 {
+  margin: 0 0 8px;
+
+  color: #111827;
+
+  font-size: 30px;
+}
+
+.settings-header span {
+  color: #6b7280;
+
+  font-size: 15px;
+}
+
+
+/* ==========================================
+   CONTAINER
+========================================== */
+
+.settings-container {
+  max-width: 1000px;
+
+  margin: 0 auto;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 20px;
+}
+
+
+/* ==========================================
+   SETTINGS CARD
+========================================== */
+
+.settings-card {
+  padding: 25px;
+
+  background: #ffffff;
+
+  border-radius: 16px;
+
+  box-shadow:
+    0 5px 18px rgba(15, 23, 42, 0.06);
+
+  box-sizing: border-box;
+}
+
+
+/* ==========================================
+   CARD HEADER
+========================================== */
+
+.settings-card-header {
+  display: flex;
+
+  align-items: center;
+
+  gap: 15px;
+
+  padding-bottom: 20px;
+
+  margin-bottom: 5px;
+
+  border-bottom: 1px solid #eef0f4;
+}
+
+.settings-card-header h2 {
+  margin: 0 0 5px;
+
+  color: #111827;
+
+  font-size: 18px;
+}
+
+.settings-card-header p {
+  margin: 0;
+
+  color: #6b7280;
+
+  font-size: 13px;
+}
+
+.settings-icon {
+  width: 45px;
+  height: 45px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border-radius: 12px;
+
+  background: #eee9ff;
+
+  font-size: 21px;
+}
+
+
+/* ==========================================
+   ACCOUNT ROW
+========================================== */
+
+.settings-row {
+  padding: 17px 0;
+
+  border-bottom: 1px solid #eef0f4;
+}
+
+.settings-row:last-child {
+  border-bottom: none;
+}
+
+.settings-row span {
+  display: block;
+
+  margin-bottom: 6px;
+
+  color: #6b7280;
+
+  font-size: 13px;
+}
+
+.settings-row strong {
+  color: #111827;
+
+  font-size: 15px;
+}
+
+
+/* ==========================================
+   SETTINGS OPTIONS
+========================================== */
+
+.settings-option {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 20px;
+
+  padding: 18px 0;
+
+  border-bottom: 1px solid #eef0f4;
+}
+
+.settings-option:last-child {
+  border-bottom: none;
+}
+
+.settings-option strong {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: #111827;
+
+  font-size: 14px;
+}
+
+.settings-option span {
+  color: #6b7280;
+
+  font-size: 13px;
+
+  line-height: 1.5;
+}
+
+
+/* ==========================================
+   TOGGLE SWITCH
+========================================== */
+
+.settings-switch {
+  position: relative;
+
+  width: 46px;
+  height: 25px;
+
+  flex-shrink: 0;
+}
+
+.settings-switch input {
+  width: 0;
+  height: 0;
+
+  opacity: 0;
+}
+
+.settings-switch span {
+  position: absolute;
+
+  inset: 0;
+
+  cursor: pointer;
+
+  border-radius: 30px;
+
+  background: #d1d5db;
+
+  transition: 0.2s;
+}
+
+.settings-switch span::before {
+  content: "";
+
+  position: absolute;
+
+  width: 19px;
+  height: 19px;
+
+  left: 3px;
+  top: 3px;
+
+  border-radius: 50%;
+
+  background: #ffffff;
+
+  transition: 0.2s;
+
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+.settings-switch input:checked + span {
+  background: #5136a5;
+}
+
+.settings-switch input:checked + span::before {
+  transform: translateX(21px);
+}
+
+
+/* ==========================================
+   SECURITY BUTTON
+========================================== */
+
+.settings-security-button {
+  margin-top: 20px;
+
+  padding: 12px 20px;
+
+  border: none;
+
+  border-radius: 9px;
+
+  background: #5136a5;
+
+  color: #ffffff;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.settings-security-button:hover {
+  opacity: 0.9;
+}
+
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 600px) {
+
+  .settings-page {
+    padding: 20px 15px;
+  }
+
+  .settings-header h1 {
+    font-size: 25px;
+  }
+
+  .settings-card {
+    padding: 20px;
+  }
+
+  .settings-option {
+    align-items: flex-start;
+  }
+
+}

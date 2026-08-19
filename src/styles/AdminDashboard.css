@@ -1,0 +1,730 @@
+/* =====================================
+   ADMIN DASHBOARD
+===================================== */
+
+.admin-dashboard-page {
+  width: 100%;
+  min-height: 100vh;
+
+  padding: 36px 34px 50px;
+
+  box-sizing: border-box;
+
+  background: #ffffff;
+
+  color: #111827;
+}
+
+
+/* =====================================
+   TOP HEADER
+===================================== */
+
+.admin-dashboard-topbar {
+  width: 100%;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  margin-bottom: 34px;
+}
+
+
+.admin-welcome h1 {
+  margin: 0;
+
+  font-size: 27px;
+
+  line-height: 1.25;
+
+  font-weight: 700;
+
+  color: #111827;
+}
+
+
+.admin-dashboard-actions {
+  display: flex;
+
+  align-items: center;
+
+  gap: 18px;
+}
+
+
+.admin-action-button {
+  position: relative;
+
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+
+  background: transparent;
+
+  color: #111827;
+
+  font-size: 19px;
+
+  cursor: pointer;
+
+  border-radius: 8px;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+
+.admin-action-button:hover {
+  background: #f3f4f6;
+
+  color: #3f51b5;
+}
+
+
+.admin-notification-dot {
+  position: absolute;
+
+  top: 7px;
+  right: 6px;
+
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: #e05262;
+
+  border: 2px solid #ffffff;
+}
+
+
+/* =====================================
+   ADMIN PROFILE
+===================================== */
+
+.admin-profile {
+  width: 43px;
+  height: 43px;
+
+  border-radius: 50%;
+
+  overflow: hidden;
+
+  flex-shrink: 0;
+
+  border: 1px solid #e5e7eb;
+
+  background: #eef2ff;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+}
+
+
+.admin-profile-image {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  display: block;
+}
+
+
+.admin-profile-fallback {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  font-size: 17px;
+
+  font-weight: 700;
+
+  color: #4256bd;
+
+  background: #eef2ff;
+}
+
+
+/* =====================================
+   OVERVIEW
+===================================== */
+
+.admin-overview-section {
+  width: 100%;
+
+  margin-bottom: 22px;
+}
+
+
+.admin-overview-section h2 {
+  margin: 0 0 19px;
+
+  font-size: 21px;
+
+  font-weight: 600;
+
+  color: #111827;
+}
+
+
+/* =====================================
+   STATISTICS GRID
+===================================== */
+
+.admin-overview-grid {
+  width: 100%;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+
+  gap: 20px;
+}
+
+
+.admin-overview-card {
+  min-height: 137px;
+
+  box-sizing: border-box;
+
+  padding: 25px 22px;
+
+  border: 1px solid #dfe3ea;
+
+  border-radius: 15px;
+
+  background: #ffffff;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 18px;
+}
+
+
+.admin-overview-icon {
+  width: 44px;
+  height: 44px;
+
+  flex-shrink: 0;
+
+  border-radius: 9px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  font-size: 19px;
+}
+
+
+.admin-overview-icon.users {
+  background: #edf1ff;
+
+  color: #4e64c5;
+}
+
+
+.admin-overview-icon.students {
+  background: #e5f7ed;
+
+  color: #42a86b;
+}
+
+
+.admin-overview-icon.instructors {
+  background: #fff4d7;
+
+  color: #eca91d;
+}
+
+
+.admin-overview-icon.courses {
+  background: #eeeaff;
+
+  color: #6555c7;
+}
+
+
+.admin-overview-content {
+  min-width: 0;
+}
+
+
+.admin-overview-content span {
+  display: block;
+
+  margin-bottom: 8px;
+
+  font-size: 14px;
+
+  color: #1f2937;
+}
+
+
+.admin-overview-content strong {
+  display: block;
+
+  font-size: 31px;
+
+  line-height: 1;
+
+  font-weight: 600;
+
+  color: #111827;
+}
+
+
+/* =====================================
+   CHART GRID
+===================================== */
+
+.admin-chart-section {
+  width: 100%;
+
+  display: grid;
+
+  grid-template-columns:
+    1.3fr 1fr;
+
+  gap: 20px;
+
+  margin-top: 22px;
+}
+
+
+.admin-chart-card {
+  min-height: 370px;
+
+  box-sizing: border-box;
+
+  padding: 27px 23px;
+
+  border: 1px solid #dfe3ea;
+
+  border-radius: 15px;
+
+  background: #ffffff;
+}
+
+
+.admin-chart-card h2 {
+  margin: 0 0 22px;
+
+  font-size: 20px;
+
+  font-weight: 600;
+
+  color: #111827;
+}
+
+
+/* =====================================
+   LINE CHART
+===================================== */
+
+.admin-line-chart {
+  width: 100%;
+
+  height: 292px;
+
+  overflow: hidden;
+}
+
+
+.admin-line-chart svg {
+  width: 100%;
+
+  height: 100%;
+
+  display: block;
+}
+
+
+.chart-grid-line {
+  stroke: #e5e7eb;
+
+  stroke-width: 1;
+}
+
+
+.chart-line {
+  stroke: #4d61c4;
+
+  stroke-width: 4;
+
+  stroke-linecap: round;
+
+  stroke-linejoin: round;
+}
+
+
+.chart-point {
+  fill: #4d61c4;
+
+  stroke: #ffffff;
+
+  stroke-width: 3;
+}
+
+
+.chart-label {
+  fill: #6b7280;
+
+  font-size: 12px;
+}
+
+
+/* =====================================
+   EMPTY CHART
+===================================== */
+
+.admin-chart-empty {
+  height: 290px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  color: #9ca3af;
+
+  font-size: 14px;
+}
+
+
+/* =====================================
+   DONUT CHART
+===================================== */
+
+.admin-category-chart {
+  min-height: 290px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 25px;
+}
+
+
+.admin-donut-wrapper {
+  width: 220px;
+
+  flex-shrink: 0;
+}
+
+
+.admin-donut {
+  width: 220px;
+  height: 220px;
+
+  display: block;
+
+  transform: rotate(-90deg);
+}
+
+
+.donut-background {
+  fill: none;
+
+  stroke: #f1f3f6;
+
+  stroke-width: 34;
+}
+
+
+.donut-segment {
+  fill: none;
+
+  stroke-width: 34;
+
+  stroke-linecap: butt;
+
+  transform-origin: 110px 110px;
+}
+
+
+.donut-total {
+  font-size: 27px;
+
+  font-weight: 700;
+
+  fill: #111827;
+
+  transform: rotate(90deg);
+
+  transform-origin: 110px 110px;
+}
+
+
+.donut-total-label {
+  font-size: 12px;
+
+  fill: #6b7280;
+
+  transform: rotate(90deg);
+
+  transform-origin: 110px 110px;
+}
+
+
+/* =====================================
+   CATEGORY LEGEND
+===================================== */
+
+.admin-category-legend {
+  min-width: 125px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 20px;
+}
+
+
+.admin-legend-item {
+  display: grid;
+
+  grid-template-columns:
+    10px 1fr auto;
+
+  align-items: center;
+
+  gap: 9px;
+
+  font-size: 13px;
+}
+
+
+.admin-legend-dot {
+  width: 9px;
+  height: 9px;
+
+  border-radius: 50%;
+
+  display: block;
+}
+
+
+.admin-legend-label {
+  color: #374151;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+}
+
+
+.admin-legend-item strong {
+  color: #111827;
+
+  font-weight: 600;
+}
+
+
+/* =====================================
+   EMPTY CATEGORY
+===================================== */
+
+.admin-category-empty {
+  min-height: 290px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+}
+
+
+.admin-empty-donut {
+  width: 150px;
+  height: 150px;
+
+  border-radius: 50%;
+
+  border: 30px solid #f1f3f6;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  box-sizing: border-box;
+
+  color: #9ca3af;
+
+  font-size: 13px;
+}
+
+
+.admin-category-empty p {
+  margin: 15px 0 0;
+
+  font-size: 13px;
+
+  color: #9ca3af;
+}
+
+
+/* =====================================
+   LOADING
+===================================== */
+
+.admin-dashboard-loading {
+  min-height: 400px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  color: #6b7280;
+
+  font-size: 15px;
+}
+
+
+/* =====================================
+   ERROR
+===================================== */
+
+.admin-dashboard-error {
+  padding: 20px;
+
+  border-radius: 10px;
+
+  background: #fff1f2;
+
+  border: 1px solid #fecdd3;
+
+  color: #be123c;
+
+  font-size: 14px;
+}
+
+
+/* =====================================
+   RESPONSIVE
+===================================== */
+
+@media (max-width: 1200px) {
+
+  .admin-dashboard-page {
+    padding: 30px 25px 45px;
+  }
+
+
+  .admin-overview-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+
+  .admin-chart-section {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+
+@media (max-width: 700px) {
+
+  .admin-dashboard-page {
+    padding: 25px 18px 40px;
+  }
+
+
+  .admin-dashboard-topbar {
+    align-items: flex-start;
+
+    gap: 20px;
+  }
+
+
+  .admin-welcome h1 {
+    font-size: 23px;
+  }
+
+
+  .admin-dashboard-actions {
+    gap: 5px;
+  }
+
+
+  .admin-overview-grid {
+    grid-template-columns: 1fr;
+  }
+
+
+  .admin-overview-card {
+    min-height: 115px;
+  }
+
+
+  .admin-category-chart {
+    flex-direction: column;
+
+    gap: 15px;
+  }
+
+
+  .admin-category-legend {
+    width: 100%;
+  }
+
+}
+
+
+@media (max-width: 480px) {
+
+  .admin-dashboard-topbar {
+    flex-direction: column;
+  }
+
+
+  .admin-dashboard-actions {
+    width: 100%;
+
+    justify-content: flex-end;
+  }
+
+
+  .admin-chart-card {
+    padding: 20px 15px;
+  }
+
+
+  .admin-chart-card h2 {
+    font-size: 18px;
+  }
+
+}
