@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 
 import { AuthProvider } from "./context/AuthContext";
-
+import Home from "./pages/Home";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import SplashScreen from "./pages/SplashScreen";
@@ -16,7 +16,7 @@ import StudentDashboard from "./pages/student/StudentDashboard";
 import InstructorDashboard from "./pages/instructor/InstructorDashboard";
 
 import ProtectedRoute from "./components/ProtectedRoute";
-import MainLayout from "./components/MainLayout";
+
 
 import Profile from "./pages/Profile";
 import Courses from "./pages/Courses";
@@ -35,7 +35,7 @@ import StudentProgress from "./pages/student/StudentProgress";
 
 import GreetingOne from "./pages/GreetingOne";
 import GreetingTwo from "./pages/GreetingTwo";
-import IntroRedirect from "./pages/IntroRedirect";
+// import IntroRedirect from "./pages/IntroRedirect";
 
 // import Certificates from "./pages/student/Certificates";
 import CertificateDetails from "./pages/student/CertificateDetails";
@@ -83,37 +83,28 @@ function App() {
 
 
           {/* =====================================
-              INTRODUCTION
-          ===================================== */}
+    MAIN HOME PAGE
+===================================== */}
 
-          <Route
-            path="/"
-            element={<IntroRedirect />}
-          />
+<Route
+  path="/"
+  element={<Home />}
+/>
 
-          <Route
-            path="/greeting-one"
-            element={<GreetingOne />}
-          />
+<Route
+  path="/greeting-one"
+  element={<GreetingOne />}
+/>
 
-          <Route
-            path="/greeting-two"
-            element={<GreetingTwo />}
-          />
+<Route
+  path="/greeting-two"
+  element={<GreetingTwo />}
+/>
 
-          <Route
-            path="/splash"
-            element={<SplashScreen />}
-          />
-
-
-          {/* =====================================
-              MAIN LAYOUT
-              Navbar appears on these pages
-          ===================================== */}
-
-          <Route element={<MainLayout />}>
-
+<Route
+  path="/splash"
+  element={<SplashScreen />}
+/>
 
             {/* AUTH */}
 
@@ -333,7 +324,7 @@ function App() {
               element={<CertificateVerification />}
             />
 
-          </Route>
+        
   
 {/* =====================================
     ADMIN SECTION

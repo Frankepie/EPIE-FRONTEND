@@ -1,0 +1,220 @@
+/* =========================================
+   HOME CTA
+========================================= */
+
+.home-cta-section {
+  width: 100%;
+
+  padding: 90px 24px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #635bdb,
+      #7450df
+    );
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================
+   CONTAINER
+========================================= */
+
+.home-cta-container {
+  width: 100%;
+  max-width: 1000px;
+
+  margin: 0 auto;
+
+  text-align: center;
+}
+
+
+/* =========================================
+   CONTENT
+========================================= */
+
+.home-cta-content {
+  max-width: 720px;
+
+  margin: 0 auto;
+}
+
+
+.home-cta-label {
+  display: inline-block;
+
+  margin-bottom: 15px;
+
+  color: rgba(255, 255, 255, 0.8);
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+  letter-spacing: 1.5px;
+}
+
+
+.home-cta-content h2 {
+  margin: 0 0 20px;
+
+  color: #ffffff;
+
+  font-size: clamp(36px, 5vw, 52px);
+
+  line-height: 1.15;
+
+  font-weight: 700;
+}
+
+
+.home-cta-content h2 span {
+  display: block;
+
+  color: #ffffff;
+}
+
+
+.home-cta-content p {
+  max-width: 650px;
+
+  margin: 0 auto;
+
+  color: rgba(255, 255, 255, 0.85);
+
+  font-size: 16px;
+
+  line-height: 1.8;
+}
+
+
+/* =========================================
+   ACTIONS
+========================================= */
+
+.home-cta-actions {
+  margin-top: 32px;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  gap: 14px;
+
+  flex-wrap: wrap;
+}
+
+
+.home-cta-primary,
+.home-cta-secondary {
+  min-width: 145px;
+
+  padding: 13px 24px;
+
+  border-radius: 8px;
+
+  text-decoration: none;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  transition:
+    transform 0.25s ease,
+    background 0.25s ease,
+    color 0.25s ease;
+}
+
+
+.home-cta-primary {
+  background: #ffffff;
+
+  color: #635bdb;
+}
+
+
+.home-cta-primary:hover {
+  transform: translateY(-2px);
+
+  background: #f5f4ff;
+}
+
+
+.home-cta-secondary {
+  border: 1px solid rgba(255, 255, 255, 0.65);
+
+  color: #ffffff;
+
+  background: transparent;
+}
+
+
+.home-cta-secondary:hover {
+  transform: translateY(-2px);
+
+  background: rgba(255, 255, 255, 0.12);
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+  .home-cta-section {
+    padding: 70px 18px;
+  }
+
+
+  .home-cta-content h2 {
+    font-size: 36px;
+  }
+
+
+  .home-cta-content p {
+    font-size: 15px;
+  }
+
+
+  .home-cta-actions {
+    flex-direction: column;
+
+    width: 100%;
+  }
+
+
+  .home-cta-primary,
+  .home-cta-secondary {
+    width: 100%;
+
+    max-width: 300px;
+
+    box-sizing: border-box;
+  }
+
+}
+
+
+/* =========================================
+   SMALL PHONES
+========================================= */
+
+@media (max-width: 420px) {
+
+  .home-cta-section {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+
+  .home-cta-content h2 {
+    font-size: 32px;
+  }
+
+}

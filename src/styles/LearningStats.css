@@ -1,0 +1,163 @@
+/* =========================================
+   LEARNING STATISTICS
+========================================= */
+
+.learning-stats-section {
+  width: 100%;
+
+  padding: 55px 24px;
+
+  background: #635bdb;
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================
+   CONTAINER
+========================================= */
+
+.learning-stats-container {
+  width: 100%;
+  max-width: 1200px;
+
+  margin: 0 auto;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+}
+
+
+/* =========================================
+   STAT
+========================================= */
+
+.learning-stat {
+  position: relative;
+
+  padding: 10px 25px;
+
+  text-align: center;
+}
+
+
+.learning-stat:not(:last-child)::after {
+  content: "";
+
+  position: absolute;
+
+  top: 10px;
+  right: 0;
+
+  width: 1px;
+  height: 70px;
+
+  background: rgba(255, 255, 255, 0.25);
+}
+
+
+.learning-stat strong {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: #ffffff;
+
+  font-size: 32px;
+
+  font-weight: 700;
+
+  line-height: 1.2;
+}
+
+
+.learning-stat span {
+  color: rgba(255, 255, 255, 0.85);
+
+  font-size: 14px;
+
+  line-height: 1.5;
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 800px) {
+
+  .learning-stats-section {
+    padding: 45px 20px;
+  }
+
+
+  .learning-stats-container {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+    row-gap: 35px;
+  }
+
+
+  .learning-stat:nth-child(2)::after {
+    display: none;
+  }
+
+
+  .learning-stat:nth-child(3)::after {
+    display: block;
+  }
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 500px) {
+
+  .learning-stats-section {
+    padding: 40px 15px;
+  }
+
+
+  .learning-stats-container {
+    grid-template-columns: 1fr 1fr;
+
+    row-gap: 30px;
+  }
+
+
+  .learning-stat {
+    padding: 5px 12px;
+  }
+
+
+  .learning-stat:not(:last-child)::after {
+    height: 55px;
+  }
+
+
+  .learning-stat:nth-child(2)::after {
+    display: none;
+  }
+
+
+  .learning-stat:nth-child(4)::after {
+    display: none;
+  }
+
+
+  .learning-stat strong {
+    font-size: 25px;
+  }
+
+
+  .learning-stat span {
+    font-size: 12px;
+  }
+
+}

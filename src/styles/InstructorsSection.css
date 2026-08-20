@@ -1,0 +1,334 @@
+/* =========================================
+   INSTRUCTORS SECTION
+========================================= */
+
+.instructors-section {
+  width: 100%;
+
+  padding: 100px 24px;
+
+  background: #ffffff;
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================
+   CONTAINER
+========================================= */
+
+.instructors-container {
+  width: 100%;
+  max-width: 1200px;
+
+  margin: 0 auto;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.instructors-header {
+  max-width: 680px;
+
+  margin: 0 auto 55px;
+
+  text-align: center;
+}
+
+
+.instructors-label {
+  display: inline-block;
+
+  margin-bottom: 15px;
+
+  color: #635bdb;
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+  letter-spacing: 1.5px;
+}
+
+
+.instructors-header h2 {
+  margin: 0 0 18px;
+
+  color: #22223b;
+
+  font-size: clamp(34px, 4vw, 46px);
+
+  line-height: 1.2;
+
+  font-weight: 700;
+}
+
+
+.instructors-header h2 span {
+  color: #635bdb;
+}
+
+
+.instructors-header p {
+  margin: 0;
+
+  color: #77788a;
+
+  font-size: 16px;
+
+  line-height: 1.7;
+}
+
+
+/* =========================================
+   INSTRUCTOR GRID
+========================================= */
+
+.instructors-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 25px;
+}
+
+
+/* =========================================
+   INSTRUCTOR CARD
+========================================= */
+
+.instructor-card {
+  overflow: hidden;
+
+  background: #ffffff;
+
+  border: 1px solid #e8e8ef;
+
+  border-radius: 18px;
+
+  box-shadow:
+    0 8px 25px rgba(40, 40, 80, 0.06);
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+
+.instructor-card:hover {
+  transform: translateY(-6px);
+
+  box-shadow:
+    0 18px 40px rgba(40, 40, 80, 0.12);
+}
+
+
+/* =========================================
+   INSTRUCTOR IMAGE
+========================================= */
+
+.instructor-image {
+  height: 210px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  background:
+    linear-gradient(
+      135deg,
+      #635bdb,
+      #8054e5
+    );
+}
+
+
+.instructor-image span {
+  width: 105px;
+  height: 105px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.95);
+
+  color: #635bdb;
+
+  font-size: 29px;
+
+  font-weight: 700;
+
+  box-shadow:
+    0 10px 25px rgba(35, 30, 90, 0.18);
+}
+
+
+/* =========================================
+   INFO
+========================================= */
+
+.instructor-info {
+  padding: 25px;
+}
+
+
+.instructor-info h3 {
+  margin: 0 0 7px;
+
+  color: #292a40;
+
+  font-size: 20px;
+}
+
+
+.instructor-role {
+  display: block;
+
+  margin-bottom: 13px;
+
+  color: #635bdb;
+
+  font-size: 13px;
+
+  font-weight: 600;
+}
+
+
+.instructor-info p {
+  min-height: 70px;
+
+  margin: 0 0 20px;
+
+  color: #77788a;
+
+  font-size: 14px;
+
+  line-height: 1.7;
+}
+
+
+/* =========================================
+   BUTTON
+========================================= */
+
+.instructor-profile-button {
+  width: 100%;
+
+  padding: 11px 18px;
+
+  border: 1px solid #635bdb;
+
+  border-radius: 8px;
+
+  background: transparent;
+
+  color: #635bdb;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.25s ease,
+    color 0.25s ease;
+}
+
+
+.instructor-profile-button:hover {
+  background: #635bdb;
+
+  color: #ffffff;
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 900px) {
+
+  .instructors-section {
+    padding: 80px 22px;
+  }
+
+
+  .instructors-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 650px) {
+
+  .instructors-section {
+    padding: 70px 18px;
+  }
+
+
+  .instructors-header {
+    margin-bottom: 40px;
+  }
+
+
+  .instructors-header h2 {
+    font-size: 34px;
+  }
+
+
+  .instructors-header p {
+    font-size: 15px;
+  }
+
+
+  .instructors-grid {
+    grid-template-columns: 1fr;
+
+    gap: 20px;
+  }
+
+
+  .instructor-image {
+    height: 190px;
+  }
+
+}
+
+
+/* =========================================
+   SMALL PHONES
+========================================= */
+
+@media (max-width: 420px) {
+
+  .instructors-section {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+
+  .instructors-header h2 {
+    font-size: 30px;
+  }
+
+
+  .instructor-info {
+    padding: 22px;
+  }
+
+}

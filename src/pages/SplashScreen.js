@@ -15,7 +15,7 @@ const SplashScreen = () => {
     );
 
     // Go to login
-    navigate("/login");
+    navigate("/home");
   };
 
   return (
