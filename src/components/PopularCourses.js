@@ -1,75 +1,93 @@
-import { Link } from "react-router-dom";
+import {
+  useEffect,
+  useState
+} from "react";
+
+import {
+  Link
+} from "react-router-dom";
+
+import {
+  getCourses
+} from "../services/api";
 
 import "../styles/PopularCourses.css";
 
-const courses = [
-  {
-    id: 1,
-    category: "Web Development",
-    title: "Full Stack Web Development",
-    description:
-      "Learn how to build modern web applications from frontend to backend.",
-    instructor: "John Smith",
-    students: "245",
-    rating: "4.9",
-    price: "$49",
-    icon: "WEB"
-  },
-
-  {
-    id: 2,
-    category: "UI/UX Design",
-    title: "Modern UI/UX Design",
-    description:
-      "Learn the principles of user interface and user experience design.",
-    instructor: "Sarah Johnson",
-    students: "189",
-    rating: "4.8",
-    price: "$39",
-    icon: "UX"
-  },
-
-  {
-    id: 3,
-    category: "Programming",
-    title: "JavaScript Programming",
-    description:
-      "Master JavaScript fundamentals and build interactive applications.",
-    instructor: "Michael Brown",
-    students: "320",
-    rating: "4.9",
-    price: "$45",
-    icon: "JS"
-  },
-
-  {
-    id: 4,
-    category: "Data Science",
-    title: "Introduction to Data Science",
-    description:
-      "Discover data analysis, visualization and essential data science skills.",
-    instructor: "David Wilson",
-    students: "156",
-    rating: "4.7",
-    price: "$42",
-    icon: "DS"
-  }
-];
 
 const PopularCourses = () => {
+
+  const [courses, setCourses] =
+    useState([]);
+
+  const [loading, setLoading] =
+    useState(true);
+
+  const [error, setError] =
+    useState("");
+
+
+  useEffect(() => {
+
+    const loadCourses = async () => {
+
+      try {
+
+        setLoading(true);
+
+        const data =
+          await getCourses();
+
+        setCourses(
+          data.courses || []
+        );
+
+      } catch (error) {
+
+        console.error(
+          "Homepage courses error:",
+          error
+        );
+
+        setError(
+          error.message ||
+          "Unable to load courses"
+        );
+
+      } finally {
+
+        setLoading(false);
+
+      }
+    };
+
+
+    loadCourses();
+
+  }, []);
+
+
   return (
-    <section className="popular-courses-section">
 
-      <div className="popular-courses-container">
+    <section
+      className="popular-courses-section"
+    >
 
-        {/* SECTION HEADER */}
+      <div
+        className="popular-courses-container"
+      >
 
-        <div className="popular-courses-header">
+        {/* HEADER */}
+
+        <div
+          className="popular-courses-header"
+        >
 
           <div>
 
-            <span className="section-label">
-              LEARN WITH EDULEARN
+            <span
+              className="popular-courses-label"
+            >
+              EXPLORE COURSES
             </span>
 
             <h2>
@@ -77,134 +95,216 @@ const PopularCourses = () => {
             </h2>
 
             <p>
-              Explore courses designed to help
-              you develop practical skills and
-              achieve your learning goals.
+              Learn from courses created by
+              our instructors and build skills
+              for your future.
             </p>
 
           </div>
+
 
           <Link
             to="/courses"
             className="view-all-courses"
           >
             View All Courses
-            <span>→</span>
           </Link>
 
         </div>
 
 
-        {/* COURSE GRID */}
+        {/* LOADING */}
 
-        <div className="popular-course-grid">
+        {loading && (
 
-          {courses.map((course) => (
+          <div
+            className="courses-loading"
+          >
+            Loading courses...
+          </div>
 
-            <article
-              className="popular-course-card"
-              key={course.id}
+        )}
+
+
+        {/* ERROR */}
+
+        {!loading && error && (
+
+          <div
+            className="courses-error"
+          >
+            {error}
+          </div>
+
+        )}
+
+
+        {/* EMPTY */}
+
+        {!loading &&
+          !error &&
+          courses.length === 0 && (
+
+            <div
+              className="courses-empty"
             >
 
-              {/* COURSE IMAGE PLACEHOLDER */}
+              <h3>
+                No courses available yet
+              </h3>
 
-              <div className="course-card-image">
+              <p>
+                Our instructors are preparing
+                exciting courses for you.
+              </p>
 
-                <div className="course-image-pattern">
-                  {course.icon}
-                </div>
+            </div>
 
-                <span className="course-category">
-                  {course.category}
-                </span>
-
-              </div>
-
-
-              {/* COURSE CONTENT */}
-
-              <div className="course-card-content">
-
-                <h3>
-                  {course.title}
-                </h3>
-
-                <p className="course-description">
-                  {course.description}
-                </p>
+          )}
 
 
-                {/* INSTRUCTOR */}
+        {/* COURSES */}
 
-                <div className="course-instructor">
+        {!loading &&
+          !error &&
+          courses.length > 0 && (
 
-                  <div className="instructor-avatar">
-                    {course.instructor.charAt(0)}
-                  </div>
+            <div
+              className="popular-courses-grid"
+            >
 
-                  <span>
-                    {course.instructor}
-                  </span>
+              {courses
+                .slice(0, 6)
+                .map((course) => (
 
-                </div>
-
-
-                {/* RATING */}
-
-                <div className="course-meta">
-
-                  <div className="course-rating">
-
-                    <span className="rating-star">
-                      ★
-                    </span>
-
-                    <strong>
-                      {course.rating}
-                    </strong>
-
-                    <span>
-                      ({course.students})
-                    </span>
-
-                  </div>
-
-                  <span className="course-students">
-                    {course.students} students
-                  </span>
-
-                </div>
-
-
-                {/* FOOTER */}
-
-                <div className="course-card-footer">
-
-                  <strong className="course-price">
-                    {course.price}
-                  </strong>
-
-                  <Link
-                    to={`/courses/${course.id}`}
-                    className="course-view-button"
+                  <article
+                    className="popular-course-card"
+                    key={course._id}
                   >
-                    View Course
-                  </Link>
 
-                </div>
+                    {/* IMAGE */}
 
-              </div>
+                    <div
+                      className="popular-course-image"
+                    >
 
-            </article>
+                      {course.image ? (
 
-          ))}
+                        <img
+                          src={course.image}
+                          alt={course.title}
+                        />
 
-        </div>
+                      ) : (
+
+                        <div
+                          className="course-image-placeholder"
+                        >
+                          {course.category ||
+                            "Course"}
+                        </div>
+
+                      )}
+
+                    </div>
+
+
+                    {/* CONTENT */}
+
+                    <div
+                      className="popular-course-content"
+                    >
+
+                      <div
+                        className="popular-course-meta"
+                      >
+
+                        <span>
+                          {course.category ||
+                            "General"}
+                        </span>
+
+                        {course.level && (
+
+                          <span>
+                            {course.level}
+                          </span>
+
+                        )}
+
+                      </div>
+
+
+                      <h3>
+                        {course.title}
+                      </h3>
+
+
+                      <p>
+                        {course.description}
+                      </p>
+
+
+                      {/* INSTRUCTOR */}
+
+                      <div
+                        className="popular-course-instructor"
+                      >
+
+                        <span>
+                          Instructor
+                        </span>
+
+                        <strong>
+                          {course.instructor?.name ||
+                            "EduLearn Instructor"}
+                        </strong>
+
+                      </div>
+
+
+                      {/* FOOTER */}
+
+                      <div
+                        className="popular-course-footer"
+                      >
+
+                        {course.price !== undefined && (
+
+                          <strong>
+                            {course.price === 0
+                              ? "Free"
+                              : `${course.price}`}
+                          </strong>
+
+                        )}
+
+
+                        <Link
+                          to={`/courses/${course._id}`}
+                          className="course-view-button"
+                        >
+                          View Course
+                        </Link>
+
+                      </div>
+
+                    </div>
+
+                  </article>
+
+                ))}
+
+            </div>
+
+          )}
 
       </div>
 
     </section>
+
   );
 };
+
 
 export default PopularCourses;

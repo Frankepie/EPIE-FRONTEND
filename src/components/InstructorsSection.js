@@ -1,43 +1,126 @@
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+
 import "../styles/InstructorsSection.css";
 
-const instructors = [
-  {
-    id: 1,
-    name: "Dr. Sarah Johnson",
-    role: "Web Development",
-    description:
-      "Passionate educator helping learners build practical web development skills.",
-    initials: "SJ"
-  },
-
-  {
-    id: 2,
-    name: "Michael Anderson",
-    role: "UI/UX Design",
-    description:
-      "Designer and instructor focused on creating simple and engaging digital experiences.",
-    initials: "MA"
-  },
-
-  {
-    id: 3,
-    name: "David Williams",
-    role: "Business & Technology",
-    description:
-      "Technology enthusiast helping students understand modern business and digital tools.",
-    initials: "DW"
-  }
-];
+const API_URL =
+  process.env.REACT_APP_API_URL ||
+  "http://localhost:5000";
 
 
 const InstructorsSection = () => {
 
+  const [instructors, setInstructors] =
+    useState([]);
+
+  const [loading, setLoading] =
+    useState(true);
+
+  const [error, setError] =
+    useState("");
+
+
+  // =====================================
+  // LOAD REAL INSTRUCTORS
+  // =====================================
+
+  useEffect(() => {
+
+    const fetchInstructors = async () => {
+
+      try {
+
+        setLoading(true);
+        setError("");
+
+        const response =
+          await fetch(
+            `${API_URL}/api/users/instructors`
+          );
+
+        const data =
+          await response.json();
+
+
+        if (!response.ok) {
+
+          throw new Error(
+            data.message ||
+            "Failed to load instructors"
+          );
+
+        }
+
+
+        setInstructors(
+          data.instructors || []
+        );
+
+      } catch (err) {
+
+        console.error(
+          "Instructor loading error:",
+          err
+        );
+
+        setError(
+          "Unable to load instructors."
+        );
+
+      } finally {
+
+        setLoading(false);
+
+      }
+
+    };
+
+
+    fetchInstructors();
+
+  }, []);
+
+
+  // =====================================
+  // INITIALS
+  // =====================================
+
+  const getInitials = (name) => {
+
+    if (!name) {
+      return "IN";
+    }
+
+    const words =
+      name.trim().split(" ");
+
+    if (words.length === 1) {
+      return words[0]
+        .substring(0, 2)
+        .toUpperCase();
+    }
+
+    return (
+      words[0][0] +
+      words[words.length - 1][0]
+    ).toUpperCase();
+
+  };
+
+
   return (
-    <section className="instructors-section">
+
+    <section
+      className="instructors-section"
+      id="instructors"
+    >
 
       <div className="instructors-container">
 
-        {/* HEADER */}
+
+        {/* =====================================
+            HEADER
+        ===================================== */}
 
         <div className="instructors-header">
 
@@ -47,71 +130,173 @@ const InstructorsSection = () => {
 
           <h2>
             Learn From
-            <span> Experienced Instructors</span>
+            <span>
+              {" "}Experienced Instructors
+            </span>
           </h2>
 
           <p>
-            Meet the educators and professionals who
-            create practical learning experiences to
-            help you achieve your goals.
+            Meet the educators and professionals
+            who create practical learning
+            experiences to help you achieve
+            your goals.
           </p>
 
         </div>
 
 
-        {/* INSTRUCTOR GRID */}
+        {/* =====================================
+            LOADING
+        ===================================== */}
 
-        <div className="instructors-grid">
+        {loading && (
 
-          {instructors.map((instructor) => (
+          <div className="instructors-state">
 
-            <article
-              className="instructor-card"
-              key={instructor.id}
-            >
+            <p>
+              Loading instructors...
+            </p>
 
-              <div className="instructor-image">
+          </div>
 
-                <span>
-                  {instructor.initials}
-                </span>
-
-              </div>
+        )}
 
 
-              <div className="instructor-info">
+        {/* =====================================
+            ERROR
+        ===================================== */}
 
-                <h3>
-                  {instructor.name}
-                </h3>
+        {!loading && error && (
 
-                <span className="instructor-role">
-                  {instructor.role}
-                </span>
+          <div className="instructors-state instructors-error">
 
-                <p>
-                  {instructor.description}
-                </p>
+            <p>
+              {error}
+            </p>
 
-                <button
-                  type="button"
-                  className="instructor-profile-button"
-                >
-                  View Profile
-                </button>
+          </div>
 
-              </div>
+        )}
 
-            </article>
 
-          ))}
+        {/* =====================================
+            EMPTY
+        ===================================== */}
 
-        </div>
+        {!loading &&
+          !error &&
+          instructors.length === 0 && (
+
+            <div className="instructors-state">
+
+              <p>
+                No instructors available yet.
+              </p>
+
+            </div>
+
+          )}
+
+
+        {/* =====================================
+            INSTRUCTOR GRID
+        ===================================== */}
+
+        {!loading &&
+          !error &&
+          instructors.length > 0 && (
+
+            <div className="instructors-grid">
+
+              {instructors.map(
+                (instructor) => (
+
+                  <article
+                    className="instructor-card"
+                    key={instructor._id}
+                  >
+
+
+                    {/* =====================================
+                        IMAGE
+                    ===================================== */}
+
+                    <div className="instructor-image">
+
+                      {instructor.profileImage ? (
+
+                        <img
+                          src={
+                            instructor.profileImage
+                          }
+                          alt={
+                            instructor.name
+                          }
+                        />
+
+                      ) : (
+
+                        <span>
+                          {getInitials(
+                            instructor.name
+                          )}
+                        </span>
+
+                      )}
+
+                    </div>
+
+
+                    {/* =====================================
+                        INFORMATION
+                    ===================================== */}
+
+                    <div className="instructor-info">
+
+                      <h3>
+                        {instructor.name}
+                      </h3>
+
+
+                      <span className="instructor-role">
+                        Instructor
+                      </span>
+
+
+                      <p>
+                        Learn practical skills
+                        and knowledge from
+                        {` ${instructor.name}`}
+                        {" "}through engaging
+                        courses on EduLearn.
+                      </p>
+
+
+                      <Link
+                        to="/courses"
+                        className="instructor-profile-button"
+                      >
+                        View Courses
+                      </Link>
+
+                    </div>
+
+                  </article>
+
+                )
+              )}
+
+            </div>
+
+          )}
 
       </div>
 
     </section>
+
   );
+
 };
+
 
 export default InstructorsSection;

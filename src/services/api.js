@@ -1,11 +1,18 @@
+// ==========================================
+// API CONFIGURATION
+// ==========================================
+
 const API_URL =
   process.env.REACT_APP_API_URL ||
   "http://localhost:5000";
 
 
-export const registerUser = async (
-  userData
-) => {
+// ==========================================
+// AUTHENTICATION
+// ==========================================
+
+// REGISTER
+export const registerUser = async (userData) => {
 
   const response = await fetch(
     `${API_URL}/api/auth/register`,
@@ -13,40 +20,32 @@ export const registerUser = async (
       method: "POST",
 
       headers: {
-        "Content-Type":
-          "application/json"
+        "Content-Type": "application/json"
       },
 
-      body: JSON.stringify(
-        userData
-      )
+      body: JSON.stringify(userData)
     }
   );
 
-
-  const data =
-    await response.json();
-
+  const data = await response.json();
 
   if (!response.ok) {
-
     throw new Error(
       data.message ||
       "Registration failed"
     );
-
   }
-
 
   return data;
 };
 
-// ===============================
-// AUTHENTICATION OTP API
-// ===============================
 
+// ==========================================
 // VERIFY REGISTRATION OTP
+// ==========================================
+
 export const verifyRegistrationOTP = async (data) => {
+
   const response = await fetch(
     `${API_URL}/api/auth/verify-registration-otp`,
     {
@@ -73,8 +72,12 @@ export const verifyRegistrationOTP = async (data) => {
 };
 
 
+// ==========================================
 // RESEND REGISTRATION OTP
+// ==========================================
+
 export const resendRegistrationOTP = async (data) => {
+
   const response = await fetch(
     `${API_URL}/api/auth/resend-registration-otp`,
     {
@@ -101,8 +104,12 @@ export const resendRegistrationOTP = async (data) => {
 };
 
 
+// ==========================================
 // FORGOT PASSWORD
+// ==========================================
+
 export const forgotPassword = async (data) => {
+
   const response = await fetch(
     `${API_URL}/api/auth/forgot-password`,
     {
@@ -129,8 +136,12 @@ export const forgotPassword = async (data) => {
 };
 
 
+// ==========================================
 // VERIFY PASSWORD RESET OTP
+// ==========================================
+
 export const verifyPasswordResetOTP = async (data) => {
+
   const response = await fetch(
     `${API_URL}/api/auth/verify-reset-otp`,
     {
@@ -157,8 +168,12 @@ export const verifyPasswordResetOTP = async (data) => {
 };
 
 
+// ==========================================
 // RESET PASSWORD
+// ==========================================
+
 export const resetPassword = async (data) => {
+
   const response = await fetch(
     `${API_URL}/api/auth/reset-password`,
     {
@@ -184,9 +199,12 @@ export const resetPassword = async (data) => {
   return result;
 };
 
-export const loginUser = async (
-  credentials
-) => {
+
+// ==========================================
+// LOGIN
+// ==========================================
+
+export const loginUser = async (credentials) => {
 
   const response = await fetch(
     `${API_URL}/api/auth/login`,
@@ -194,111 +212,117 @@ export const loginUser = async (
       method: "POST",
 
       headers: {
-        "Content-Type":
-          "application/json"
+        "Content-Type": "application/json"
       },
 
-      body: JSON.stringify(
-        credentials
-      )
+      body: JSON.stringify(credentials)
     }
   );
 
-
-  const data =
-    await response.json();
-
+  const data = await response.json();
 
   if (!response.ok) {
-
     throw new Error(
       data.message ||
       "Login failed"
     );
-
   }
 
   return data;
 };
+
+
+// ==========================================
+// COURSES
+// ==========================================
+
+// GET ALL COURSES
+
 export const getCourses = async () => {
 
-  const API_URL =
-    process.env.REACT_APP_API_URL ||
-    "http://localhost:5000";
+  const response = await fetch(
+    `${API_URL}/api/courses`
+  );
 
-  const response =
-    await fetch(
-      `${API_URL}/api/courses`
-    );
-  const data =
-    await response.json();
+  const data = await response.json();
+
   if (!response.ok) {
     throw new Error(
       data.message ||
       "Failed to load courses"
     );
   }
+
   return data;
 };
-export const getCourseById =
-  async (id) => {
-    const API_URL =
-      process.env.REACT_APP_API_URL ||
-      "http://localhost:5000";
 
-    const response =
-      await fetch(
-        `${API_URL}/api/courses/${id}`
-      );
-    const data =
-      await response.json();
-    if (!response.ok) {
-      throw new Error(
-        data.message ||
-        "Failed to load course"
-      );
+
+// GET SINGLE COURSE
+
+export const getCourseById = async (id) => {
+
+  const response = await fetch(
+    `${API_URL}/api/courses/${id}`
+  );
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      data.message ||
+      "Failed to load course"
+    );
+  }
+
+  return data;
+};
+
+
+// ==========================================
+// ENROLLMENTS
+// ==========================================
+
+// ENROLL IN COURSE
+
+export const enrollInCourse = async (
+  courseId,
+  token
+) => {
+
+  const response = await fetch(
+    `${API_URL}/api/enrollments`,
+    {
+      method: "POST",
+
+      headers: {
+        "Content-Type": "application/json",
+
+        Authorization:
+          `Bearer ${token}`
+      },
+
+      body: JSON.stringify({
+        courseId
+      })
     }
-    return data;
-  };
+  );
 
-  export const enrollInCourse =
-  async (courseId, token) => {
-    const API_URL =
-      process.env.REACT_APP_API_URL ||
-      "http://localhost:5000";
+  const data = await response.json();
 
-    const response =
-      await fetch(
-        `${API_URL}/api/enrollments`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type":
-              "application/json",
-            Authorization:
-              `Bearer ${token}`
-          },
-          body: JSON.stringify({
-            courseId
-          })
+  if (!response.ok) {
+    throw new Error(
+      data.message ||
+      "Enrollment failed"
+    );
+  }
 
-        }
-      );
-    const data =
-      await response.json();
-    if (!response.ok) {
-      throw new Error(
-        data.message ||
-        "Enrollment failed"
-      );
-    }
-    return data;
-  };
+  return data;
+};
 
-  export const getMyCourses = async (token) => {
-  const API_URL =
-    process.env.REACT_APP_API_URL ||
-    "http://localhost:5000";
+
+// GET MY COURSES
+
+export const getMyCourses = async (token) => {
 
   const response = await fetch(
     `${API_URL}/api/enrollments/my-courses`,
@@ -306,7 +330,8 @@ export const getCourseById =
       method: "GET",
 
       headers: {
-        Authorization: `Bearer ${token}`
+        Authorization:
+          `Bearer ${token}`
       }
     }
   );
@@ -322,167 +347,284 @@ export const getCourseById =
 
   return data;
 };
-export const getInstructorCourses =
-  async (token) => {
-    const API_URL =
-      process.env.REACT_APP_API_URL ||
-      "http://localhost:5000";
 
-    const response =
-      await fetch(
-        `${API_URL}/api/courses/instructor/my-courses`,
-        {
-          headers: {
-            Authorization:
-              `Bearer ${token}`
-          }
-        }
-      );
-    const data =
-      await response.json();
-    if (!response.ok) {
-      throw new Error(
-        data.message ||
-        "Failed to load instructor courses"
-      );
+
+// GET INSTRUCTOR STUDENTS
+
+export const getInstructorStudents = async (token) => {
+
+  const response = await fetch(
+    `${API_URL}/api/enrollments/instructor/students`,
+    {
+      method: "GET",
+
+      headers: {
+        "Content-Type": "application/json",
+
+        Authorization:
+          `Bearer ${token}`
+      }
     }
-    return data;
-  };
-  export const getCourseModules =
-  async (courseId, token) => {
-    const response =
-      await fetch(
-        `${API_URL}/api/modules/course/${courseId}`,
-        {
-          method: "GET",
-          headers: {
-            Authorization:
-              `Bearer ${token}`
-          }
-        }
-      );
-    const data =
-      await response.json();
-    if (!response.ok) {
-      throw new Error(
-        data.message ||
-        "Failed to load modules"
-      );
+  );
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      data.message ||
+      "Failed to load students"
+    );
+  }
+
+  return data;
+};
+
+
+// ==========================================
+// INSTRUCTOR COURSES
+// ==========================================
+
+export const getInstructorCourses = async (token) => {
+
+  const response = await fetch(
+    `${API_URL}/api/courses/instructor/my-courses`,
+    {
+      headers: {
+        Authorization:
+          `Bearer ${token}`
+      }
     }
-    return data;
-  };
+  );
 
-  export const createModule =
-  async (
-    moduleData,
-    token
-  ) => {
+  const data = await response.json();
 
-    const response =
-      await fetch(
-        `${API_URL}/api/modules`,
-        {
-          method: "POST",
+  if (!response.ok) {
+    throw new Error(
+      data.message ||
+      "Failed to load instructor courses"
+    );
+  }
 
-          headers: {
-            "Content-Type":
-              "application/json",
-
-            Authorization:
-              `Bearer ${token}`
-          },
-
-          body:
-            JSON.stringify(
-              moduleData
-            )
-        }
-      );
+  return data;
+};
 
 
-    const data =
-      await response.json();
+// UPDATE COURSE
 
+export const updateCourse = async (
+  courseId,
+  courseData,
+  token
+) => {
 
-    if (!response.ok) {
+  const response = await fetch(
+    `${API_URL}/api/courses/${courseId}`,
+    {
+      method: "PUT",
 
-      throw new Error(
-        data.message ||
-        "Failed to create module"
-      );
+      headers: {
+        "Content-Type": "application/json",
+
+        Authorization:
+          `Bearer ${token}`
+      },
+
+      body: JSON.stringify(courseData)
     }
+  );
 
-    return data;
-  };
+  const data = await response.json();
 
-  export const updateModule =
-  async (
-    moduleId,
-    moduleData,
-    token
-  ) => {
-    const response =
-      await fetch(
-        `${API_URL}/api/modules/${moduleId}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type":
-              "application/json",
-            Authorization:
-              `Bearer ${token}`
-          },
-          body:
-            JSON.stringify(
-              moduleData
-            )
-        }
-      );
-    const data =
-      await response.json();
-    if (!response.ok) {
-      throw new Error(
-        data.message ||
-        "Failed to update module"
-      );
+  if (!response.ok) {
+    throw new Error(
+      data.message ||
+      "Failed to update course"
+    );
+  }
+
+  return data;
+};
+
+
+// DELETE COURSE
+
+export const deleteCourse = async (
+  courseId,
+  token
+) => {
+
+  const response = await fetch(
+    `${API_URL}/api/courses/${courseId}`,
+    {
+      method: "DELETE",
+
+      headers: {
+        Authorization:
+          `Bearer ${token}`
+      }
     }
-    return data;
-  };
+  );
 
-  export const deleteModule =
-  async (
-    moduleId,
-    token
-  ) => {
+  const data = await response.json();
 
-    const response =
-      await fetch(
-        `${API_URL}/api/modules/${moduleId}`,
-        {
-          method: "DELETE",
-          headers: {
-            Authorization:
-              `Bearer ${token}`
-          }
-        }
-      );
-    const data =
-      await response.json();
-    if (!response.ok) {
+  if (!response.ok) {
+    throw new Error(
+      data.message ||
+      "Failed to delete course"
+    );
+  }
 
-      throw new Error(
-        data.message ||
-        "Failed to delete module"
-      );
+  return data;
+};
+
+
+// ==========================================
+// MODULES
+// ==========================================
+
+// GET COURSE MODULES
+
+export const getCourseModules = async (
+  courseId,
+  token
+) => {
+
+  const response = await fetch(
+    `${API_URL}/api/modules/course/${courseId}`,
+    {
+      method: "GET",
+
+      headers: {
+        Authorization:
+          `Bearer ${token}`
+      }
     }
-    return data;
-  };
+  );
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      data.message ||
+      "Failed to load modules"
+    );
+  }
+
+  return data;
+};
+
+
+// CREATE MODULE
+
+export const createModule = async (
+  moduleData,
+  token
+) => {
+
+  const response = await fetch(
+    `${API_URL}/api/modules`,
+    {
+      method: "POST",
+
+      headers: {
+        "Content-Type": "application/json",
+
+        Authorization:
+          `Bearer ${token}`
+      },
+
+      body: JSON.stringify(moduleData)
+    }
+  );
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      data.message ||
+      "Failed to create module"
+    );
+  }
+
+  return data;
+};
+
+
+// UPDATE MODULE
+
+export const updateModule = async (
+  moduleId,
+  moduleData,
+  token
+) => {
+
+  const response = await fetch(
+    `${API_URL}/api/modules/${moduleId}`,
+    {
+      method: "PUT",
+
+      headers: {
+        "Content-Type": "application/json",
+
+        Authorization:
+          `Bearer ${token}`
+      },
+
+      body: JSON.stringify(moduleData)
+    }
+  );
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      data.message ||
+      "Failed to update module"
+    );
+  }
+
+  return data;
+};
+
+
+// DELETE MODULE
+
+export const deleteModule = async (
+  moduleId,
+  token
+) => {
+
+  const response = await fetch(
+    `${API_URL}/api/modules/${moduleId}`,
+    {
+      method: "DELETE",
+
+      headers: {
+        Authorization:
+          `Bearer ${token}`
+      }
+    }
+  );
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      data.message ||
+      "Failed to delete module"
+    );
+  }
+
+  return data;
+};
+
 
 // ==========================================
 // LESSONS
 // ==========================================
 
 // GET MODULE LESSONS
+
 export const getModuleLessons = async (
   moduleId,
   token
@@ -500,16 +642,13 @@ export const getModuleLessons = async (
     }
   );
 
-  const data =
-    await response.json();
+  const data = await response.json();
 
   if (!response.ok) {
-
     throw new Error(
       data.message ||
       "Failed to load lessons"
     );
-
   }
 
   return data;
@@ -517,6 +656,7 @@ export const getModuleLessons = async (
 
 
 // CREATE LESSON
+
 export const createLesson = async (
   lessonData,
   token
@@ -528,30 +668,23 @@ export const createLesson = async (
       method: "POST",
 
       headers: {
-        "Content-Type":
-          "application/json",
+        "Content-Type": "application/json",
 
         Authorization:
           `Bearer ${token}`
       },
 
-      body:
-        JSON.stringify(
-          lessonData
-        )
+      body: JSON.stringify(lessonData)
     }
   );
 
-  const data =
-    await response.json();
+  const data = await response.json();
 
   if (!response.ok) {
-
     throw new Error(
       data.message ||
       "Failed to create lesson"
     );
-
   }
 
   return data;
@@ -559,6 +692,7 @@ export const createLesson = async (
 
 
 // UPDATE LESSON
+
 export const updateLesson = async (
   lessonId,
   lessonData,
@@ -571,30 +705,23 @@ export const updateLesson = async (
       method: "PUT",
 
       headers: {
-        "Content-Type":
-          "application/json",
+        "Content-Type": "application/json",
 
         Authorization:
           `Bearer ${token}`
       },
 
-      body:
-        JSON.stringify(
-          lessonData
-        )
+      body: JSON.stringify(lessonData)
     }
   );
 
-  const data =
-    await response.json();
+  const data = await response.json();
 
   if (!response.ok) {
-
     throw new Error(
       data.message ||
       "Failed to update lesson"
     );
-
   }
 
   return data;
@@ -602,6 +729,7 @@ export const updateLesson = async (
 
 
 // DELETE LESSON
+
 export const deleteLesson = async (
   lessonId,
   token
@@ -619,794 +747,661 @@ export const deleteLesson = async (
     }
   );
 
-  const data =
-    await response.json();
+  const data = await response.json();
 
   if (!response.ok) {
-
     throw new Error(
       data.message ||
       "Failed to delete lesson"
     );
-
   }
 
   return data;
 };
-export const markLessonComplete =
-  async (
-    lessonId,
-    token
-  ) => {
-
-    const response =
-      await fetch(
-        `http://localhost:5000/api/lesson-progress/${lessonId}/complete`,
-        {
-          method: "POST",
-
-          headers: {
-            Authorization:
-              `Bearer ${token}`
-          }
-        }
-      );
 
 
-    const data =
-      await response.json();
+// ==========================================
+// LESSON PROGRESS
+// ==========================================
 
+// MARK LESSON COMPLETE
 
-    if (!response.ok) {
+export const markLessonComplete = async (
+  lessonId,
+  token
+) => {
 
-      throw new Error(
-        data.message ||
-        "Failed to mark lesson complete"
-      );
+  const response = await fetch(
+    `${API_URL}/api/lesson-progress/${lessonId}/complete`,
+    {
+      method: "POST",
 
+      headers: {
+        Authorization:
+          `Bearer ${token}`
+      }
     }
+  );
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      data.message ||
+      "Failed to mark lesson complete"
+    );
+  }
+
+  return data;
+};
 
 
-    return data;
+// GET MY LESSON PROGRESS
 
-  };
+export const getMyLessonProgress = async (
+  token
+) => {
 
+  const response = await fetch(
+    `${API_URL}/api/lesson-progress/my-progress`,
+    {
+      method: "GET",
 
-export const getMyLessonProgress =
-  async (token) => {
-
-    const response =
-      await fetch(
-        "http://localhost:5000/api/lesson-progress/my-progress",
-        {
-          method: "GET",
-
-          headers: {
-            Authorization:
-              `Bearer ${token}`
-          }
-        }
-      );
-
-
-    const data =
-      await response.json();
-
-    if (!response.ok) {
-      throw new Error(
-        data.message ||
-        "Failed to get progress"
-      );
+      headers: {
+        Authorization:
+          `Bearer ${token}`
+      }
     }
-    return data;
-  };
+  );
 
-  export const getMyProgress =
-  async (token) => {
+  const data = await response.json();
 
-    const response =
-      await fetch(
-        `${API_URL}/api/progress/my-progress`,
-        {
-          method: "GET",
+  if (!response.ok) {
+    throw new Error(
+      data.message ||
+      "Failed to get progress"
+    );
+  }
 
-          headers: {
-            Authorization:
-              `Bearer ${token}`
-          }
-        }
-      );
+  return data;
+};
 
 
-    const data =
-      await response.json();
+// ==========================================
+// COURSE PROGRESS
+// ==========================================
 
+// GET MY PROGRESS
 
-    if (!response.ok) {
+export const getMyProgress = async (token) => {
 
-      throw new Error(
-        data.message ||
-        "Failed to load progress"
-      );
+  const response = await fetch(
+    `${API_URL}/api/progress/my-progress`,
+    {
+      method: "GET",
+
+      headers: {
+        Authorization:
+          `Bearer ${token}`
+      }
     }
-    return data;
-  };
+  );
 
-  export const getCourseProgress =
-  async (courseId, token) => {
+  const data = await response.json();
 
-    const response =
-      await fetch(
-        `${API_URL}/api/course-progress/${courseId}`,
-        {
-          method: "GET",
+  if (!response.ok) {
+    throw new Error(
+      data.message ||
+      "Failed to load progress"
+    );
+  }
 
-          headers: {
-            Authorization:
-              `Bearer ${token}`
-          }
-        }
-      );
+  return data;
+};
 
 
-    const data =
-      await response.json();
+// GET COURSE PROGRESS
 
+export const getCourseProgress = async (
+  courseId,
+  token
+) => {
 
-    if (!response.ok) {
+  const response = await fetch(
+    `${API_URL}/api/course-progress/${courseId}`,
+    {
+      method: "GET",
 
-      throw new Error(
-        data.message ||
-        "Failed to load course progress"
-      );
-
+      headers: {
+        Authorization:
+          `Bearer ${token}`
+      }
     }
+  );
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      data.message ||
+      "Failed to load course progress"
+    );
+  }
+
+  return data;
+};
 
 
-    return data;
-  };
+// ==========================================
+// CERTIFICATES
+// ==========================================
 
-  // ==========================================
 // GET MY CERTIFICATES
-// ==========================================
 
-export const getMyCertificates =
-  async (token) => {
+export const getMyCertificates = async (
+  token
+) => {
 
-    const response =
-      await fetch(
-        `${API_URL}/api/certificates/my-certificates`,
-        {
-          method: "GET",
+  const response = await fetch(
+    `${API_URL}/api/certificates/my-certificates`,
+    {
+      method: "GET",
 
-          headers: {
-            Authorization:
-              `Bearer ${token}`
-          }
-        }
-      );
-
-
-    const data =
-      await response.json();
-
-
-    if (!response.ok) {
-
-      throw new Error(
-        data.message ||
-        "Failed to load certificates"
-      );
-
+      headers: {
+        Authorization:
+          `Bearer ${token}`
+      }
     }
+  );
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      data.message ||
+      "Failed to load certificates"
+    );
+  }
+
+  return data;
+};
 
 
-    return data;
-
-  };
-
-
-// ==========================================
 // GET ONE CERTIFICATE
-// ==========================================
 
-export const getCertificate =
-  async (
-    certificateId,
-    token
-  ) => {
+export const getCertificate = async (
+  certificateId,
+  token
+) => {
 
-    const response =
-      await fetch(
-        `${API_URL}/api/certificates/${certificateId}`,
-        {
-          method: "GET",
+  const response = await fetch(
+    `${API_URL}/api/certificates/${certificateId}`,
+    {
+      method: "GET",
 
-          headers: {
-            Authorization:
-              `Bearer ${token}`
-          }
-        }
-      );
-
-
-    const data =
-      await response.json();
-
-
-    if (!response.ok) {
-
-      throw new Error(
-        data.message ||
-        "Failed to load certificate"
-      );
-
+      headers: {
+        Authorization:
+          `Bearer ${token}`
+      }
     }
+  );
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      data.message ||
+      "Failed to load certificate"
+    );
+  }
+
+  return data;
+};
 
 
-    return data;
-
-  };
-
-
-// ==========================================
 // CREATE CERTIFICATE
-// ==========================================
 
-export const createCertificate =
-  async (
-    courseId,
-    token
-  ) => {
+export const createCertificate = async (
+  courseId,
+  token
+) => {
 
-    const response =
-      await fetch(
-        `${API_URL}/api/certificates/course/${courseId}`,
-        {
-          method: "POST",
+  const response = await fetch(
+    `${API_URL}/api/certificates/course/${courseId}`,
+    {
+      method: "POST",
 
-          headers: {
-            Authorization:
-              `Bearer ${token}`
-          }
-        }
-      );
-
-
-    const data =
-      await response.json();
-
-
-    if (!response.ok) {
-
-      throw new Error(
-        data.message ||
-        "Failed to create certificate"
-      );
-
+      headers: {
+        Authorization:
+          `Bearer ${token}`
+      }
     }
+  );
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      data.message ||
+      "Failed to create certificate"
+    );
+  }
+
+  return data;
+};
 
 
-    return data;
-
-  };
-  // ==========================================
-// DELETE COURSE
-// ==========================================
-
-export const deleteCourse =
-  async (
-    courseId,
-    token
-  ) => {
-
-    const response =
-      await fetch(
-        `${API_URL}/api/courses/${courseId}`,
-        {
-          method: "DELETE",
-
-          headers: {
-            Authorization:
-              `Bearer ${token}`
-          }
-        }
-      );
-
-    const data =
-      await response.json();
-
-    if (!response.ok) {
-
-      throw new Error(
-        data.message ||
-        "Failed to delete course"
-      );
-
-    }
-
-    return data;
-  };
-
-  // ==========================================
 // VERIFY CERTIFICATE
+
+export const verifyCertificate = async (
+  certificateId
+) => {
+
+  const response = await fetch(
+    `${API_URL}/api/certificates/verify/${certificateId}`
+  );
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      data.message ||
+      "Certificate not found"
+    );
+  }
+
+  return data;
+};
+
+
 // ==========================================
-
-export const verifyCertificate =
-  async (certificateId) => {
-
-    const response =
-      await fetch(
-        `${API_URL}/api/certificates/verify/${certificateId}`
-      );
-
-    const data =
-      await response.json();
-
-    if (!response.ok) {
-
-      throw new Error(
-        data.message ||
-        "Certificate not found"
-      );
-
-    }
-
-    return data;
-  };
-
-  // ==========================================
 // ASSIGNMENTS
 // ==========================================
 
-
-// ==========================================
 // CREATE ASSIGNMENT
-// ==========================================
 
-export const createAssignment =
-  async (
-    assignmentData,
-    token
-  ) => {
+export const createAssignment = async (
+  assignmentData,
+  token
+) => {
 
-    const response =
-      await fetch(
-        `${API_URL}/api/assignments`,
-        {
-          method: "POST",
+  const response = await fetch(
+    `${API_URL}/api/assignments`,
+    {
+      method: "POST",
 
-          headers: {
-            "Content-Type":
-              "application/json",
+      headers: {
+        "Content-Type": "application/json",
 
-            Authorization:
-              `Bearer ${token}`
-          },
+        Authorization:
+          `Bearer ${token}`
+      },
 
-          body:
-            JSON.stringify(
-              assignmentData
-            )
-        }
-      );
-
-
-    const data =
-      await response.json();
-
-
-    if (!response.ok) {
-
-      throw new Error(
-        data.message ||
-        "Failed to create assignment"
-      );
-
+      body: JSON.stringify(assignmentData)
     }
+  );
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      data.message ||
+      "Failed to create assignment"
+    );
+  }
+
+  return data;
+};
 
 
-    return data;
-  };
-
-
-// ==========================================
 // GET MODULE ASSIGNMENTS
-// ==========================================
 
-export const getModuleAssignments =
-  async (
-    moduleId,
-    token
-  ) => {
+export const getModuleAssignments = async (
+  moduleId,
+  token
+) => {
 
-    const response =
-      await fetch(
-        `${API_URL}/api/assignments/module/${moduleId}`,
-        {
-          method: "GET",
+  const response = await fetch(
+    `${API_URL}/api/assignments/module/${moduleId}`,
+    {
+      method: "GET",
 
-          headers: {
-            Authorization:
-              `Bearer ${token}`
-          }
-        }
-      );
-
-
-    const data =
-      await response.json();
-
-
-    if (!response.ok) {
-
-      throw new Error(
-        data.message ||
-        "Failed to load assignments"
-      );
-
+      headers: {
+        Authorization:
+          `Bearer ${token}`
+      }
     }
+  );
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      data.message ||
+      "Failed to load assignments"
+    );
+  }
+
+  return data;
+};
 
 
-    return data;
-  };
-
-
-// ==========================================
 // GET INSTRUCTOR ASSIGNMENTS
-// ==========================================
 
-export const getInstructorAssignments =
-  async (token) => {
+export const getInstructorAssignments = async (
+  token
+) => {
 
-    const response =
-      await fetch(
-        `${API_URL}/api/assignments/instructor/my-assignments`,
-        {
-          method: "GET",
+  const response = await fetch(
+    `${API_URL}/api/assignments/instructor/my-assignments`,
+    {
+      method: "GET",
 
-          headers: {
-            Authorization:
-              `Bearer ${token}`
-          }
-        }
-      );
-
-
-    const data =
-      await response.json();
-
-
-    if (!response.ok) {
-
-      throw new Error(
-        data.message ||
-        "Failed to load instructor assignments"
-      );
-
+      headers: {
+        Authorization:
+          `Bearer ${token}`
+      }
     }
+  );
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      data.message ||
+      "Failed to load instructor assignments"
+    );
+  }
+
+  return data;
+};
 
 
-    return data;
-  };
-
-
-// // ==========================================
-// // UPDATE ASSIGNMENT
-// // ==========================================
-
-// export const updateAssignment =
-//   async (
-//     assignmentId,
-//     assignmentData,
-//     token
-//   ) => {
-
-//     const response =
-//       await fetch(
-//         `${API_URL}/api/assignments/${assignmentId}`,
-//         {
-//           method: "PUT",
-
-//           headers: {
-//             "Content-Type":
-//               "application/json",
-
-//             Authorization:
-//               `Bearer ${token}`
-//           },
-
-//           body:
-//             JSON.stringify(
-//               assignmentData
-//             )
-//         }
-//       );
-
-
-//     const data =
-//       await response.json();
-
-
-//     if (!response.ok) {
-
-//       throw new Error(
-//         data.message ||
-//         "Failed to update assignment"
-//       );
-
-//     }
-
-
-//     return data;
-//   };
-
-
-// ==========================================
-// DELETE ASSIGNMENT
-// ==========================================
-
-export const deleteAssignment =
-  async (
-    assignmentId,
-    token
-  ) => {
-
-    const response =
-      await fetch(
-        `${API_URL}/api/assignments/${assignmentId}`,
-        {
-          method: "DELETE",
-
-          headers: {
-            Authorization:
-              `Bearer ${token}`
-          }
-        }
-      );
-
-
-    const data =
-      await response.json();
-
-
-    if (!response.ok) {
-
-      throw new Error(
-        data.message ||
-        "Failed to delete assignment"
-      );
-
-    }
-
-
-    return data;
-
-  };
-  // ==========================================
 // GET ONE ASSIGNMENT
-// ==========================================
 
-export const getAssignmentById =
-  async (assignmentId, token) => {
+export const getAssignmentById = async (
+  assignmentId,
+  token
+) => {
 
-    const response =
-      await fetch(
-        `${API_URL}/api/assignments/${assignmentId}`,
-        {
-          method: "GET",
+  const response = await fetch(
+    `${API_URL}/api/assignments/${assignmentId}`,
+    {
+      method: "GET",
 
-          headers: {
-            Authorization:
-              `Bearer ${token}`
-          }
-        }
-      );
-
-
-    const data =
-      await response.json();
-
-
-    if (!response.ok) {
-
-      throw new Error(
-        data.message ||
-        "Failed to load assignment"
-      );
-
+      headers: {
+        Authorization:
+          `Bearer ${token}`
+      }
     }
+  );
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      data.message ||
+      "Failed to load assignment"
+    );
+  }
+
+  return data;
+};
 
 
-    return data;
-
-  };
-
-
-// ==========================================
 // UPDATE ASSIGNMENT
-// ==========================================
 
-export const updateAssignment =
-  async (
-    assignmentId,
-    assignmentData,
-    token
-  ) => {
+export const updateAssignment = async (
+  assignmentId,
+  assignmentData,
+  token
+) => {
 
-    const response =
-      await fetch(
-        `${API_URL}/api/assignments/${assignmentId}`,
-        {
-          method: "PUT",
+  const response = await fetch(
+    `${API_URL}/api/assignments/${assignmentId}`,
+    {
+      method: "PUT",
 
-          headers: {
-            "Content-Type":
-              "application/json",
+      headers: {
+        "Content-Type": "application/json",
 
-            Authorization:
-              `Bearer ${token}`
-          },
+        Authorization:
+          `Bearer ${token}`
+      },
 
-          body:
-            JSON.stringify(
-              assignmentData
-            )
-        }
-      );
-
-
-    const data =
-      await response.json();
-
-
-    if (!response.ok) {
-
-      throw new Error(
-        data.message ||
-        "Failed to update assignment"
-      );
-
+      body: JSON.stringify(assignmentData)
     }
+  );
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      data.message ||
+      "Failed to update assignment"
+    );
+  }
+
+  return data;
+};
 
 
-    return data;
+// DELETE ASSIGNMENT
 
-  };
+export const deleteAssignment = async (
+  assignmentId,
+  token
+) => {
 
-  // ==========================================
+  const response = await fetch(
+    `${API_URL}/api/assignments/${assignmentId}`,
+    {
+      method: "DELETE",
+
+      headers: {
+        Authorization:
+          `Bearer ${token}`
+      }
+    }
+  );
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      data.message ||
+      "Failed to delete assignment"
+    );
+  }
+
+  return data;
+};
+
+
 // GET MY ASSIGNMENTS
-// ==========================================
 
-export const getMyAssignments =
-  async (token) => {
+export const getMyAssignments = async (
+  token
+) => {
 
-    const response =
-      await fetch(
-        `${API_URL}/api/assignments/my-assignments`,
-        {
-          method: "GET",
+  const response = await fetch(
+    `${API_URL}/api/assignments/my-assignments`,
+    {
+      method: "GET",
 
-          headers: {
-            Authorization:
-              `Bearer ${token}`
-          }
-        }
-      );
-
-    const data =
-      await response.json();
-
-    if (!response.ok) {
-
-      throw new Error(
-        data.message ||
-        "Failed to load assignments"
-      );
-
+      headers: {
+        Authorization:
+          `Bearer ${token}`
+      }
     }
+  );
 
-    return data;
-  };
-  // ==========================================
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      data.message ||
+      "Failed to load assignments"
+    );
+  }
+
+  return data;
+};
+
+
 // SUBMIT ASSIGNMENT
-// ==========================================
 
-export const submitAssignment =
-  async (
-    assignmentId,
-    answer,
-    token
-  ) => {
+export const submitAssignment = async (
+  assignmentId,
+  answer,
+  token
+) => {
 
-    const response =
-      await fetch(
-        `${API_URL}/api/assignment-submissions/${assignmentId}/submit`,
-        {
-          method: "POST",
+  const response = await fetch(
+    `${API_URL}/api/assignment-submissions/${assignmentId}/submit`,
+    {
+      method: "POST",
 
-          headers: {
-            "Content-Type": "application/json",
+      headers: {
+        "Content-Type": "application/json",
 
-            Authorization:
-              `Bearer ${token}`
-          },
+        Authorization:
+          `Bearer ${token}`
+      },
 
-          body: JSON.stringify({
-            answer
-          })
-        }
-      );
-
-
-    const data =
-      await response.json();
-
-
-    if (!response.ok) {
-
-      throw new Error(
-        data.message ||
-        "Failed to submit assignment"
-      );
-
+      body: JSON.stringify({
+        answer
+      })
     }
+  );
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      data.message ||
+      "Failed to submit assignment"
+    );
+  }
+
+  return data;
+};
 
 
-    return data;
+// GET MY SUBMISSION
 
-  };
+export const getMySubmission = async (
+  assignmentId,
+  token
+) => {
 
-// ==========================================
-// GET MY ASSIGNMENT SUBMISSION
-// ==========================================
+  const response = await fetch(
+    `${API_URL}/api/assignment-submissions/${assignmentId}/my-submission`,
+    {
+      method: "GET",
 
-export const getMySubmission =
-  async (
-    assignmentId,
-    token
-  ) => {
-
-    const response =
-      await fetch(
-        `${API_URL}/api/assignment-submissions/${assignmentId}/my-submission`,
-        {
-          method: "GET",
-
-          headers: {
-            Authorization:
-              `Bearer ${token}`
-          }
-        }
-      );
-
-
-    const data =
-      await response.json();
-
-
-    if (!response.ok) {
-
-      throw new Error(
-        data.message ||
-        "Failed to load submission"
-      );
-
+      headers: {
+        Authorization:
+          `Bearer ${token}`
+      }
     }
+  );
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      data.message ||
+      "Failed to load submission"
+    );
+  }
+
+  return data;
+};
 
 
-    return data;
+// ==========================================
+// ASSIGNMENT SUBMISSIONS - INSTRUCTOR
+// ==========================================
 
-  };
+// GET SUBMISSIONS
 
-  // ==========================================
+export const getAssignmentSubmissions = async (
+  assignmentId,
+  token
+) => {
+
+  const response = await fetch(
+    `${API_URL}/api/assignment-submissions/${assignmentId}/submissions`,
+    {
+      method: "GET",
+
+      headers: {
+        Authorization:
+          `Bearer ${token}`
+      }
+    }
+  );
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      data.message ||
+      "Failed to load assignment submissions"
+    );
+  }
+
+  return data;
+};
+
+
+// GRADE SUBMISSION
+
+export const gradeAssignmentSubmission = async (
+  submissionId,
+  marks,
+  feedback,
+  token
+) => {
+
+  const response = await fetch(
+    `${API_URL}/api/assignment-submissions/${submissionId}/grade`,
+    {
+      method: "PUT",
+
+      headers: {
+        "Content-Type": "application/json",
+
+        Authorization:
+          `Bearer ${token}`
+      },
+
+      body: JSON.stringify({
+        marks,
+        feedback
+      })
+    }
+  );
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      data.message ||
+      "Failed to grade submission"
+    );
+  }
+
+  return data;
+};
+
+
+// ==========================================
 // BOOKMARKS
 // ==========================================
 
-
-// ==========================================
 // ADD BOOKMARK
-// ==========================================
 
 export const addBookmark = async (
   lessonId,
@@ -1414,355 +1409,143 @@ export const addBookmark = async (
   token
 ) => {
 
-  const response =
-    await fetch(
-      `${API_URL}/api/bookmarks/${lessonId}`,
-      {
-        method: "POST",
+  const response = await fetch(
+    `${API_URL}/api/bookmarks/${lessonId}`,
+    {
+      method: "POST",
 
-        headers: {
-          "Content-Type":
-            "application/json",
+      headers: {
+        "Content-Type": "application/json",
 
-          Authorization:
-            `Bearer ${token}`
-        },
+        Authorization:
+          `Bearer ${token}`
+      },
 
-        body: JSON.stringify({
-          course: courseId
-        })
-      }
-    );
+      body: JSON.stringify({
+        course: courseId
+      })
+    }
+  );
 
-
-  const data =
-    await response.json();
-
+  const data = await response.json();
 
   if (!response.ok) {
-
     throw new Error(
       data.message ||
       "Failed to bookmark lesson"
     );
-
   }
 
+  return data;
+};
+
+
+// REMOVE BOOKMARK
+
+export const removeBookmark = async (
+  lessonId,
+  token
+) => {
+
+  const response = await fetch(
+    `${API_URL}/api/bookmarks/${lessonId}`,
+    {
+      method: "DELETE",
+
+      headers: {
+        Authorization:
+          `Bearer ${token}`
+      }
+    }
+  );
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      data.message ||
+      "Failed to remove bookmark"
+    );
+  }
+
+  return data;
+};
+
+
+// CHECK BOOKMARK
+
+export const checkBookmark = async (
+  lessonId,
+  token
+) => {
+
+  const response = await fetch(
+    `${API_URL}/api/bookmarks/check/${lessonId}`,
+    {
+      method: "GET",
+
+      headers: {
+        Authorization:
+          `Bearer ${token}`
+      }
+    }
+  );
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      data.message ||
+      "Failed to check bookmark"
+    );
+  }
+
+  return data;
+};
+
+
+// GET MY BOOKMARKS
+
+export const getMyBookmarks = async (
+  token
+) => {
+
+  const response = await fetch(
+    `${API_URL}/api/bookmarks/my-bookmarks`,
+    {
+      method: "GET",
+
+      headers: {
+        Authorization:
+          `Bearer ${token}`
+      }
+    }
+  );
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      data.message ||
+      "Failed to load bookmarks"
+    );
+  }
 
   return data;
 };
 
 
 // ==========================================
-// REMOVE BOOKMARK
-// ==========================================
-
-export const removeBookmark =
-  async (
-    lessonId,
-    token
-  ) => {
-
-    const response =
-      await fetch(
-        `${API_URL}/api/bookmarks/${lessonId}`,
-        {
-          method: "DELETE",
-
-          headers: {
-            Authorization:
-              `Bearer ${token}`
-          }
-        }
-      );
-
-
-    const data =
-      await response.json();
-
-
-    if (!response.ok) {
-
-      throw new Error(
-        data.message ||
-        "Failed to remove bookmark"
-      );
-
-    }
-
-
-    return data;
-  };
-
-
-// ==========================================
-// CHECK BOOKMARK
-// ==========================================
-
-export const checkBookmark =
-  async (
-    lessonId,
-    token
-  ) => {
-
-    const response =
-      await fetch(
-        `${API_URL}/api/bookmarks/check/${lessonId}`,
-        {
-          method: "GET",
-
-          headers: {
-            Authorization:
-              `Bearer ${token}`
-          }
-        }
-      );
-
-
-    const data =
-      await response.json();
-
-
-    if (!response.ok) {
-
-      throw new Error(
-        data.message ||
-        "Failed to check bookmark"
-      );
-
-    }
-
-
-    return data;
-  };
-
-
-// ==========================================
-// GET MY BOOKMARKS
-// ==========================================
-
-export const getMyBookmarks =
-  async (token) => {
-
-    const response =
-      await fetch(
-        `${API_URL}/api/bookmarks/my-bookmarks`,
-        {
-          method: "GET",
-
-          headers: {
-            Authorization:
-              `Bearer ${token}`
-          }
-        }
-      );
-
-
-    const data =
-      await response.json();
-
-
-    if (!response.ok) {
-
-      throw new Error(
-        data.message ||
-        "Failed to load bookmarks"
-      );
-
-    }
-
-
-    return data;
-  };
-
-
-
-// // ==========================================
-// // CHECK BOOKMARK
-// // ==========================================
-
-// export const checkBookmark =
-//   async (
-//     lessonId,
-//     token
-//   ) => {
-
-//     const response =
-//       await fetch(
-//         `${API_URL}/api/bookmarks/check/${lessonId}`,
-//         {
-//           method: "GET",
-
-//           headers: {
-//             Authorization:
-//               `Bearer ${token}`
-//           }
-//         }
-//       );
-
-
-//     const data =
-//       await response.json();
-
-
-//     if (!response.ok) {
-
-//       throw new Error(
-//         data.message ||
-//         "Failed to check bookmark"
-//       );
-
-//     }
-
-
-//     return data;
-//   };
-
-  export const getInstructorStudents =
-  async (token) => {
-
-    const response =
-      await fetch(
-        "http://localhost:5000/api/enrollments/instructor/students",
-        {
-          method: "GET",
-
-          headers: {
-            "Content-Type":
-              "application/json",
-
-            Authorization:
-              `Bearer ${token}`
-          }
-        }
-      );
-
-
-    const data =
-      await response.json();
-
-
-    if (!response.ok) {
-
-      throw new Error(
-        data.message ||
-        "Failed to load students"
-      );
-
-    }
-
-
-    return data;
-
-  };
-
-  // ==========================================
-// GET ASSIGNMENT SUBMISSIONS - INSTRUCTOR
-// ==========================================
-
-export const getAssignmentSubmissions =
-  async (
-    assignmentId,
-    token
-  ) => {
-
-    const response =
-      await fetch(
-        `${API_URL}/api/assignment-submissions/${assignmentId}/submissions`,
-        {
-          method: "GET",
-
-          headers: {
-            Authorization:
-              `Bearer ${token}`
-          }
-        }
-      );
-
-
-    const data =
-      await response.json();
-
-
-    if (!response.ok) {
-
-      throw new Error(
-        data.message ||
-        "Failed to load assignment submissions"
-      );
-
-    }
-
-
-    return data;
-
-  };
-  // ==========================================
-// GRADE ASSIGNMENT SUBMISSION - INSTRUCTOR
-// ==========================================
-
-export const gradeAssignmentSubmission =
-  async (
-    submissionId,
-    marks,
-    feedback,
-    token
-  ) => {
-
-    const response =
-      await fetch(
-        `${API_URL}/api/assignment-submissions/${submissionId}/grade`,
-        {
-          method: "PUT",
-
-          headers: {
-
-            "Content-Type":
-              "application/json",
-
-            Authorization:
-              `Bearer ${token}`
-
-          },
-
-          body: JSON.stringify({
-
-            marks,
-
-            feedback
-
-          })
-
-        }
-      );
-
-
-    const data =
-      await response.json();
-
-
-    if (!response.ok) {
-
-      throw new Error(
-        data.message ||
-        "Failed to grade submission"
-      );
-
-    }
-
-
-    return data;
-
-  };
-  // ==========================================
 // DISCUSSIONS
 // ==========================================
 
 // CREATE DISCUSSION
+
 export const createDiscussion = async (
   discussionData,
   token
 ) => {
+
   const response = await fetch(
     `${API_URL}/api/discussions`,
     {
@@ -1770,7 +1553,9 @@ export const createDiscussion = async (
 
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`
+
+        Authorization:
+          `Bearer ${token}`
       },
 
       body: JSON.stringify(discussionData)
@@ -1791,16 +1576,19 @@ export const createDiscussion = async (
 
 
 // GET ALL DISCUSSIONS
+
 export const getDiscussions = async (
   token
 ) => {
+
   const response = await fetch(
     `${API_URL}/api/discussions`,
     {
       method: "GET",
 
       headers: {
-        Authorization: `Bearer ${token}`
+        Authorization:
+          `Bearer ${token}`
       }
     }
   );
@@ -1819,17 +1607,20 @@ export const getDiscussions = async (
 
 
 // GET ONE DISCUSSION
+
 export const getDiscussionById = async (
   discussionId,
   token
 ) => {
+
   const response = await fetch(
     `${API_URL}/api/discussions/${discussionId}`,
     {
       method: "GET",
 
       headers: {
-        Authorization: `Bearer ${token}`
+        Authorization:
+          `Bearer ${token}`
       }
     }
   );
@@ -1848,17 +1639,20 @@ export const getDiscussionById = async (
 
 
 // DELETE DISCUSSION
+
 export const deleteDiscussion = async (
   discussionId,
   token
 ) => {
+
   const response = await fetch(
     `${API_URL}/api/discussions/${discussionId}`,
     {
       method: "DELETE",
 
       headers: {
-        Authorization: `Bearer ${token}`
+        Authorization:
+          `Bearer ${token}`
       }
     }
   );
@@ -1876,177 +1670,252 @@ export const deleteDiscussion = async (
 };
 
 // ==========================================
-// ADMIN DASHBOARD
+// COMMUNICATION
 // ==========================================
 
-export const getAdminDashboard = async (token) => {
+// GET COURSE COMMUNICATION
+export const getCourseCommunication = async (
+  courseId,
+  token
+) => {
 
   const response = await fetch(
-    "http://localhost:5000/api/admin/dashboard",
+    `${API_URL}/api/communication/course/${courseId}`,
     {
       method: "GET",
 
       headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json"
+        Authorization:
+          `Bearer ${token}`
       }
     }
   );
 
-
   const data =
     await response.json();
-
 
   if (!response.ok) {
 
     throw new Error(
       data.message ||
-      "Failed to load admin dashboard"
+      "Failed to load course communication"
     );
 
   }
 
+  return data;
+};
+
+
+// ==========================================
+// GET ENROLLED STUDENTS
+// ==========================================
+
+export const getCourseStudents = async (
+  courseId,
+  token
+) => {
+
+  const response = await fetch(
+    `${API_URL}/api/communication/course/${courseId}/students`,
+    {
+      method: "GET",
+
+      headers: {
+        Authorization:
+          `Bearer ${token}`
+      }
+    }
+  );
+
+  const data =
+    await response.json();
+
+  if (!response.ok) {
+
+    throw new Error(
+      data.message ||
+      "Failed to load course students"
+    );
+
+  }
 
   return data;
-
 };
+
+
+// ==========================================
+// CREATE CONVERSATION
+// ==========================================
+
+export const createConversation = async (
+  courseId,
+  participantId,
+  token
+) => {
+
+  const response = await fetch(
+    `${API_URL}/api/communication/conversation`,
+    {
+      method: "POST",
+
+      headers: {
+        "Content-Type":
+          "application/json",
+
+        Authorization:
+          `Bearer ${token}`
+      },
+
+      body: JSON.stringify({
+        courseId,
+        participantId
+      })
+    }
+  );
+
+  const data =
+    await response.json();
+
+  if (!response.ok) {
+
+    throw new Error(
+      data.message ||
+      "Failed to create conversation"
+    );
+
+  }
+
+  return data;
+};
+
+// ==========================================
+// ADMIN DASHBOARD
+// ==========================================
+
+export const getAdminDashboard = async (
+  token
+) => {
+
+  const response = await fetch(
+    `${API_URL}/api/admin/dashboard`,
+    {
+      method: "GET",
+
+      headers: {
+        Authorization:
+          `Bearer ${token}`,
+
+        "Content-Type":
+          "application/json"
+      }
+    }
+  );
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      data.message ||
+      "Failed to load admin dashboard"
+    );
+  }
+
+  return data;
+};
+
+
 // ==========================================
 // ADMIN NOTIFICATIONS
 // ==========================================
 
-export const getAdminNotifications =
-  async (token) => {
+export const getAdminNotifications = async (
+  token
+) => {
 
-    const response =
-      await fetch(
-        `${API_URL}/notifications`,
-        {
+  const response = await fetch(
+    `${API_URL}/notifications`,
+    {
+      method: "GET",
 
-          method: "GET",
-
-          headers: {
-
-            Authorization:
-              `Bearer ${token}`
-
-          }
-
-        }
-      );
-
-
-    const data =
-      await response.json();
-
-
-    if (!response.ok) {
-
-      throw new Error(
-        data.message ||
-        "Failed to load notifications"
-      );
-
+      headers: {
+        Authorization:
+          `Bearer ${token}`
+      }
     }
+  );
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      data.message ||
+      "Failed to load notifications"
+    );
+  }
+
+  return data;
+};
 
 
-    return data;
-
-  };
-
-
-// ==========================================
 // MARK NOTIFICATION AS READ
-// ==========================================
 
-export const markNotificationAsRead =
-  async (
-    token,
-    notificationId
-  ) => {
+export const markNotificationAsRead = async (
+  token,
+  notificationId
+) => {
 
-    const response =
-      await fetch(
+  const response = await fetch(
+    `${API_URL}/notifications/${notificationId}/read`,
+    {
+      method: "PUT",
 
-        `${API_URL}/notifications/${notificationId}/read`,
-
-        {
-
-          method: "PUT",
-
-          headers: {
-
-            Authorization:
-              `Bearer ${token}`
-
-          }
-
-        }
-
-      );
-
-
-    const data =
-      await response.json();
-
-
-    if (!response.ok) {
-
-      throw new Error(
-        data.message ||
-        "Failed to update notification"
-      );
-
+      headers: {
+        Authorization:
+          `Bearer ${token}`
+      }
     }
+  );
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      data.message ||
+      "Failed to update notification"
+    );
+  }
+
+  return data;
+};
 
 
-    return data;
-
-  };
-
-
-// ==========================================
 // MARK ALL NOTIFICATIONS AS READ
-// ==========================================
 
-export const markAllNotificationsAsRead =
-  async (token) => {
+export const markAllNotificationsAsRead = async (
+  token
+) => {
 
-    const response =
-      await fetch(
+  const response = await fetch(
+    `${API_URL}/notifications/read-all`,
+    {
+      method: "PUT",
 
-        `${API_URL}/notifications/read-all`,
-
-        {
-
-          method: "PUT",
-
-          headers: {
-
-            Authorization:
-              `Bearer ${token}`
-
-          }
-
-        }
-
-      );
-
-
-    const data =
-      await response.json();
-
-
-    if (!response.ok) {
-
-      throw new Error(
-        data.message ||
-        "Failed to update notifications"
-      );
-
+      headers: {
+        Authorization:
+          `Bearer ${token}`
+      }
     }
+  );
 
+  const data = await response.json();
 
-    return data;
+  if (!response.ok) {
+    throw new Error(
+      data.message ||
+      "Failed to update notifications"
+    );
+  }
 
-  };
+  return data;
+};

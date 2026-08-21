@@ -52,8 +52,22 @@ const [bookmarkLoading, setBookmarkLoading] =
 
   const [error, setError] =
     useState("");
+const [movingToNext, setMovingToNext] =
+  useState(false);
+const completedCount =
+  lessons.filter((lesson) =>
+    completedLessons.includes(lesson._id)
+  ).length;
 
+const lessonCount =
+  lessons.length;
 
+const moduleProgress =
+  lessonCount > 0
+    ? Math.round(
+        (completedCount / lessonCount) * 100
+      )
+    : 0;
   useEffect(() => {
 
     const loadLessons = async () => {
@@ -200,52 +214,79 @@ setModuleContext(
   selectedLesson,
   token
 ]);
-  const handleComplete =
-    async () => {
+ const handleComplete = async () => {
 
-      if (
-        !selectedLesson ||
-        !token
-      ) {
-        return;
-      }
+  if (
+    !selectedLesson ||
+    !token
+  ) {
+    return;
+  }
 
+  try {
 
-      try {
+    setError("");
 
-        setError("");
+    await markLessonComplete(
+      selectedLesson._id,
+      token
+    );
 
-
-        await markLessonComplete(
-          selectedLesson._id,
-          token
-        );
-
-
-        if (
-          !completedLessons.includes(
+    const updatedCompletedLessons =
+      completedLessons.includes(
+        selectedLesson._id
+      )
+        ? completedLessons
+        : [
+            ...completedLessons,
             selectedLesson._id
-          )
-        ) {
+          ];
 
-          setCompletedLessons(
-            [
-              ...completedLessons,
-              selectedLesson._id
-            ]
-          );
+    setCompletedLessons(
+      updatedCompletedLessons
+    );
 
-        }
 
-      } catch (error) {
+    // =====================================
+    // AUTOMATICALLY MOVE TO NEXT LESSON
+    // =====================================
 
-        setError(
-          error.message
-        );
+    const currentIndex =
+      lessons.findIndex(
+        (lesson) =>
+          lesson._id ===
+          selectedLesson._id
+      );
 
-      }
+    const nextLesson =
+      lessons[currentIndex + 1];
 
-    };
+
+    if (nextLesson) {
+
+  setMovingToNext(true);
+
+  setTimeout(() => {
+
+    setSelectedLesson(
+      nextLesson
+    );
+
+    setMovingToNext(false);
+
+  }, 700);
+
+}
+
+  } catch (error) {
+
+    setError(
+      error.message
+    );
+
+  }
+
+};
 
   const handleBookmark =
   async () => {
@@ -404,26 +445,63 @@ setModuleContext(
     <div className="lesson-viewer-page">
 
 
-      <div className="lesson-viewer-header">
+     <div className="lesson-viewer-header">
 
-        <p>
-          Student Learning
-        </p>
+  <p>
+    {courseContext?.title ||
+      "Student Learning"}
+  </p>
 
-        <h1>
-          Module Lessons
-        </h1>
+  <h1>
+    {moduleContext?.title ||
+      "Module Lessons"}
+  </h1>
 
+  <span>
+    {lessonCount} lesson
+    {lessonCount !== 1 ? "s" : ""}
+    {" • "}
+    {completedCount} completed
+  </span>
+
+</div>
+
+{lessons.length > 0 && (
+
+  <div className="module-progress-card">
+
+    <div className="module-progress-top">
+
+      <div>
         <span>
-          {lessons.length} lesson
-          {lessons.length !== 1
-            ? "s"
-            : ""}
+          MODULE PROGRESS
         </span>
 
+        <strong>
+          {completedCount} of {lessonCount} lessons completed
+        </strong>
       </div>
 
+      <strong className="module-progress-percentage">
+        {moduleProgress}%
+      </strong>
 
+    </div>
+
+    <div className="module-progress-bar">
+
+      <div
+        className="module-progress-fill"
+        style={{
+          width: `${moduleProgress}%`
+        }}
+      />
+
+    </div>
+
+  </div>
+
+)}
       {error && (
 
         <div className="lesson-viewer-error">
@@ -472,12 +550,19 @@ setModuleContext(
                   <button
                     key={lesson._id}
                     type="button"
-                    className={
-                      selectedLesson?._id ===
-                      lesson._id
-                        ? "student-lesson-item active"
-                        : "student-lesson-item"
-                    }
+                    className={`
+  student-lesson-item
+  ${
+    selectedLesson?._id === lesson._id
+      ? "active"
+      : ""
+  }
+  ${
+    completedLessons.includes(lesson._id)
+      ? "completed"
+      : ""
+  }
+`}
                     onClick={() =>
                       setSelectedLesson(
                         lesson
@@ -499,18 +584,19 @@ setModuleContext(
                       </strong>
 
 
-                      <small>
+                   <small>
 
-                        {completedLessons.includes(
-                          lesson._id
-                        )
-                          ? "✓ Completed"
-                          : lesson.duration
-                            ? `${lesson.duration} min`
-                            : "Lesson"}
+  {completedLessons.includes(
+    lesson._id
+  )
+    ? "Completed"
+    : selectedLesson?._id === lesson._id
+      ? "Current lesson"
+      : lesson.duration
+        ? `${lesson.duration} min`
+        : "Not started"}
 
-                      </small>
-
+</small>
                     </span>
 
                   </button>
@@ -619,36 +705,51 @@ setModuleContext(
   lesson={selectedLesson}
   moduleId={moduleId}
 />
+{movingToNext && (
 
+  <div className="next-lesson-message">
+
+    Moving to the next lesson...
+
+  </div>
+
+)}
                 {/* COMPLETE BUTTON */}
 
                 <div className="lesson-completion">
 
                   {completedLessons.includes(
-                    selectedLesson._id
-                  ) ? (
+  selectedLesson._id
+) ? (
 
-                    <div className="completed-message">
+  <div className="completed-message">
 
-                      ✓ Lesson Completed
+    Lesson Completed
 
-                    </div>
+  </div>
 
-                  ) : (
+) : (
 
-                    <button
-                      type="button"
-                      className="complete-lesson-button"
-                      onClick={
-                        handleComplete
-                      }
-                    >
+  <button
+    type="button"
+    className="complete-lesson-button"
+    onClick={handleComplete}
+  >
 
-                      Mark as Complete
+    {lessons.findIndex(
+      (lesson) =>
+        lesson._id ===
+        selectedLesson._id
+    ) === lessons.length - 1
 
-                    </button>
+      ? "Complete Lesson"
 
-                  )}
+      : "Complete & Continue"
+    }
+
+  </button>
+
+)}
 
                 </div>
 

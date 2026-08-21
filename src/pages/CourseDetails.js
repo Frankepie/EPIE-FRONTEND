@@ -1,91 +1,199 @@
-import {useEffect,useState} from "react";
-import {useParams,Link,useNavigate} from "react-router-dom";
+import {
+  useEffect,
+  useState
+} from "react";
+
+import {
+  useParams,
+  Link,
+  useNavigate
+} from "react-router-dom";
+
 import {
   getCourseById,
   enrollInCourse,
   getCourseModules,
   getMyCourses
 } from "../services/api";
-import {useAuth} from "../context/AuthContext";
+
+import {
+  useAuth
+} from "../context/AuthContext";
+
 import "../styles/CourseDetails.css";
+
+
 const CourseDetails = () => {
-  const { id } = useParams();
-  const [course, setCourse] =useState(null);
-  const [modules, setModules] =useState([]);
-  const [isEnrolled, setIsEnrolled] =useState(false);
-    const {
-  user,
-  token
-} = useAuth();
 
-const navigate =
-  useNavigate();
-
-const [enrolling, setEnrolling] =
-  useState(false);
-
-const [enrollMessage, setEnrollMessage] =
-  useState("");
-  const handleEnroll = async () => {
-
-  if (!user) {
-
-    navigate("/login");
-
-    return;
-
-  }
+  const {
+    id
+  } = useParams();
 
 
-  try {
-
-    setEnrolling(true);
-
-    setEnrollMessage("");
+  const navigate =
+    useNavigate();
 
 
-    await enrollInCourse(
-      course._id,
-      token
-    );
+  const {
+    user,
+    token
+  } = useAuth();
 
 
-    setEnrollMessage(
-      "You have successfully enrolled in this course."
-    );
+  const [course, setCourse] =
+    useState(null);
 
-  } catch (error) {
+  const [modules, setModules] =
+    useState([]);
 
-    setEnrollMessage(
-      error.message
-    );
+  const [isEnrolled, setIsEnrolled] =
+    useState(false);
 
-  } finally {
+  const [enrolling, setEnrolling] =
+    useState(false);
 
-    setEnrolling(false);
+  const [enrollMessage, setEnrollMessage] =
+    useState("");
 
-  }
-
-};
   const [loading, setLoading] =
     useState(true);
+
   const [error, setError] =
     useState("");
- useEffect(() => {
-
-  const loadCourse = async () => {
-
-    try {
-
-      const data =
-        await getCourseById(id);
-
-      setCourse(
-        data.course
-      );
 
 
-      if (token) {
+  useEffect(() => {
+
+    const loadCourse =
+      async () => {
+
+        try {
+
+          setLoading(true);
+          setError("");
+
+          /*
+           * Load course
+           */
+
+          const courseData =
+            await getCourseById(id);
+
+          setCourse(
+            courseData.course
+          );
+
+
+          /*
+           * Load modules
+           *
+           * This is only needed when
+           * the student is logged in.
+           */
+
+          if (token) {
+
+            const moduleData =
+              await getCourseModules(
+                id,
+                token
+              );
+
+            setModules(
+              moduleData.modules || []
+            );
+
+
+            /*
+             * Check enrollment
+             */
+
+            const enrollmentData =
+              await getMyCourses(
+                token
+              );
+
+
+            const enrolled =
+              (
+                enrollmentData.enrollments ||
+                []
+              ).some(
+                (enrollment) =>
+                  enrollment.course?._id === id
+              );
+
+
+            setIsEnrolled(
+              enrolled
+            );
+
+          }
+
+        } catch (error) {
+
+          setError(
+            error.message ||
+            "Unable to load this course."
+          );
+
+        } finally {
+
+          setLoading(false);
+
+        }
+
+      };
+
+
+    loadCourse();
+
+  }, [
+    id,
+    token
+  ]);
+
+
+  /*
+   * ENROLL
+   */
+
+  const handleEnroll =
+    async () => {
+
+      if (!user) {
+
+        navigate("/login");
+
+        return;
+
+      }
+
+
+      try {
+
+        setEnrolling(true);
+
+        setEnrollMessage("");
+
+
+        await enrollInCourse(
+          course._id,
+          token
+        );
+
+
+        setIsEnrolled(true);
+
+
+        setEnrollMessage(
+          "You have successfully enrolled in this course."
+        );
+
+
+        /*
+         * Reload modules after enrollment
+         */
 
         const moduleData =
           await getCourseModules(
@@ -93,173 +201,414 @@ const [enrollMessage, setEnrollMessage] =
             token
           );
 
+
         setModules(
           moduleData.modules || []
         );
-        const enrollmentData =
-  await getMyCourses(
-    token
-  );
 
-const enrolled =
-  (enrollmentData.enrollments || [])
-    .some(
-      (enrollment) =>
-        enrollment.course?._id === id
-    );
+      } catch (error) {
 
-setIsEnrolled(
-  enrolled
-);
+        setEnrollMessage(
+          error.message ||
+          "Unable to enroll in this course."
+        );
+
+      } finally {
+
+        setEnrolling(false);
+
       }
-    } catch (error) {
-      setError(
-        error.message
-      );
-    } finally {
-      setLoading(false);
-    }
-  };
-  loadCourse();
 
-}, [
-  id,
-  token
-]);
+    };
+
+
+  /*
+   * SELECT MODULE
+   */
+
+  const handleModuleClick =
+    (moduleId) => {
+
+      navigate(
+        `/student/modules/${moduleId}/lessons`
+      );
+
+    };
+
+
+  /*
+   * LOADING
+   */
+
   if (loading) {
+
     return (
+
       <div className="course-details-page">
+
         <div className="course-details-message">
+
           Loading course...
+
         </div>
+
       </div>
+
     );
+
   }
 
+
+  /*
+   * ERROR
+   */
+
   if (error || !course) {
+
     return (
+
       <div className="course-details-page">
+
         <div className="course-details-message">
+
           <h2>
             Course not found
           </h2>
+
           <p>
             {error}
           </p>
+
           <Link to="/courses">
             Back to Courses
           </Link>
+
         </div>
+
       </div>
+
     );
+
   }
+
+
+  /*
+   * PAGE
+   */
+
   return (
+
     <div className="course-details-page">
+
       <div className="course-details-container">
+
+
+        {/* COURSE IMAGE */}
+
         <div className="course-details-image">
+
           {course.image ? (
+
             <img
               src={course.image}
               alt={course.title}
             />
+
           ) : (
+
             <span>
+
               {course.category
                 ?.charAt(0)
-                .toUpperCase()}
+                .toUpperCase() || "C"}
+
             </span>
+
           )}
+
         </div>
+
+
+        {/* COURSE INFORMATION */}
+
         <div className="course-details-content">
+
           <span className="course-details-category">
-            {course.category}
+
+            {course.category ||
+              "General Course"}
+
           </span>
+
+
           <h1>
             {course.title}
           </h1>
+
+
           <p className="course-details-description">
+
             {course.description}
+
           </p>
+
+
+          {/* COURSE INFORMATION */}
+
           <div className="course-details-info">
+
             <div>
+
               <span>
                 Level
               </span>
+
               <strong>
-                {course.level}
+                {course.level ||
+                  "All Levels"}
               </strong>
+
             </div>
+
+
             <div>
+
               <span>
                 Duration
               </span>
+
               <strong>
-                {course.duration}
+                {course.duration ||
+                  "Not specified"}
               </strong>
+
             </div>
+
+
             <div>
+
               <span>
                 Instructor
               </span>
+
               <strong>
-                {course.instructor?.name}
+                {course.instructor?.name ||
+                  "Instructor"}
               </strong>
+
             </div>
+
           </div>
+
+
+          {/* ENROLLMENT ACTION */}
+
           <div className="course-details-bottom">
 
-  <strong className="course-price">
-    {course.price === 0
-      ? "Free"
-      : `$${course.price}`}
-  </strong>
+            <strong className="course-price">
+
+              {course.price === 0
+                ? "Free"
+                : `$${course.price}`}
+
+            </strong>
 
 
-  {isEnrolled ? (
+            {!isEnrolled ? (
 
-    <button
-      className="enroll-button"
-      type="button"
-      onClick={() => {
+              <button
+                className="enroll-button"
+                type="button"
+                onClick={handleEnroll}
+                disabled={enrolling}
+              >
 
-        if (
-          modules.length === 0
-        ) {
-          setEnrollMessage(
-            "No modules are available for this course yet."
-          );
-          return;
-        }
-        navigate(
-          `/student/modules/${modules[0]._id}/lessons`
-        );
+                {enrolling
+                  ? "Enrolling..."
+                  : "Enroll Now"}
 
-      }}
-    >
-      Continue Learning
-    </button>
-  ) : (
-    <button
-      className="enroll-button"
-      type="button"
-      onClick={handleEnroll}
-      disabled={enrolling}
-    >
-      {enrolling
-        ? "Enrolling..."
-        : "Enroll Now"}
-    </button>
-  )}
-  {enrollMessage && (
-    <p className="enroll-message">
-      {enrollMessage}
-    </p>
-  )}
-</div>
+              </button>
+
+            ) : (
+
+              <span className="enrolled-label">
+                Enrolled
+              </span>
+
+            )}
+
+          </div>
+
+
+          {enrollMessage && (
+
+            <p className="enroll-message">
+
+              {enrollMessage}
+
+            </p>
+
+          )}
+
         </div>
+
       </div>
+
+
+      {/* MODULE SECTION */}
+
+      {isEnrolled && (
+
+        <section className="course-modules-section">
+
+          <div className="course-modules-header">
+
+            <div>
+
+              <span>
+                COURSE CONTENT
+              </span>
+
+              <h2>
+                Modules
+              </h2>
+
+              <p>
+                Select a module to view its
+                lessons and continue learning.
+              </p>
+
+            </div>
+
+
+            <div className="course-module-count">
+
+              <strong>
+                {modules.length}
+              </strong>
+
+              <span>
+                {modules.length === 1
+                  ? "Module"
+                  : "Modules"}
+              </span>
+
+            </div>
+
+          </div>
+
+
+          {modules.length === 0 ? (
+
+            <div className="course-modules-empty">
+
+              <h3>
+                No modules available
+              </h3>
+
+              <p>
+                Modules for this course
+                have not been added yet.
+              </p>
+
+            </div>
+
+          ) : (
+
+            <div className="course-modules-list">
+
+              {modules.map(
+                (module, index) => (
+
+                  <article
+                    className="course-module-card"
+                    key={module._id}
+                  >
+
+                    <div className="module-number">
+
+                      {String(
+                        index + 1
+                      ).padStart(2, "0")}
+
+                    </div>
+
+
+                    <div className="module-content">
+
+                      <span className="module-label">
+
+                        MODULE {index + 1}
+
+                      </span>
+
+
+                      <h3>
+
+                        {module.title ||
+                          module.name ||
+                          "Untitled Module"}
+
+                      </h3>
+
+
+                      {module.description && (
+
+                        <p>
+
+                          {module.description}
+
+                        </p>
+
+                      )}
+
+
+                      <div className="module-meta">
+
+                        <span>
+                          Module content
+                        </span>
+
+                      </div>
+
+                    </div>
+
+
+                    <div className="module-action">
+
+                      <button
+                        type="button"
+                        onClick={() =>
+                          handleModuleClick(
+                            module._id
+                          )
+                        }
+                      >
+
+                        View Module
+
+                      </button>
+
+                    </div>
+
+                  </article>
+
+                )
+              )}
+
+            </div>
+
+          )}
+
+        </section>
+
+      )}
+
     </div>
+
   );
+
 };
+
 
 export default CourseDetails;

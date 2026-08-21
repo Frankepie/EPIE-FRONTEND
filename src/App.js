@@ -70,6 +70,8 @@ import ForgotPassword from "./pages/auth/ForgotPassword";
 import ResetPassword from "./pages/auth/ResetPassword";
 import "./App.css";
 
+import CourseCommunication from "./pages/student/CourseCommunication";
+
 
 function App() {
 
@@ -282,19 +284,6 @@ function App() {
             />
 
 
-            {/* =================================
-                LESSON VIEWER
-            ================================= */}
-
-            <Route
-              path="/student/modules/:moduleId/lessons"
-              element={
-                <ProtectedRoute>
-                  <LessonViewer />
-                </ProtectedRoute>
-              }
-            />
-
 
             {/* =================================
                 CERTIFICATES
@@ -498,6 +487,13 @@ function App() {
   path="ai-assistant"
   element={<AIAssistant />}
 />
+
+<Route
+  path="courses/:courseId/communication"
+  element={
+    <CourseCommunication />
+  }
+/>
             {/* /student → /student/dashboard */}
 
             <Route
@@ -525,7 +521,20 @@ function App() {
               path="courses"
               element={<MyCourses />}
             />
+{/* COURSE DETAILS */}
 
+<Route
+  path="courses/:id"
+  element={
+    <CourseDetails />
+  }
+/>
+{/* LESSON VIEWER */}
+
+<Route
+  path="modules/:moduleId/lessons"
+  element={<LessonViewer />}
+/>
 
             {/* ASSIGNMENTS */}
 
