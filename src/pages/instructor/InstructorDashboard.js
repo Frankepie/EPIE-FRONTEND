@@ -35,7 +35,7 @@ const InstructorDashboard = () => {
     useState([]);
    const [totalStudents, setTotalStudents] =
   useState(0);
-  const [totalLessons, setTotalLessons] =
+  const [totalLessons] =
   useState(0);
   const [loading, setLoading] =
     useState(true);

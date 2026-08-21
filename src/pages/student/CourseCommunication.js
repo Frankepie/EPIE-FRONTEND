@@ -27,8 +27,7 @@ const CourseCommunication = () => {
   } = useParams();
 
   const {
-    token,
-    user
+    token
   } = useAuth();
 
 

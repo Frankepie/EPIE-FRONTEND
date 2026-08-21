@@ -109,7 +109,7 @@ const LessonManager = () => {
 
     }
 
-  }, [token, moduleId]);
+  }, [token, moduleId,loadLessons]);
 
 
   const handleChange =

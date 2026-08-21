@@ -1,12 +1,12 @@
-import { NavLink, useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
 import {
-  FaUsers,
-  FaUserGraduate,
-  FaChalkboardTeacher,
-  FaBookOpen,
-  FaUserPlus
-} from "react-icons/fa";
+  NavLink,
+  useNavigate
+} from "react-router-dom";
+
+import {
+  useAuth
+} from "../context/AuthContext";
+
 import "../styles/StudentSidebar.css";
 
 
@@ -62,7 +62,7 @@ const StudentSidebar = () => {
               : "student-nav-link"
           }
         >
-          <i class="fa-regular fa-house"></i>
+          <i className="fa-regular fa-house"></i>
           <span>Dashboard</span>
         </NavLink>
 
@@ -136,7 +136,7 @@ const StudentSidebar = () => {
               : "student-nav-link"
           }
         >
-          <span><i class="fa-solid fa-bell fa-shake"></i></span>
+          <span><i className="fa-solid fa-bell fa-shake"></i></span>
           <span>Notifications</span>
         </NavLink>
 
@@ -180,7 +180,7 @@ const StudentSidebar = () => {
               : "student-nav-link"
           }
         >
-          <span><i class="fa-solid fa-user fa-beat-fade"></i></span>
+          <span><i className="fa-solid fa-user fa-beat-fade"></i></span>
           <span>Profile</span>
         </NavLink>
 
@@ -213,7 +213,7 @@ const StudentSidebar = () => {
         >
 
           <span>
-            <i class="fa-solid fa-door-open"></i>
+            <i className="fa-solid fa-door-open"></i>
           </span>
 
           <span>

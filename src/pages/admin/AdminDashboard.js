@@ -23,8 +23,10 @@ import {
 import {
   getAdminDashboard
 } from "../../services/api";
+
 import AdminNotificationBell
   from "../../components/AdminNotificationBell";
+
 import "../../styles/AdminDashboard.css";
 
 
@@ -127,20 +129,6 @@ const AdminDashboard = () => {
 
   /*
   =====================================
-  NOTIFICATION INFORMATION
-  =====================================
-  */
-
-  const unreadNotifications =
-    Number(
-      dashboard?.unreadNotifications ||
-      dashboard?.unreadNotificationCount ||
-      0
-    );
-
-
-  /*
-  =====================================
   LOADING
   =====================================
   */
@@ -223,9 +211,6 @@ const AdminDashboard = () => {
   =====================================
   REAL CHART DATA
   =====================================
-
-  These values come directly from the
-  backend / MongoDB.
   */
 
   const usersOverview =
@@ -239,21 +224,6 @@ const AdminDashboard = () => {
     dashboard?.coursesByCategory ||
     dashboard?.categoryStats ||
     [];
-
-
-  /*
-  =====================================
-  NAVIGATION
-  =====================================
-  */
-
-  const handleNotifications = () => {
-
-    navigate(
-      "/admin/notifications"
-    );
-
-  };
 
 
   return (
@@ -306,17 +276,19 @@ const AdminDashboard = () => {
 
           <AdminNotificationBell />
 
-        {/* ALERT */}
 
-  <button
-    type="button"
-    className="admin-action-button"
-    title="Alerts"
-  >
+          {/* ALERT */}
 
-    <FaBell />
+          <button
+            type="button"
+            className="admin-action-button"
+            title="Alerts"
+          >
 
-  </button>
+            <FaBell />
+
+          </button>
+
 
           {/* PROFILE */}
 
