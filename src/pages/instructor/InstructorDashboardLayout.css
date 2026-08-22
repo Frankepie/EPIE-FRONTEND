@@ -1,11 +1,13 @@
 /* =========================================
-   STUDENT DASHBOARD LAYOUT
+   INSTRUCTOR DASHBOARD LAYOUT
 ========================================= */
 
-.student-dashboard-layout {
+.instructor-dashboard-layout {
   display: flex;
+
   width: 100%;
   min-height: 100vh;
+
   background: #f5f7fb;
 }
 
@@ -14,8 +16,9 @@
    MAIN CONTENT
 ========================================= */
 
-.student-dashboard-main {
+.instructor-dashboard-main {
   flex: 1;
+
   min-width: 0;
   min-height: 100vh;
 
@@ -33,7 +36,7 @@
    MOBILE HEADER
 ========================================= */
 
-.student-mobile-header {
+.instructor-mobile-header {
   display: none;
 }
 
@@ -42,17 +45,16 @@
    MOBILE OVERLAY
 ========================================= */
 
-.student-mobile-overlay {
+.instructor-mobile-overlay {
   display: none;
 }
 
 
 /* =========================================
-   STUDENT BOTTOM NAV
-   Hidden on desktop
+   MOBILE BOTTOM NAVIGATION
 ========================================= */
 
-.student-bottom-nav {
+.instructor-bottom-nav {
   display: none;
 }
 
@@ -63,8 +65,9 @@
 
 @media (max-width: 1024px) {
 
-  .student-dashboard-main {
+  .instructor-dashboard-main {
     margin-left: 230px;
+
     padding: 25px 20px;
   }
 
@@ -77,18 +80,18 @@
 
 @media (max-width: 768px) {
 
-  .student-dashboard-layout {
+  .instructor-dashboard-layout {
     display: block;
-    width: 100%;
+
     min-height: 100vh;
   }
 
 
-  /* =====================================
+  /* =======================================
      MAIN CONTENT
-  ===================================== */
+  ======================================= */
 
-  .student-dashboard-main {
+  .instructor-dashboard-main {
 
     width: 100%;
 
@@ -96,20 +99,18 @@
 
     min-height: 100vh;
 
-    padding: 16px;
-
-    padding-bottom: 90px;
+    padding: 16px 16px 95px;
 
     box-sizing: border-box;
 
   }
 
 
-  /* =====================================
+  /* =======================================
      MOBILE HEADER
-  ===================================== */
+  ======================================= */
 
-  .student-mobile-header {
+  .instructor-mobile-header {
 
     display: flex;
 
@@ -121,12 +122,12 @@
 
     height: 52px;
 
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 
   }
 
 
-  .student-mobile-menu-button {
+  .instructor-mobile-menu-button {
 
     width: 42px;
 
@@ -156,14 +157,14 @@
   }
 
 
-  .student-mobile-menu-button:active {
+  .instructor-mobile-menu-button:active {
 
     transform: scale(0.96);
 
   }
 
 
-  .student-mobile-header-title {
+  .instructor-mobile-header-title {
 
     font-size: 18px;
 
@@ -174,15 +175,16 @@
   }
 
 
-  /* =====================================
-     SIDEBAR AS MOBILE DRAWER
-  ===================================== */
+  /* =======================================
+     SIDEBAR → MOBILE DRAWER
+  ======================================= */
 
-  .student-sidebar {
+  .instructor-sidebar {
 
     position: fixed;
 
     top: 0;
+
     left: 0;
 
     width: 270px;
@@ -201,20 +203,18 @@
   }
 
 
-  /* Sidebar opened */
-
-  .mobile-menu-open .student-sidebar {
+  .mobile-menu-open .instructor-sidebar {
 
     transform: translateX(0);
 
   }
 
 
-  /* =====================================
-     MOBILE OVERLAY
-  ===================================== */
+  /* =======================================
+     OVERLAY
+  ======================================= */
 
-  .student-mobile-overlay {
+  .instructor-mobile-overlay {
 
     display: block;
 
@@ -229,19 +229,19 @@
   }
 
 
-  /* =====================================
-     STUDENT BOTTOM NAVIGATION
-  ===================================== */
+  /* =======================================
+     BOTTOM NAVIGATION
+  ======================================= */
 
-  .student-bottom-nav {
+  .instructor-bottom-nav {
 
     position: fixed;
 
     left: 0;
-    right: 0;
-    bottom: 0;
 
-    width: 100%;
+    right: 0;
+
+    bottom: 0;
 
     height: 68px;
 
@@ -263,7 +263,7 @@
   }
 
 
-  .student-bottom-nav-item {
+  .instructor-bottom-nav-item {
 
     flex: 1;
 
@@ -287,85 +287,56 @@
 
     font-weight: 600;
 
-    transition:
-      color 0.2s ease;
-
   }
 
 
-  .student-bottom-nav-item i {
+  .instructor-bottom-nav-item svg {
 
     font-size: 18px;
 
   }
 
 
-  .student-bottom-nav-item.active {
+  .instructor-bottom-nav-item.active {
 
     color: #4f46c5;
 
   }
 
 
-  /* =====================================
-     SMALL MOBILE
-  ===================================== */
+  /* =======================================
+     CONTENT SPACE FOR BOTTOM NAV
+  ======================================= */
 
-  @media (max-width: 480px) {
+  .instructor-dashboard-main {
 
-    .student-dashboard-main {
+    padding-bottom: 95px;
 
-      padding: 14px 12px;
+  }
 
-      padding-bottom: 90px;
-
-    }
+}
 
 
-    .student-mobile-header {
+/* =========================================
+   SMALL MOBILE
+========================================= */
 
-      height: 48px;
+@media (max-width: 480px) {
 
-      margin-bottom: 12px;
+  .instructor-dashboard-main {
 
-    }
+    padding-left: 12px;
 
+    padding-right: 12px;
 
-    .student-mobile-menu-button {
+    padding-bottom: 95px;
 
-      width: 40px;
-
-      height: 40px;
-
-    }
-
-
-    .student-mobile-header-title {
-
-      font-size: 17px;
-
-    }
+  }
 
 
-    .student-bottom-nav {
+  .instructor-mobile-header-title {
 
-      height: 66px;
-
-    }
-
-
-    .student-bottom-nav-item {
-
-      font-size: 9px;
-
-    }
-
-
-    .student-bottom-nav-item i {
-
-      font-size: 17px;
-
-    }
+    font-size: 17px;
 
   }
 
@@ -378,23 +349,13 @@
 
 @media (min-width: 769px) {
 
-  .student-sidebar {
+  .instructor-mobile-header,
 
-    position: fixed;
+  .instructor-mobile-overlay,
 
-    left: 0;
-    top: 0;
+  .instructor-bottom-nav {
 
-    height: 100vh;
-
-  }
-
-
-  .student-mobile-header,
-  .student-mobile-overlay,
-  .student-bottom-nav {
-
-    display: none !important;
+    display: none;
 
   }
 

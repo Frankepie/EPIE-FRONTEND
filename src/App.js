@@ -72,6 +72,8 @@ import "./App.css";
 
 import CourseCommunication from "./pages/student/CourseCommunication";
 
+import InstructorDashboardLayout  from "./pages/instructor/InstructorDashboardLayout";
+
 
 function App() {
 
@@ -149,106 +151,228 @@ function App() {
               }
             />
 
+{/* =================================
+    INSTRUCTOR SECTION
+================================= */}
 
-            {/* =================================
-                INSTRUCTOR
-            ================================= */}
-
-            <Route
-              path="/instructor-dashboard"
-              element={
-                <ProtectedRoute>
-                  <InstructorDashboard />
-                </ProtectedRoute>
-              }
-            />
-
-            <Route
-              path="/instructor/courses"
-              element={
-                <ProtectedRoute>
-                  <InstructorCourses />
-                </ProtectedRoute>
-              }
-            />
-
-            <Route
-              path="/instructor/courses/create"
-              element={
-                <ProtectedRoute>
-                  <CreateCourse />
-                </ProtectedRoute>
-              }
-            />
-
-            <Route
-              path="/instructor/courses/edit/:id"
-              element={
-                <ProtectedRoute>
-                  <EditCourse />
-                </ProtectedRoute>
-              }
-            />
-
-            <Route
-              path="/instructor/courses/:courseId/modules"
-              element={
-                <ProtectedRoute>
-                  <CourseModules />
-                </ProtectedRoute>
-              }
-            />
-
- <Route
-  path="/instructor/modules/:moduleId/lessons"
+<Route
+  path="/instructor"
   element={
     <ProtectedRoute>
+      <InstructorDashboardLayout />
+    </ProtectedRoute>
+  }
+>
+
+  {/* /instructor → /instructor/dashboard */}
+
+  <Route
+    index
+    element={
+      <Navigate
+        to="dashboard"
+        replace
+      />
+    }
+  />
+
+
+  {/* =================================
+      INSTRUCTOR DASHBOARD
+  ================================= */}
+
+  <Route
+    path="dashboard"
+    element={
+      <InstructorDashboard />
+    }
+  />
+
+
+  {/* =================================
+      INSTRUCTOR COURSES
+  ================================= */}
+
+  <Route
+    path="courses"
+    element={
+      <InstructorCourses />
+    }
+  />
+
+
+  {/* =================================
+      CREATE COURSE
+  ================================= */}
+
+  <Route
+    path="courses/create"
+    element={
+      <CreateCourse />
+    }
+  />
+
+
+  {/* =================================
+      EDIT COURSE
+  ================================= */}
+
+  <Route
+    path="courses/edit/:id"
+    element={
+      <EditCourse />
+    }
+  />
+
+
+  {/* =================================
+      COURSE MODULES
+  ================================= */}
+
+  <Route
+    path="courses/:courseId/modules"
+    element={
+      <CourseModules />
+    }
+  />
+
+
+  {/* =================================
+      LESSON MANAGER
+  ================================= */}
+
+  <Route
+    path="modules/:moduleId/lessons"
+    element={
       <LessonManager />
-    </ProtectedRoute>
-  }
-/>
-<Route
-  path="/instructor/lessons"
-  element={
-    <ProtectedRoute>
+    }
+  />
+
+
+  {/* =================================
+      INSTRUCTOR LESSONS
+  ================================= */}
+
+  <Route
+    path="lessons"
+    element={
       <InstructorLessons />
-    </ProtectedRoute>
-  }
-/>
+    }
+  />
 
-            <Route
-              path="/instructor/courses/:courseId/assignments/create"
-              element={
-                <ProtectedRoute>
-                  <CreateAssignment />
-                </ProtectedRoute>
-              }
-            />
 
-           <Route
-  path="/instructor/assignments"
-  element={
-    <ProtectedRoute>
+  {/* =================================
+      STUDENTS
+  ================================= */}
+
+  <Route
+    path="students"
+    element={
+      <InstructorStudents />
+    }
+  />
+
+
+  {/* =================================
+      ASSIGNMENTS
+  ================================= */}
+
+  <Route
+    path="assignments"
+    element={
       <InstructorAssignments />
-    </ProtectedRoute>
-  }
-/>
-            <Route
-              path="/instructor/assignments/edit/:id"
-              element={
-                <ProtectedRoute>
-                  <EditAssignment />
-                </ProtectedRoute>
-              }
-            />
-<Route
-  path="/instructor/assignments/:assignmentId/submissions"
-  element={
-    <ProtectedRoute>
+    }
+  />
+
+
+  {/* =================================
+      CREATE ASSIGNMENT
+  ================================= */}
+
+  <Route
+    path="courses/:courseId/assignments/create"
+    element={
+      <CreateAssignment />
+    }
+  />
+
+
+  {/* =================================
+      EDIT ASSIGNMENT
+  ================================= */}
+
+  <Route
+    path="assignments/edit/:id"
+    element={
+      <EditAssignment />
+    }
+  />
+
+
+  {/* =================================
+      ASSIGNMENT SUBMISSIONS
+  ================================= */}
+
+  <Route
+    path="assignments/:assignmentId/submissions"
+    element={
       <InstructorAssignmentSubmissions />
-    </ProtectedRoute>
-  }
-/>
+    }
+  />
+
+
+  {/* =================================
+      DISCUSSIONS
+  ================================= */}
+
+  <Route
+    path="discussions"
+    element={
+      <div>
+        Instructor Discussions
+      </div>
+    }
+  />
+
+
+  {/* =================================
+      EARNINGS
+  ================================= */}
+
+  <Route
+    path="earnings"
+    element={
+      <div>
+        Instructor Earnings
+      </div>
+    }
+  />
+
+
+  {/* =================================
+      PROFILE
+  ================================= */}
+
+  <Route
+    path="profile"
+    element={
+      <Profile />
+    }
+  />
+
+
+  {/* =================================
+      SETTINGS
+  ================================= */}
+
+  <Route
+    path="settings"
+    element={
+      <Settings />
+    }
+  />
+
+</Route>
 
             {/* =================================
                 GENERAL PAGES

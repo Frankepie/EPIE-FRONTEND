@@ -78,7 +78,7 @@ const Login = () => {
         data.user.role === "instructor"
       ) {
 
-        navigate("/instructor-dashboard");
+        navigate("/instructor/dashboard");
 
       } else {
 

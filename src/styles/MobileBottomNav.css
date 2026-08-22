@@ -1,0 +1,113 @@
+.mobile-bottom-nav {
+  display: none;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 768px) {
+
+  .mobile-bottom-nav {
+
+    position: fixed;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    height: 68px;
+
+    background: #ffffff;
+
+    border-top: 1px solid #e5e7eb;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-around;
+
+    z-index: 9999;
+
+    box-shadow:
+      0 -4px 15px rgba(0, 0, 0, 0.08);
+
+    padding:
+      6px
+      8px
+      env(safe-area-inset-bottom);
+
+  }
+
+
+  .mobile-bottom-link {
+
+    flex: 1;
+
+    height: 100%;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 4px;
+
+    text-decoration: none;
+
+    color: #7b7f8a;
+
+    font-size: 11px;
+
+    font-weight: 500;
+
+    transition:
+      color 0.2s ease,
+      transform 0.2s ease;
+
+  }
+
+
+  .mobile-bottom-link svg {
+
+    font-size: 20px;
+
+  }
+
+
+  .mobile-bottom-link.active {
+
+    color: #4f46c5;
+
+    font-weight: 600;
+
+  }
+
+
+  .mobile-bottom-link.active svg {
+
+    transform: translateY(-1px);
+
+  }
+
+}
+
+
+/* =========================================
+   DESKTOP
+========================================= */
+
+@media (min-width: 769px) {
+
+  .mobile-bottom-nav {
+
+    display: none !important;
+
+  }
+
+}

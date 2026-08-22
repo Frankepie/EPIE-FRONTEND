@@ -9,6 +9,16 @@ import {
 } from "react-router-dom";
 
 import {
+  FaBell,
+  FaSearch,
+  FaCalendarAlt,
+  FaPlus,
+  FaUpload,
+  FaEnvelope,
+  FaVideo
+} from "react-icons/fa";
+
+import {
   useAuth
 } from "../../context/AuthContext";
 
@@ -23,8 +33,7 @@ const InstructorDashboard = () => {
 
   const {
     user,
-    token,
-    logout
+    token
   } = useAuth();
 
   const navigate =
@@ -33,10 +42,13 @@ const InstructorDashboard = () => {
 
   const [courses, setCourses] =
     useState([]);
-   const [totalStudents, setTotalStudents] =
-  useState(0);
+
+  const [totalStudents, setTotalStudents] =
+    useState(0);
+
   const [totalLessons] =
-  useState(0);
+    useState(0);
+
   const [loading, setLoading] =
     useState(true);
 
@@ -44,61 +56,78 @@ const InstructorDashboard = () => {
     useState("");
 
 
+  /*
+  =====================================
+  LOAD INSTRUCTOR COURSES
+  =====================================
+  */
+
   useEffect(() => {
 
-    const loadCourses =
-      async () => {
+    const loadCourses = async () => {
 
-        try {
+      try {
 
-          setLoading(true);
-          setError("");
+        setLoading(true);
 
-          const data =
-            await getInstructorCourses(
-              token
-            );
+        setError("");
 
-         setCourses(
-  data.courses ||
-  data.data ||
-  []
-);
 
-setTotalStudents(
-  data.totalStudents || 0
-);
-
-        } catch (error) {
-
-          setError(
-            error.message
+        const data =
+          await getInstructorCourses(
+            token
           );
 
-        } finally {
 
-          setLoading(false);
+        setCourses(
+          data.courses ||
+          data.data ||
+          []
+        );
 
-        }
 
-      };
+        setTotalStudents(
+          data.totalStudents || 0
+        );
+
+
+      } catch (error) {
+
+        console.error(
+          "Instructor dashboard error:",
+          error
+        );
+
+
+        setError(
+          error.message ||
+          "Unable to load instructor dashboard."
+        );
+
+
+      } finally {
+
+        setLoading(false);
+
+      }
+
+    };
 
 
     if (token) {
+
       loadCourses();
+
     }
 
   }, [token]);
 
 
-  const handleLogout = () => {
-
-    logout();
-
-    navigate("/login");
-
-  };
-
+  /*
+  =====================================
+  INSTRUCTOR NAME
+  =====================================
+  */
 
   const getInstructorName = () => {
 
@@ -111,660 +140,619 @@ setTotalStudents(
   };
 
 
+  /*
+  =====================================
+  RENDER
+  =====================================
+  */
+
   return (
 
-    <div className="instructor-dashboard">
+    <div className="instructor-dashboard-content">
 
 
       {/* =====================================
-          SIDEBAR
-      ====================================== */}
+          TOP HEADER
+      ===================================== */}
 
-      <aside className="instructor-sidebar">
+      <header className="instructor-topbar">
 
 
-        <div className="instructor-brand">
+        <div className="instructor-welcome">
 
-          <div className="brand-logo">
-            E
-          </div>
+          <p>
+            Instructor Dashboard
+          </p>
 
-          <span>
-            EduLearn
-          </span>
+          <h1>
+            Welcome back,{" "}
+            {getInstructorName()}!
+          </h1>
 
         </div>
 
 
-        <nav className="instructor-navigation">
+        {/* ===================================
+            HEADER ACTIONS
+        =================================== */}
+
+        <div className="instructor-topbar-actions">
 
 
-          <NavLink
-            to="/instructor/dashboard"
-            className="instructor-nav-item"
+          <button
+            type="button"
+            className="topbar-icon-button"
+            title="Notifications"
+            onClick={() =>
+              navigate(
+                "/instructor/notifications"
+              )
+            }
           >
 
-            <span className="nav-icon">
-              ▣
-            </span>
+            <FaBell />
 
-            <span>
-              Dashboard
-            </span>
-
-          </NavLink>
+          </button>
 
 
-          <NavLink
-            to="/instructor/courses"
-            className="instructor-nav-item"
+          <button
+            type="button"
+            className="topbar-icon-button"
+            title="Search"
           >
 
-            <span className="nav-icon">
-              ▤
-            </span>
+            <FaSearch />
 
-            <span>
-              My Courses
-            </span>
-
-          </NavLink>
+          </button>
 
 
-          <NavLink
-            to="/instructor/students"
-            className="instructor-nav-item"
+          <button
+            type="button"
+            className="topbar-icon-button"
+            title="Calendar"
+            onClick={() =>
+              navigate(
+                "/instructor/meetings"
+              )
+            }
           >
 
-            <span className="nav-icon">
-              ♧
-            </span>
+            <FaCalendarAlt />
 
-            <span>
-              Students
-            </span>
-
-          </NavLink>
+          </button>
 
 
-          <NavLink
-            to="/instructor/assignments"
-            className="instructor-nav-item"
+          <button
+            type="button"
+            className="instructor-avatar"
+            title="Profile"
+            onClick={() =>
+              navigate(
+                "/instructor/profile"
+              )
+            }
           >
 
-            <span className="nav-icon">
-              ☑
-            </span>
+            {getInstructorName()
+              .charAt(0)
+              .toUpperCase()}
 
-            <span>
-              Assignments
-            </span>
-
-          </NavLink>
-
-<NavLink
-  to="/instructor/courses"
-  className="instructor-nav-item"
->
-  <span className="nav-icon">
-    ▧
-  </span>
-
-  <span>
-    Lessons
-  </span>
-</NavLink>
+          </button>
 
 
-          <NavLink
-            to="/instructor/discussions"
-            className="instructor-nav-item"
-          >
-
-            <span className="nav-icon">
-              ▢
-            </span>
-
-            <span>
-              Discussions
-            </span>
-
-          </NavLink>
+        </div>
 
 
-          <NavLink
-            to="/instructor/earnings"
-            className="instructor-nav-item"
-          >
-
-            <span className="nav-icon">
-              ◉
-            </span>
-
-            <span>
-              Earnings
-            </span>
-
-          </NavLink>
-
-
-          <NavLink
-            to="/instructor/profile"
-            className="instructor-nav-item"
-          >
-
-            <span className="nav-icon">
-              ○
-            </span>
-
-            <span>
-              Profile
-            </span>
-
-          </NavLink>
-
-
-          <NavLink
-            to="/instructor/settings"
-            className="instructor-nav-item"
-          >
-
-            <span className="nav-icon">
-              ⚙
-            </span>
-
-            <span>
-              Settings
-            </span>
-
-          </NavLink>
-
-
-        </nav>
-
-
-        <div className="instructor-sidebar-divider" />
-
-
-        <button
-          type="button"
-          className="instructor-logout"
-          onClick={handleLogout}
-        >
-
-          <span className="nav-icon">
-            ↪
-          </span>
-
-          <span>
-            Logout
-          </span>
-
-        </button>
-
-
-      </aside>
+      </header>
 
 
 
       {/* =====================================
-          MAIN CONTENT
-      ====================================== */}
+          OVERVIEW
+      ===================================== */}
 
-      <main className="instructor-main">
-
-
-        {/* HEADER */}
-
-        <header className="instructor-topbar">
+      <section className="instructor-overview">
 
 
-          <div className="instructor-welcome">
+        <div className="section-heading">
 
-            <p>
-              Instructor Dashboard
-            </p>
+          <h2>
+            Overview
+          </h2>
 
-            <h1>
-              Welcome back,{" "}
-              {getInstructorName()}! 👋
-            </h1>
-
-          </div>
+        </div>
 
 
-          <div className="instructor-topbar-actions">
+        <div className="instructor-stats">
 
 
-            <button
-              type="button"
-              className="topbar-icon-button"
-              title="Notifications"
-            >
-              ♧
-            </button>
+          {/* =================================
+              TOTAL COURSES
+          ================================= */}
 
+          <div className="instructor-stat-card">
 
-            <button
-              type="button"
-              className="topbar-icon-button"
-              title="Search"
-            >
-              ⌕
-            </button>
+            <div className="stat-card-title">
 
+              <span className="stat-dot purple" />
 
-            <button
-              type="button"
-              className="topbar-icon-button"
-              title="Calendar"
-            >
-              ▣
-            </button>
-
-
-            <div className="instructor-avatar">
-
-              {getInstructorName()
-                .charAt(0)
-                .toUpperCase()}
+              <span>
+                My Courses
+              </span>
 
             </div>
 
 
+            <strong>
+              {courses.length}
+            </strong>
+
+
+            <p className="stat-description">
+              Total courses created
+            </p>
+
           </div>
 
-        </header>
+
+
+          {/* =================================
+              PUBLISHED COURSES
+          ================================= */}
+
+          <div className="instructor-stat-card">
+
+            <div className="stat-card-title">
+
+              <span className="stat-dot violet" />
+
+              <span>
+                Published Courses
+              </span>
+
+            </div>
+
+
+            <strong>
+
+              {
+                courses.filter(
+                  course =>
+                    course.published === true
+                ).length
+              }
+
+            </strong>
+
+
+            <p className="stat-description">
+              Courses available to students
+            </p>
+
+          </div>
 
 
 
-        {/* OVERVIEW */}
+          {/* =================================
+              ENROLLED STUDENTS
+          ================================= */}
 
-      <section className="instructor-overview">
+          <div className="instructor-stat-card">
 
-  <div className="section-heading">
+            <div className="stat-card-title">
 
-    <h2>
-      Overview
-    </h2>
+              <span className="stat-dot green" />
 
-  </div>
+              <span>
+                Enrolled Students
+              </span>
+
+            </div>
 
 
-  <div className="instructor-stats">
+            <strong>
+              {totalStudents}
+            </strong>
 
 
-    {/* TOTAL COURSES */}
+            <p className="stat-description">
+              Students enrolled in your courses
+            </p>
 
-    <div className="instructor-stat-card">
-
-      <div className="stat-card-title">
-
-        <span className="stat-dot purple" />
-
-        <span>
-          My Courses
-        </span>
-
-      </div>
-
-      <strong>
-        {courses.length}
-      </strong>
-
-      <p className="stat-description">
-        Total courses created
-      </p>
-
-    </div>
+          </div>
 
 
 
-    {/* PUBLISHED COURSES */}
+          {/* =================================
+              TOTAL LESSONS
+          ================================= */}
 
-    <div className="instructor-stat-card">
+          <div className="instructor-stat-card">
 
-      <div className="stat-card-title">
+            <div className="stat-card-title">
 
-        <span className="stat-dot violet" />
+              <span className="stat-star">
+                ★
+              </span>
 
-        <span>
-          Published Courses
-        </span>
+              <span>
+                Total Lessons
+              </span>
 
-      </div>
-
-      <strong>
-        {
-          courses.filter(
-            (course) =>
-              course.published === true
-          ).length
-        }
-      </strong>
-
-      <p className="stat-description">
-        Courses available to students
-      </p>
-
-    </div>
+            </div>
 
 
-
-    {/* ENROLLED STUDENTS */}
-
-<div className="instructor-stat-card">
-
-  <div className="stat-card-title">
-
-    <span className="stat-dot green" />
-
-    <span>
-      Enrolled Students
-    </span>
-
-  </div>
-
-  <strong>
-    {totalStudents}
-  </strong>
-
-  <p className="stat-description">
-    Students enrolled in your courses
-  </p>
-
-</div>
+            <strong>
+              {totalLessons}
+            </strong>
 
 
-{/* TOTAL LESSONS */}
+            <p className="stat-description">
+              Lessons across your courses
+            </p>
 
-<div className="instructor-stat-card">
-
-  <div className="stat-card-title">
-
-    <span className="stat-star">
-      ★
-    </span>
-
-    <span>
-      Total Lessons
-    </span>
-
-  </div>
-
-  <strong>
-    {totalLessons}
-  </strong>
-
-  <p className="stat-description">
-    Lessons across your courses
-  </p>
-
-</div>
-
-  </div>
-
-</section>
+          </div>
 
 
-        {/* LOWER DASHBOARD */}
-
-        <div className="instructor-dashboard-grid">
+        </div>
 
 
-          {/* RECENT COURSES */}
-
-          <section className="recent-courses-section">
+      </section>
 
 
-            <div className="section-heading">
 
-              <h2>
-                Recent Courses
-              </h2>
+      {/* =====================================
+          LOWER DASHBOARD
+      ===================================== */}
+
+      <div className="instructor-dashboard-grid">
+
+
+        {/* ===================================
+            RECENT COURSES
+        =================================== */}
+
+        <section className="recent-courses-section">
+
+
+          <div className="section-heading">
+
+            <h2>
+              Recent Courses
+            </h2>
+
+
+            <NavLink
+              to="/instructor/courses"
+              className="view-all-link"
+            >
+              View all
+            </NavLink>
+
+          </div>
+
+
+
+          {/* =================================
+              LOADING
+          ================================= */}
+
+          {loading ? (
+
+            <div className="dashboard-message">
+
+              Loading courses...
+
+            </div>
+
+
+          ) : error ? (
+
+
+            <div className="dashboard-error">
+
+              {error}
+
+            </div>
+
+
+          ) : courses.length === 0 ? (
+
+
+            <div className="dashboard-empty">
+
+              <h3>
+                No courses yet
+              </h3>
+
+
+              <p>
+                Create your first course
+                to start teaching.
+              </p>
+
 
               <NavLink
                 to="/instructor/courses"
-                className="view-all-link"
+                className="create-course-link"
               >
-                View all
+                Create Course
               </NavLink>
 
             </div>
 
 
-            {loading ? (
-
-              <div className="dashboard-message">
-                Loading courses...
-              </div>
-
-            ) : error ? (
-
-              <div className="dashboard-error">
-                {error}
-              </div>
-
-            ) : courses.length === 0 ? (
-
-              <div className="dashboard-empty">
-
-                <h3>
-                  No courses yet
-                </h3>
-
-                <p>
-                  Create your first course
-                  to start teaching.
-                </p>
-
-                <NavLink
-                  to="/instructor/courses"
-                  className="create-course-link"
-                >
-                  Create Course
-                </NavLink>
-
-              </div>
-
-            ) : (
-
-              <div className="recent-course-list">
-
-                {courses
-                  .slice(0, 3)
-                  .map((course) => (
-
-                    <div
-                      className="recent-course-item"
-                      key={course._id}
-                    >
+          ) : (
 
 
-                      <div className="recent-course-image">
+            <div className="recent-course-list">
 
-                        {course.image ? (
+              {courses
+                .slice(0, 3)
+                .map(course => (
 
-                          <img
-                            src={course.image}
-                            alt={course.title}
-                          />
-
-                        ) : (
-
-                          <span>
-                            {course.title
-                              ?.charAt(0)
-                              .toUpperCase()}
-                          </span>
-
-                        )}
-
-                      </div>
+                  <div
+                    className="recent-course-item"
+                    key={course._id}
+                  >
 
 
-          <div className="recent-course-info">
+                    {/* COURSE IMAGE */}
 
-  <h3>
-    {course.title || "Untitled Course"}
-  </h3>
+                    <div className="recent-course-image">
 
-  <p>
-    {course.category || "Course"}
-  </p>
+                      {course.image ? (
 
-  <div className="recent-course-meta">
+                        <img
+                          src={course.image}
+                          alt={course.title}
+                        />
 
-    <span
-      className={
-        course.published
-          ? "course-status published-status"
-          : "course-status draft-status"
-      }
-    >
-      {course.published
-        ? "Published"
-        : "Draft"}
-    </span>
+                      ) : (
 
-    <span>
-      {course.level || "Beginner"}
-    </span>
+                        <span>
 
-    <span>
-      {course.duration || "0 hours"}
-    </span>
+                          {course.title
+                            ?.charAt(0)
+                            .toUpperCase()}
 
-    <span>
-      ${Number(course.price || 0).toFixed(2)}
-    </span>
+                        </span>
 
-  </div>
+                      )}
 
-</div>
+                    </div>
 
-                      <div className="recent-course-arrow">
 
-                        <NavLink
-                          to={`/instructor/courses/${course._id}`}
-                          title="Manage course"
+
+                    {/* COURSE INFORMATION */}
+
+                    <div className="recent-course-info">
+
+                      <h3>
+                        {
+                          course.title ||
+                          "Untitled Course"
+                        }
+                      </h3>
+
+
+                      <p>
+                        {
+                          course.category ||
+                          "Course"
+                        }
+                      </p>
+
+
+                      <div className="recent-course-meta">
+
+
+                        <span
+                          className={
+                            course.published
+                              ? "course-status published-status"
+                              : "course-status draft-status"
+                          }
                         >
-                          →
-                        </NavLink>
+
+                          {
+                            course.published
+                              ? "Published"
+                              : "Draft"
+                          }
+
+                        </span>
+
+
+                        <span>
+                          {
+                            course.level ||
+                            "Beginner"
+                          }
+                        </span>
+
+
+                        <span>
+                          {
+                            course.duration ||
+                            "0 hours"
+                          }
+                        </span>
+
+
+                        <span>
+                          $
+                          {Number(
+                            course.price || 0
+                          ).toFixed(2)}
+                        </span>
+
 
                       </div>
 
 
                     </div>
 
-                  ))}
-
-              </div>
-
-            )}
-
-          </section>
 
 
+                    {/* COURSE ARROW */}
 
-          {/* QUICK ACTIONS */}
+                    <div className="recent-course-arrow">
 
-          <section className="quick-actions-section">
+                      <NavLink
+                        to={`/instructor/courses/${course._id}`}
+                        title="Manage course"
+                      >
+
+                        →
+
+                      </NavLink>
+
+                    </div>
 
 
-            <div className="section-heading">
+                  </div>
 
-              <h2>
-                Quick Actions
-              </h2>
+                ))}
 
             </div>
 
-
-           <button
-  type="button"
-  className="quick-action"
-  onClick={() =>
-    navigate("/instructor/courses")
-  }
->
-
-  <span className="quick-action-icon">
-    +
-  </span>
-
-  <span>
-    Create a New Course
-  </span>
-
-</button>
-
-<button
-  type="button"
-  className="quick-action"
-  onClick={() =>
-    navigate("/instructor/courses")
-  }
->
-
-  <span className="quick-action-icon">
-    ↑
-  </span>
-
-  <span>
-    Add a New Lesson
-  </span>
-
-</button>
-            <button
-              type="button"
-              className="quick-action"
-              onClick={() =>
-                navigate(
-                  "/instructor/students"
-                )
-              }
-            >
-
-              <span className="quick-action-icon">
-                ✉
-              </span>
-
-              <span>
-                Student Messages
-              </span>
-
-            </button>
+          )}
 
 
-            <button
-              type="button"
-              className="quick-action"
-              onClick={() =>
-                navigate(
-                  "/instructor/meetings"
-                )
-              }
-            >
-
-              <span className="quick-action-icon">
-                ▣
-              </span>
-
-              <span>
-                Schedule Meeting
-              </span>
-
-            </button>
+        </section>
 
 
-          </section>
+
+        {/* ===================================
+            QUICK ACTIONS
+        =================================== */}
+
+        <section className="quick-actions-section">
 
 
-        </div>
+          <div className="section-heading">
+
+            <h2>
+              Quick Actions
+            </h2>
+
+          </div>
 
 
-      </main>
+
+          {/* CREATE COURSE */}
+
+          <button
+            type="button"
+            className="quick-action"
+            onClick={() =>
+              navigate(
+                "/instructor/courses"
+              )
+            }
+          >
+
+            <span className="quick-action-icon">
+
+              <FaPlus />
+
+            </span>
+
+
+            <span>
+              Create a New Course
+            </span>
+
+          </button>
+
+
+
+          {/* ADD LESSON */}
+
+          <button
+            type="button"
+            className="quick-action"
+            onClick={() =>
+              navigate(
+                "/instructor/courses"
+              )
+            }
+          >
+
+            <span className="quick-action-icon">
+
+              <FaUpload />
+
+            </span>
+
+
+            <span>
+              Add a New Lesson
+            </span>
+
+          </button>
+
+
+
+          {/* STUDENT MESSAGES */}
+
+          <button
+            type="button"
+            className="quick-action"
+            onClick={() =>
+              navigate(
+                "/instructor/students"
+              )
+            }
+          >
+
+            <span className="quick-action-icon">
+
+              <FaEnvelope />
+
+            </span>
+
+
+            <span>
+              Student Messages
+            </span>
+
+          </button>
+
+
+
+          {/* SCHEDULE MEETING */}
+
+          <button
+            type="button"
+            className="quick-action"
+            onClick={() =>
+              navigate(
+                "/instructor/meetings"
+              )
+            }
+          >
+
+            <span className="quick-action-icon">
+
+              <FaVideo />
+
+            </span>
+
+
+            <span>
+              Schedule Meeting
+            </span>
+
+          </button>
+
+
+        </section>
+
+
+      </div>
+
 
     </div>
 

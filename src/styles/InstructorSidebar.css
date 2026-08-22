@@ -1,0 +1,340 @@
+/* =========================================
+   INSTRUCTOR SIDEBAR
+========================================= */
+
+.instructor-sidebar {
+  position: fixed;
+
+  top: 0;
+  left: 0;
+
+  width: 260px;
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+
+  background: #ffffff;
+
+  border-right: 1px solid #e5e7eb;
+
+  box-sizing: border-box;
+
+  z-index: 1000;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  transition:
+    transform 0.25s ease;
+}
+
+
+/* =========================================
+   BRAND
+========================================= */
+
+.instructor-brand {
+  height: 76px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 0 24px;
+
+  flex-shrink: 0;
+
+  border-bottom: 1px solid #f0f1f5;
+}
+
+
+.instructor-brand .brand-logo {
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+
+  background: #4f46c5;
+
+  color: #ffffff;
+
+  font-size: 20px;
+  font-weight: 800;
+}
+
+
+.instructor-brand span {
+  font-size: 20px;
+
+  font-weight: 700;
+
+  color: #252a3a;
+
+  white-space: nowrap;
+}
+
+
+/* =========================================
+   NAVIGATION
+========================================= */
+
+.instructor-navigation {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 5px;
+
+  padding: 22px 14px;
+
+  flex: 1;
+}
+
+
+.instructor-nav-item {
+  display: flex;
+
+  align-items: center;
+
+  gap: 13px;
+
+  min-height: 46px;
+
+  padding: 0 14px;
+
+  border-radius: 10px;
+
+  text-decoration: none;
+
+  color: #6b7280;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+
+  box-sizing: border-box;
+}
+
+
+.instructor-nav-item:hover {
+  background: #f3f4ff;
+
+  color: #4f46c5;
+}
+
+
+.instructor-nav-item.active {
+  background: #eeecff;
+
+  color: #4f46c5;
+}
+
+
+/* =========================================
+   NAVIGATION ICON
+========================================= */
+
+.instructor-nav-item .nav-icon {
+  width: 22px;
+
+  min-width: 22px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  font-size: 17px;
+}
+
+
+/* =========================================
+   DIVIDER
+========================================= */
+
+.instructor-sidebar-divider {
+  height: 1px;
+
+  margin: 0 20px 12px;
+
+  background: #e5e7eb;
+
+  flex-shrink: 0;
+}
+
+
+/* =========================================
+   LOGOUT
+========================================= */
+
+.instructor-logout {
+  display: flex;
+
+  align-items: center;
+
+  gap: 13px;
+
+  width: calc(100% - 28px);
+
+  min-height: 46px;
+
+  margin: 0 14px 20px;
+
+  padding: 0 14px;
+
+  border: none;
+
+  border-radius: 10px;
+
+  background: transparent;
+
+  color: #6b7280;
+
+  font-family: inherit;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+
+.instructor-logout:hover {
+  background: #fff1f2;
+
+  color: #dc2626;
+}
+
+
+.instructor-logout .nav-icon {
+  width: 22px;
+
+  min-width: 22px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  font-size: 17px;
+}
+
+
+/* =========================================
+   SCROLLBAR
+========================================= */
+
+.instructor-sidebar::-webkit-scrollbar {
+  width: 5px;
+}
+
+
+.instructor-sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+
+.instructor-sidebar::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+
+  border-radius: 10px;
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 1024px) {
+
+  .instructor-sidebar {
+    width: 230px;
+  }
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 768px) {
+
+  .instructor-sidebar {
+    width: 270px;
+
+    transform: translateX(-100%);
+
+    box-shadow:
+      4px 0 20px rgba(0, 0, 0, 0.12);
+  }
+
+
+  /*
+    InstructorDashboardLayout should add
+    .mobile-menu-open when the hamburger
+    menu is opened.
+  */
+
+  .mobile-menu-open .instructor-sidebar {
+    transform: translateX(0);
+  }
+
+
+  .instructor-brand {
+    height: 68px;
+
+    padding: 0 20px;
+  }
+
+
+  .instructor-navigation {
+    padding: 18px 14px;
+  }
+
+
+  .instructor-nav-item {
+    min-height: 48px;
+
+    font-size: 14px;
+  }
+
+
+  .instructor-logout {
+    min-height: 48px;
+  }
+
+}
+
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 480px) {
+
+  .instructor-sidebar {
+    width: 260px;
+  }
+
+}
