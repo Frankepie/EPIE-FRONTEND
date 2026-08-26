@@ -16,6 +16,8 @@ const Settings = () => {
 const {
   language,
   changeLanguage,
+  darkMode,
+  changeDarkMode,
   t
 } = useLanguage();
   const { token } = useAuth();
@@ -25,23 +27,21 @@ const {
   // SETTINGS STATE
   // =====================================
 
-  const [settings, setSettings] = useState({
+ const [settings, setSettings] = useState({
 
-    darkMode: false,
+  language: "English",
 
-    language: "English",
+  notifications: {
 
-    notifications: {
+    email: true,
 
-      email: true,
+    courses: true,
 
-      courses: true,
+    assignments: true
 
-      assignments: true
+  }
 
-    }
-
-  });
+});
 
 
   // =====================================
@@ -87,14 +87,21 @@ const {
 
         const data =
           await getSettings(token);
+if (
+  data.settings?.darkMode !== undefined
+) {
 
+  changeDarkMode(
+    data.settings.darkMode
+  );
+
+} 
 
         if (data.settings) {
 
           setSettings({
 
-            darkMode:
-              data.settings.darkMode ?? false,
+           
 
             language:
               data.settings.language ??
@@ -145,7 +152,23 @@ const {
 
   }, [token]);
 
+// =====================================
+// APPLY DARK MODE
+// =====================================
 
+useEffect(() => {
+
+  if (settings.darkMode) {
+
+    document.body.classList.add("dark-mode");
+
+  } else {
+
+    document.body.classList.remove("dark-mode");
+
+  }
+
+}, [settings.darkMode]);
   // =====================================
   // HANDLE DARK MODE
   // =====================================

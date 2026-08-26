@@ -45,12 +45,51 @@ export const LanguageProvider = ({
 
 
   // =====================================
-  // LOAD SAVED LANGUAGE
+  // INITIAL DARK MODE
+  // =====================================
+
+  const [darkMode, setDarkMode] =
+    useState(() => {
+
+      return (
+        localStorage.getItem(
+          "edulearn-dark-mode"
+        ) === "true"
+      );
+
+    });
+
+
+  // =====================================
+  // APPLY DARK MODE GLOBALLY
   // =====================================
 
   useEffect(() => {
 
-    const loadLanguage = async () => {
+    if (darkMode) {
+
+      document.body.classList.add(
+        "dark-mode"
+      );
+
+    } else {
+
+      document.body.classList.remove(
+        "dark-mode"
+      );
+
+    }
+
+  }, [darkMode]);
+
+
+  // =====================================
+  // LOAD SAVED SETTINGS
+  // =====================================
+
+  useEffect(() => {
+
+    const loadSettings = async () => {
 
       if (!token) {
         return;
@@ -67,13 +106,38 @@ export const LanguageProvider = ({
           data.settings?.language
         ) {
 
+          const savedLanguage =
+            data.settings.language;
+
           setLanguage(
-            data.settings.language
+            savedLanguage
           );
 
           localStorage.setItem(
             "edulearn-language",
-            data.settings.language
+            savedLanguage
+          );
+
+        }
+
+
+        if (
+          data.settings?.darkMode !==
+          undefined
+        ) {
+
+          const savedDarkMode =
+            Boolean(
+              data.settings.darkMode
+            );
+
+          setDarkMode(
+            savedDarkMode
+          );
+
+          localStorage.setItem(
+            "edulearn-dark-mode",
+            savedDarkMode.toString()
           );
 
         }
@@ -81,7 +145,7 @@ export const LanguageProvider = ({
       } catch (error) {
 
         console.error(
-          "Failed to load language:",
+          "Failed to load settings:",
           error
         );
 
@@ -90,7 +154,7 @@ export const LanguageProvider = ({
     };
 
 
-    loadLanguage();
+    loadSettings();
 
   }, [token]);
 
@@ -112,7 +176,9 @@ export const LanguageProvider = ({
 
 
       // Update immediately
-      setLanguage(newLanguage);
+      setLanguage(
+        newLanguage
+      );
 
 
       // Save locally
@@ -150,6 +216,57 @@ export const LanguageProvider = ({
 
 
   // =====================================
+  // CHANGE DARK MODE
+  // =====================================
+
+  const changeDarkMode =
+    async (enabled) => {
+
+      const newValue =
+        Boolean(enabled);
+
+
+      // Update immediately
+      setDarkMode(
+        newValue
+      );
+
+
+      // Save locally
+      localStorage.setItem(
+        "edulearn-dark-mode",
+        newValue.toString()
+      );
+
+
+      // Save to MongoDB
+      if (token) {
+
+        try {
+
+          await updateSettings(
+            token,
+            {
+              darkMode:
+                newValue
+            }
+          );
+
+        } catch (error) {
+
+          console.error(
+            "Failed to save dark mode:",
+            error
+          );
+
+        }
+
+      }
+
+    };
+
+
+  // =====================================
   // TRANSLATION FUNCTION
   // =====================================
 
@@ -164,12 +281,18 @@ export const LanguageProvider = ({
   };
 
 
+  // =====================================
+  // PROVIDER
+  // =====================================
+
   return (
 
     <LanguageContext.Provider
       value={{
         language,
         changeLanguage,
+        darkMode,
+        changeDarkMode,
         t
       }}
     >
