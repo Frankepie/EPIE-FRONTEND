@@ -73,18 +73,19 @@ import "./App.css";
 import CourseCommunication from "./pages/student/CourseCommunication";
 
 import InstructorDashboardLayout  from "./pages/instructor/InstructorDashboardLayout";
-
+import StudentProfile from "./pages/student/StudentProfile";
+import {LanguageProvider} from "./context/LanguageContext";
 
 function App() {
 
   return (
+<BrowserRouter>
 
-    <BrowserRouter>
+  <AuthProvider>
 
-      <AuthProvider>
+    <LanguageProvider>
 
-        <Routes>
-
+      <Routes>
 
           {/* =====================================
     MAIN HOME PAGE
@@ -373,7 +374,16 @@ function App() {
   />
 
 </Route>
+   {/* =================================
+    STUDENT PROFILE
+================================= */}
 
+<Route
+  path="profile"
+  element={
+    <StudentProfile />
+  }
+/> 
             {/* =================================
                 GENERAL PAGES
             ================================= */}
@@ -437,7 +447,6 @@ function App() {
               element={<CertificateVerification />}
             />
 
-        
   
 {/* =====================================
     ADMIN SECTION
@@ -780,11 +789,13 @@ function App() {
 />
 
 
-        </Routes>
+            </Routes>
 
-      </AuthProvider>
+    </LanguageProvider>
 
-    </BrowserRouter>
+  </AuthProvider>
+
+</BrowserRouter>
   );
 }
 

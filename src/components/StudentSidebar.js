@@ -6,12 +6,16 @@ import {
 import {
   useAuth
 } from "../context/AuthContext";
-
+import {
+  useLanguage
+} from "../context/LanguageContext";
 import "../styles/StudentSidebar.css";
 
 
 const StudentSidebar = () => {
-
+const {
+  t
+} = useLanguage();
   const navigate = useNavigate();
 
   const { logout } = useAuth();
@@ -29,6 +33,7 @@ const StudentSidebar = () => {
   return (
 
     <aside className="student-sidebar">
+
 
       {/* ======================================
           LOGO
@@ -54,6 +59,8 @@ const StudentSidebar = () => {
       <nav className="student-sidebar-nav">
 
 
+        {/* DASHBOARD */}
+
         <NavLink
           to="/student/dashboard"
           className={({ isActive }) =>
@@ -62,10 +69,14 @@ const StudentSidebar = () => {
               : "student-nav-link"
           }
         >
+
           <i className="fa-regular fa-house"></i>
-          <span>Dashboard</span>
+
+        <span>{t("dashboard")}</span>
         </NavLink>
 
+
+        {/* MY COURSES */}
 
         <NavLink
           to="/student/courses"
@@ -75,23 +86,31 @@ const StudentSidebar = () => {
               : "student-nav-link"
           }
         >
+
           <i className="fa-solid fa-book"></i>
-          <span>My Courses</span>
+
+         <span>{t("myCourses")}</span>
+
         </NavLink>
 
 
+        {/* ASSIGNMENTS */}
+
         <NavLink
-         to="/student/assignments"
+          to="/student/assignments"
           className={({ isActive }) =>
             isActive
               ? "student-nav-link active"
               : "student-nav-link"
           }
         >
-          <span>📝</span>
-          <span>Assignments</span>
+
+          <i className="fa-solid fa-clipboard-list"></i>
+<span>{t("assignments")}</span>
         </NavLink>
 
+
+        {/* MY PROGRESS */}
 
         <NavLink
           to="/student/progress"
@@ -101,89 +120,126 @@ const StudentSidebar = () => {
               : "student-nav-link"
           }
         >
+
           <i className="fa-solid fa-bars-progress"></i>
-          <span>My Progress</span>
+
+         <span>{t("myProgress")}</span>
+
         </NavLink>
 
+
+        {/* CERTIFICATES */}
 
         <NavLink
-            to="/student/certificates"
+          to="/student/certificates"
           className={({ isActive }) =>
             isActive
               ? "student-nav-link active"
               : "student-nav-link"
           }
         >
-          <span><i className="fa-regular fa-trophy-star"></i></span>
-          <span>Certificates</span>
+
+          <i className="fa-solid fa-trophy"></i>
+
+         <span>{t("certificates")}</span>
+
         </NavLink>
 
-<NavLink
-  to="/student/bookmarks"
-  className={({ isActive }) =>
-    isActive
-      ? "student-nav-link active"
-      : "student-nav-link"
-  }
->
-  <span><i className="fa-solid fa-bookmark"></i></span>
-  <span>Bookmarks</span>
-</NavLink>
-        <NavLink to="/student/notifications"
+
+        {/* BOOKMARKS */}
+
+        <NavLink
+          to="/student/bookmarks"
           className={({ isActive }) =>
             isActive
               ? "student-nav-link active"
               : "student-nav-link"
           }
         >
-          <span><i className="fa-solid fa-bell fa-shake"></i></span>
-          <span>Notifications</span>
+
+          <i className="fa-solid fa-bookmark"></i>
+
+         <span>{t("bookmarks")}</span>
+
         </NavLink>
 
 
-       <NavLink
-  to="/student/discussions"
-  className={({ isActive }) =>
-    isActive
-      ? "student-nav-link active"
-      : "student-nav-link"
-  }
->
-  <span><i className="fa-solid fa-message fa-flip"></i></span>
-  <span>Discussions</span>
-</NavLink>
+        {/* NOTIFICATIONS */}
 
-<NavLink
-  to="/student/ai-assistant"
-  className={({ isActive }) =>
-    isActive
-      ? "student-nav-link active"
-      : "student-nav-link"
-  }
->
-  <span>
-    <i className="fa-solid fa-robot"></i>
-  </span>
+        <NavLink
+          to="/student/notifications"
+          className={({ isActive }) =>
+            isActive
+              ? "student-nav-link active"
+              : "student-nav-link"
+          }
+        >
 
-  <span>
-    AI Assistant
-  </span>
-</NavLink>
+          <i className="fa-solid fa-bell"></i>
+
+          <span>{t("notifications")}</span>
+
+        </NavLink>
+
+
+        {/* DISCUSSIONS */}
+
+        <NavLink
+          to="/student/discussions"
+          className={({ isActive }) =>
+            isActive
+              ? "student-nav-link active"
+              : "student-nav-link"
+          }
+        >
+
+          <i className="fa-solid fa-message"></i>
+
+          <span>{t("discussions")}</span>
+
+        </NavLink>
+
+
+        {/* AI ASSISTANT */}
+
+        <NavLink
+          to="/student/ai-assistant"
+          className={({ isActive }) =>
+            isActive
+              ? "student-nav-link active"
+              : "student-nav-link"
+          }
+        >
+
+          <i className="fa-solid fa-robot"></i>
+
+          <span>{t("aiAssistant")}</span>
+
+        </NavLink>
+
+
         <div className="student-sidebar-divider" />
 
 
+        {/* PROFILE */}
+
         <NavLink
-          to="/profile"
+          to="/student/profile"
           className={({ isActive }) =>
             isActive
               ? "student-nav-link active"
               : "student-nav-link"
           }
         >
-          <span><i className="fa-solid fa-user fa-beat-fade"></i></span>
-          <span>Profile</span>
+
+          <i className="fa-solid fa-user"></i>
+
+          <span>{t("profile")}</span>
+
         </NavLink>
 
+
+        {/* SETTINGS */}
 
         <NavLink
           to="/student/settings"
@@ -193,8 +249,11 @@ const StudentSidebar = () => {
               : "student-nav-link"
           }
         >
-          <span>⚙️</span>
-          <span>Settings</span>
+
+          <i className="fa-solid fa-gear"></i>
+
+          <span>{t("settings")}</span>
+
         </NavLink>
 
 
@@ -212,13 +271,11 @@ const StudentSidebar = () => {
           className="student-logout-button"
         >
 
-          <span>
-            <i className="fa-solid fa-door-open"></i>
-          </span>
+          <i className="fa-solid fa-right-from-bracket"></i>
 
           <span>
-            Logout
-          </span>
+  {t("logout")}
+</span>
 
         </button>
 

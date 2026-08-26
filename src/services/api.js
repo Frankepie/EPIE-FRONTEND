@@ -657,38 +657,50 @@ export const getModuleLessons = async (
 
 // CREATE LESSON
 
-export const createLesson = async (
-  lessonData,
-  token
-) => {
+export const createLesson =
+  async (
+    lessonData,
+    token
+  ) => {
 
-  const response = await fetch(
-    `${API_URL}/api/lessons`,
-    {
-      method: "POST",
+    const response =
+      await fetch(
+        `${API_URL}/api/lessons`,
+        {
 
-      headers: {
-        "Content-Type": "application/json",
+          method: "POST",
 
-        Authorization:
-          `Bearer ${token}`
-      },
+          headers: {
 
-      body: JSON.stringify(lessonData)
+            Authorization:
+              `Bearer ${token}`
+
+          },
+
+          body:
+            lessonData
+
+        }
+      );
+
+
+    const data =
+      await response.json();
+
+
+    if (!response.ok) {
+
+      throw new Error(
+        data.message ||
+        "Failed to create lesson"
+      );
+
     }
-  );
 
-  const data = await response.json();
 
-  if (!response.ok) {
-    throw new Error(
-      data.message ||
-      "Failed to create lesson"
-    );
-  }
+    return data;
 
-  return data;
-};
+  };
 
 
 // UPDATE LESSON
@@ -1918,4 +1930,82 @@ export const markAllNotificationsAsRead = async (
   }
 
   return data;
+};
+// =====================================
+// GET USER SETTINGS
+// =====================================
+
+export const getSettings = async (token) => {
+
+  const response = await fetch(
+    `${API_URL}/api/settings`,
+    {
+      method: "GET",
+
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }
+  );
+
+
+  const data =
+    await response.json();
+
+
+  if (!response.ok) {
+
+    throw new Error(
+      data.message ||
+      "Failed to load settings"
+    );
+
+  }
+
+
+  return data;
+
+};
+// =====================================
+// UPDATE USER SETTINGS
+// =====================================
+
+export const updateSettings = async (
+  token,
+  settings
+) => {
+
+  const response = await fetch(
+    `${API_URL}/api/settings`,
+    {
+      method: "PUT",
+
+      headers: {
+        "Content-Type": "application/json",
+
+        Authorization:
+          `Bearer ${token}`
+      },
+
+      body: JSON.stringify(settings)
+    }
+  );
+
+
+  const data =
+    await response.json();
+
+
+  if (!response.ok) {
+
+    throw new Error(
+      data.message ||
+      "Failed to update settings"
+    );
+
+  }
+
+
+  return data;
+
 };

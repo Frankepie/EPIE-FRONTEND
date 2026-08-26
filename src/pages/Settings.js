@@ -1,325 +1,715 @@
+import { useEffect, useState } from "react";
+
+import {
+  getSettings,
+  updateSettings
+} from "../services/api";
+
 import { useAuth } from "../context/AuthContext";
-import "../styles/Settings.css";
+import {
+  useLanguage
+} from "../context/LanguageContext";
+import "./Settings.css";
+
 
 const Settings = () => {
+const {
+  language,
+  changeLanguage,
+  t
+} = useLanguage();
+  const { token } = useAuth();
 
-  const { user } = useAuth();
+
+  // =====================================
+  // SETTINGS STATE
+  // =====================================
+
+  const [settings, setSettings] = useState({
+
+    darkMode: false,
+
+    language: "English",
+
+    notifications: {
+
+      email: true,
+
+      courses: true,
+
+      assignments: true
+
+    }
+
+  });
+
+
+  // =====================================
+  // UI STATE
+  // =====================================
+
+  const [loading, setLoading] =
+    useState(true);
+
+  const [saving, setSaving] =
+    useState(false);
+
+  const [error, setError] =
+    useState("");
+
+  const [success, setSuccess] =
+    useState("");
+
+
+  // =====================================
+  // LOAD SETTINGS
+  // =====================================
+
+  useEffect(() => {
+
+    const loadSettings = async () => {
+
+      if (!token) {
+
+        setLoading(false);
+
+        return;
+
+      }
+
+
+      try {
+
+        setLoading(true);
+
+        setError("");
+
+
+        const data =
+          await getSettings(token);
+
+
+        if (data.settings) {
+
+          setSettings({
+
+            darkMode:
+              data.settings.darkMode ?? false,
+
+            language:
+              data.settings.language ??
+              "English",
+
+            notifications: {
+
+              email:
+                data.settings.notifications?.email ??
+                true,
+
+              courses:
+                data.settings.notifications?.courses ??
+                true,
+
+              assignments:
+                data.settings.notifications?.assignments ??
+                true
+
+            }
+
+          });
+
+        }
+
+      } catch (err) {
+
+        console.error(
+          "Load settings error:",
+          err
+        );
+
+        setError(
+          err.message ||
+          "Failed to load settings"
+        );
+
+      } finally {
+
+        setLoading(false);
+
+      }
+
+    };
+
+
+    loadSettings();
+
+  }, [token]);
+
+
+  // =====================================
+  // HANDLE DARK MODE
+  // =====================================
+
+  const handleDarkModeChange = () => {
+
+    setSettings(previous => ({
+
+      ...previous,
+
+      darkMode:
+        !previous.darkMode
+
+    }));
+
+  };
+
+
+  // =====================================
+  // HANDLE LANGUAGE
+  // =====================================
+
+  const handleLanguageChange = (
+    event
+  ) => {
+
+    setSettings(previous => ({
+
+      ...previous,
+
+      language:
+        event.target.value
+
+    }));
+
+  };
+
+
+  // =====================================
+  // HANDLE NOTIFICATIONS
+  // =====================================
+
+  const handleNotificationChange = (
+    field
+  ) => {
+
+    setSettings(previous => ({
+
+      ...previous,
+
+      notifications: {
+
+        ...previous.notifications,
+
+        [field]:
+          !previous.notifications[field]
+
+      }
+
+    }));
+
+  };
+
+
+  // =====================================
+  // SAVE SETTINGS
+  // =====================================
+
+  const handleSave = async () => {
+
+    if (!token) {
+
+      setError(
+        "You must be logged in to save settings."
+      );
+
+      return;
+
+    }
+
+
+    try {
+
+      setSaving(true);
+
+      setError("");
+
+      setSuccess("");
+
+
+      const data =
+        await updateSettings(
+          token,
+          settings
+        );
+
+
+      if (data.settings) {
+
+        setSettings({
+
+          darkMode:
+            data.settings.darkMode,
+
+          language:
+            data.settings.language,
+
+          notifications: {
+
+            email:
+              data.settings.notifications?.email ??
+              true,
+
+            courses:
+              data.settings.notifications?.courses ??
+              true,
+
+            assignments:
+              data.settings.notifications?.assignments ??
+              true
+
+          }
+
+        });
+
+      }
+
+
+      setSuccess(
+        "Settings saved successfully."
+      );
+
+
+      // Automatically remove message
+      setTimeout(() => {
+
+        setSuccess("");
+
+      }, 3000);
+
+
+    } catch (err) {
+
+      console.error(
+        "Save settings error:",
+        err
+      );
+
+      setError(
+        err.message ||
+        "Failed to save settings"
+      );
+
+    } finally {
+
+      setSaving(false);
+
+    }
+
+  };
+
+
+  // =====================================
+  // LOADING
+  // =====================================
+
+  if (loading) {
+
+    return (
+
+      <div className="settings-page">
+
+        <div className="settings-loading">
+
+          <i className="fa-solid fa-spinner fa-spin"></i>
+
+          <span>
+            Loading settings...
+          </span>
+
+        </div>
+
+      </div>
+
+    );
+
+  }
+
+
+  // =====================================
+  // PAGE
+  // =====================================
 
   return (
 
     <div className="settings-page">
 
+
+      {/* =================================
+          HEADER
+      ================================= */}
+
       <div className="settings-header">
 
-        <p>
-          Student Area
-        </p>
+        <div>
 
         <h1>
-          Settings
-        </h1>
+  {t("settingsTitle")}
+</h1>
 
-        <span>
-          Manage your account and learning preferences.
-        </span>
+<p>
+  {t("settingsDescription")}
+</p>
+        </div>
 
       </div>
 
 
-      <div className="settings-container">
+      {/* =================================
+          ERROR
+      ================================= */}
+
+      {error && (
+
+        <div className="settings-message settings-error">
+
+          <i className="fa-solid fa-circle-exclamation"></i>
+
+          <span>
+            {error}
+          </span>
+
+        </div>
+
+      )}
 
 
-        {/* ======================================
-            ACCOUNT SETTINGS
-        ====================================== */}
+      {/* =================================
+          SUCCESS
+      ================================= */}
 
-        <div className="settings-card">
+     {success && (
 
-          <div className="settings-card-header">
+  <div className="settings-message settings-success">
 
-            <div className="settings-icon">
-              👤
-            </div>
+    <i className="fa-solid fa-circle-check"></i>
 
-            <div>
+    <span>
+      {t("settingsSaved")}
+    </span>
 
-              <h2>
-                Account
-              </h2>
+  </div>
 
-              <p>
-                Your account information
-              </p>
-
-            </div>
-
-          </div>
+)}
 
 
-          <div className="settings-row">
+      {/* =================================
+          APPEARANCE
+      ================================= */}
 
-            <div>
+      <section className="settings-card">
 
-              <span>
-                Full Name
-              </span>
+        <div className="settings-card-header">
 
-              <strong>
-                {user?.fullName ||
-                  user?.name ||
-                  "Student"}
-              </strong>
+          <div className="settings-icon">
 
-            </div>
-
-          </div>
-
-
-          <div className="settings-row">
-
-            <div>
-
-              <span>
-                Email Address
-              </span>
-
-              <strong>
-                {user?.email ||
-                  "Not available"}
-              </strong>
-
-            </div>
+            <i className="fa-solid fa-palette"></i>
 
           </div>
 
+          <div>
+<h2>
+  {t("appearance")}
+</h2>
 
-          <div className="settings-row">
-
-            <div>
-
-              <span>
-                Account Type
-              </span>
-
-              <strong>
-                {user?.role ||
-                  "Student"}
-              </strong>
-
-            </div>
+<p>
+  {t("appearanceDescription")}
+</p>
 
           </div>
 
         </div>
 
 
-        {/* ======================================
-            NOTIFICATIONS
-        ====================================== */}
+        <div className="settings-option">
 
-        <div className="settings-card">
+          <div className="settings-option-info">
 
-          <div className="settings-card-header">
+       <h3>
+  {t("darkMode")}
+</h3>
 
-            <div className="settings-icon">
-              🔔
-            </div>
-
-            <div>
-
-              <h2>
-                Notifications
-              </h2>
-
-              <p>
-                Manage your notification preferences
-              </p>
-
-            </div>
+<p>
+  {t("darkModeDescription")}
+</p>
 
           </div>
 
 
-          <div className="settings-option">
+          <label className="settings-switch">
 
-            <div>
+            <input
+              type="checkbox"
+              checked={settings.darkMode}
+              onChange={
+                handleDarkModeChange
+              }
+            />
 
-              <strong>
-                Assignment Notifications
-              </strong>
+            <span className="settings-slider"></span>
 
-              <span>
-                Receive notifications about new assignments.
-              </span>
+          </label>
 
-            </div>
+        </div>
 
-            <label className="settings-switch">
-
-              <input
-                type="checkbox"
-                defaultChecked
-              />
-
-              <span></span>
-
-            </label>
-
-          </div>
+      </section>
 
 
-          <div className="settings-option">
+      {/* =================================
+          LANGUAGE
+      ================================= */}
 
-            <div>
+      <section className="settings-card">
 
-              <strong>
-                Course Notifications
-              </strong>
+        <div className="settings-card-header">
 
-              <span>
-                Receive updates about your courses.
-              </span>
+          <div className="settings-icon">
 
-            </div>
-
-            <label className="settings-switch">
-
-              <input
-                type="checkbox"
-                defaultChecked
-              />
-
-              <span></span>
-
-            </label>
+            <i className="fa-solid fa-language"></i>
 
           </div>
 
+          <div>
 
-          <div className="settings-option">
+            <h2>
+              Language
+            </h2>
 
-            <div>
-
-              <strong>
-                Certificate Notifications
-              </strong>
-
-              <span>
-                Get notified when certificates are available.
-              </span>
-
-            </div>
-
-            <label className="settings-switch">
-
-              <input
-                type="checkbox"
-                defaultChecked
-              />
-
-              <span></span>
-
-            </label>
+            <p>
+              Choose your preferred language.
+            </p>
 
           </div>
 
         </div>
 
 
-        {/* ======================================
-            APPEARANCE
-        ====================================== */}
+        <div className="settings-language">
 
-        <div className="settings-card">
+          <label htmlFor="language">
 
-          <div className="settings-card-header">
+            Language
 
-            <div className="settings-icon">
-              🎨
-            </div>
+          </label>
 
-            <div>
 
-              <h2>
-                Appearance
-              </h2>
+         <select
+  id="language"
+  value={language}
+  onChange={(event) => {
 
-              <p>
-                Customize how EduLearn looks.
-              </p>
+    changeLanguage(
+      event.target.value
+    );
 
-            </div>
+  }}
+>
+
+  <option value="English">
+    {t("english")}
+  </option>
+
+  <option value="French">
+    {t("french")}
+  </option>
+
+</select>
+      
+
+        </div>
+
+      </section>
+
+
+      {/* =================================
+          NOTIFICATIONS
+      ================================= */}
+
+      <section className="settings-card">
+
+        <div className="settings-card-header">
+
+          <div className="settings-icon">
+
+            <i className="fa-solid fa-bell"></i>
 
           </div>
 
+          <div>
 
-          <div className="settings-option">
+           <h2>
+  {t("notificationSettings")}
+</h2>
 
-            <div>
-
-              <strong>
-                Dark Mode
-              </strong>
-
-              <span>
-                Switch between light and dark appearance.
-              </span>
-
-            </div>
-
-            <label className="settings-switch">
-
-              <input
-                type="checkbox"
-              />
-
-              <span></span>
-
-            </label>
+<p>
+  {t("notificationDescription")}
+</p>
 
           </div>
 
         </div>
 
 
-        {/* ======================================
-            SECURITY
-        ====================================== */}
+        {/* EMAIL */}
 
-        <div className="settings-card">
+        <div className="settings-option">
 
-          <div className="settings-card-header">
+          <div className="settings-option-info">
 
-            <div className="settings-icon">
-              🔒
-            </div>
+            <h3>
+              Email Notifications
+            </h3>
 
-            <div>
-
-              <h2>
-                Security
-              </h2>
-
-              <p>
-                Manage your account security.
-              </p>
-
-            </div>
+            <p>
+              Receive important updates by email.
+            </p>
 
           </div>
 
 
-          <button
-            className="settings-security-button"
-            type="button"
-          >
-            Change Password
-          </button>
+          <label className="settings-switch">
+
+            <input
+              type="checkbox"
+              checked={
+                settings.notifications.email
+              }
+              onChange={() =>
+                handleNotificationChange(
+                  "email"
+                )
+              }
+            />
+
+            <span className="settings-slider"></span>
+
+          </label>
 
         </div>
 
+
+        {/* COURSES */}
+
+        <div className="settings-option">
+
+          <div className="settings-option-info">
+
+            <h3>
+              Course Notifications
+            </h3>
+
+            <p>
+              Receive updates about your enrolled courses.
+            </p>
+
+          </div>
+
+
+          <label className="settings-switch">
+
+            <input
+              type="checkbox"
+              checked={
+                settings.notifications.courses
+              }
+              onChange={() =>
+                handleNotificationChange(
+                  "courses"
+                )
+              }
+            />
+
+            <span className="settings-slider"></span>
+
+          </label>
+
+        </div>
+
+
+        {/* ASSIGNMENTS */}
+
+        <div className="settings-option">
+
+          <div className="settings-option-info">
+
+            <h3>
+              Assignment Notifications
+            </h3>
+
+            <p>
+              Receive notifications about assignments and deadlines.
+            </p>
+
+          </div>
+
+
+          <label className="settings-switch">
+
+            <input
+              type="checkbox"
+              checked={
+                settings.notifications.assignments
+              }
+              onChange={() =>
+                handleNotificationChange(
+                  "assignments"
+                )
+              }
+            />
+
+            <span className="settings-slider"></span>
+
+          </label>
+
+        </div>
+
+      </section>
+
+
+      {/* =================================
+          SAVE
+      ================================= */}
+
+      <div className="settings-actions">
+
+       <button
+  type="button"
+  className="settings-save-button"
+  onClick={handleSave}
+  disabled={saving}
+>
+
+  {saving ? (
+
+    <>
+      <i className="fa-solid fa-spinner fa-spin"></i>
+
+      {t("saving")}
+    </>
+
+  ) : (
+
+    <>
+      <i className="fa-solid fa-floppy-disk"></i>
+
+      {t("saveChanges")}
+    </>
+
+  )}
+
+</button>
 
       </div>
+
 
     </div>
 

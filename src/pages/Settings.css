@@ -1,0 +1,514 @@
+/* =========================================
+   STUDENT SETTINGS PAGE
+========================================= */
+
+.student-settings-page {
+  min-height: 100vh;
+  padding: 32px;
+  background: #f7f8fc;
+  box-sizing: border-box;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.student-settings-header {
+  margin-bottom: 28px;
+}
+
+.student-settings-header h1 {
+  margin: 0 0 8px;
+  font-size: 30px;
+  font-weight: 700;
+  color: #24213f;
+}
+
+.student-settings-header p {
+  margin: 0;
+  color: #77758a;
+  font-size: 15px;
+}
+
+
+/* =========================================
+   MAIN SETTINGS CONTAINER
+========================================= */
+
+.student-settings-container {
+  display: flex;
+  width: 100%;
+  min-height: 650px;
+  background: #ffffff;
+  border: 1px solid #e8e8ef;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(35, 30, 70, 0.04);
+}
+
+
+/* =========================================
+   SETTINGS SIDEBAR
+========================================= */
+
+.student-settings-sidebar {
+  width: 230px;
+  flex-shrink: 0;
+  background: #fafaff;
+  border-right: 1px solid #ececf2;
+  padding: 25px 14px;
+  box-sizing: border-box;
+}
+
+.settings-sidebar-title {
+  padding: 0 12px 18px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #9693a6;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+.student-settings-sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+
+/* =========================================
+   SETTINGS NAV ITEMS
+========================================= */
+
+.settings-nav-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 12px 14px;
+  border: none;
+  border-radius: 9px;
+  background: transparent;
+  color: #68667b;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.settings-nav-item:hover {
+  background: #f0effb;
+  color: #30269b;
+}
+
+.settings-nav-item.active {
+  background: #30269b;
+  color: #ffffff;
+}
+
+.settings-nav-icon {
+  width: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+
+
+/* =========================================
+   SETTINGS CONTENT
+========================================= */
+
+.student-settings-content {
+  flex: 1;
+  padding: 35px;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+
+/* =========================================
+   SECTION
+========================================= */
+
+.settings-section {
+  max-width: 850px;
+}
+
+.settings-section-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.settings-section-icon {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #eeecff;
+  color: #30269b;
+  border-radius: 10px;
+  font-size: 17px;
+}
+
+.settings-section-header h2 {
+  margin: 0 0 5px;
+  color: #282541;
+  font-size: 21px;
+  font-weight: 700;
+}
+
+.settings-section-header p {
+  margin: 0;
+  color: #858296;
+  font-size: 14px;
+}
+
+
+/* =========================================
+   FORM
+========================================= */
+
+.settings-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+}
+
+.settings-password-form {
+  max-width: 600px;
+}
+
+.settings-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.settings-form-group label {
+  color: #37344d;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.settings-form-group input {
+  width: 100%;
+  height: 46px;
+  padding: 0 14px;
+  box-sizing: border-box;
+  border: 1px solid #dedee8;
+  border-radius: 8px;
+  outline: none;
+  background: #ffffff;
+  color: #302e42;
+  font-size: 14px;
+  transition: 0.2s ease;
+}
+
+.settings-form-group input:focus {
+  border-color: #30269b;
+  box-shadow: 0 0 0 3px rgba(48, 38, 155, 0.08);
+}
+
+.settings-form-group input[readonly] {
+  background: #f7f7fa;
+  color: #88869a;
+  cursor: not-allowed;
+}
+
+
+/* =========================================
+   OPTION CARD
+========================================= */
+
+.settings-option-card {
+  width: 100%;
+  min-height: 82px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 18px 20px;
+  margin-bottom: 14px;
+  box-sizing: border-box;
+  border: 1px solid #e6e5ed;
+  border-radius: 10px;
+  background: #ffffff;
+}
+
+.settings-option-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.settings-option-icon {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f0effd;
+  color: #30269b;
+  border-radius: 9px;
+}
+
+.settings-option-card h3 {
+  margin: 0 0 4px;
+  color: #302d45;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.settings-option-card p {
+  margin: 0;
+  color: #898697;
+  font-size: 13px;
+}
+
+
+/* =========================================
+   TOGGLE SWITCH
+========================================= */
+
+.settings-switch {
+  position: relative;
+  width: 46px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.settings-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.settings-slider {
+  position: absolute;
+  inset: 0;
+  cursor: pointer;
+  background: #d5d4dc;
+  border-radius: 30px;
+  transition: 0.25s ease;
+}
+
+.settings-slider::before {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  left: 3px;
+  top: 3px;
+  background: #ffffff;
+  border-radius: 50%;
+  transition: 0.25s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+.settings-switch input:checked + .settings-slider {
+  background: #30269b;
+}
+
+.settings-switch input:checked + .settings-slider::before {
+  transform: translateX(22px);
+}
+
+
+/* =========================================
+   LANGUAGE
+========================================= */
+
+.settings-language-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 600px;
+}
+
+.language-option {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 65px;
+  padding: 0 18px;
+  border: 1px solid #e4e3eb;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #4d4a60;
+  font-size: 14px;
+  text-align: left;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.language-option:hover {
+  border-color: #b9b5dc;
+  background: #fafaff;
+}
+
+.language-option.active {
+  border-color: #30269b;
+  background: #f5f3ff;
+  color: #30269b;
+}
+
+.language-option svg {
+  font-size: 17px;
+}
+
+.language-check {
+  margin-left: auto;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+
+/* =========================================
+   SAVE BUTTON
+========================================= */
+
+.settings-save-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 35px;
+  padding-top: 25px;
+  border-top: 1px solid #eeeeF2;
+}
+
+.settings-save-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-width: 150px;
+  height: 44px;
+  padding: 0 20px;
+  border: none;
+  border-radius: 8px;
+  background: #30269b;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.settings-save-button:hover {
+  background: #251d82;
+  transform: translateY(-1px);
+}
+
+.settings-save-button:active {
+  transform: translateY(0);
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 900px) {
+
+  .student-settings-page {
+    padding: 25px 20px;
+  }
+
+  .student-settings-container {
+    flex-direction: column;
+  }
+
+  .student-settings-sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #ececf2;
+    padding: 15px;
+  }
+
+  .settings-sidebar-title {
+    display: none;
+  }
+
+  .student-settings-sidebar nav {
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 6px;
+  }
+
+  .settings-nav-item {
+    width: auto;
+    min-width: max-content;
+  }
+
+  .student-settings-content {
+    padding: 28px 22px;
+  }
+
+}
+
+
+@media (max-width: 650px) {
+
+  .student-settings-page {
+    padding: 20px 15px;
+  }
+
+  .student-settings-header h1 {
+    font-size: 25px;
+  }
+
+  .student-settings-container {
+    border-radius: 10px;
+  }
+
+  .student-settings-content {
+    padding: 24px 18px;
+  }
+
+  .settings-form-grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .settings-section-header {
+    gap: 12px;
+  }
+
+  .settings-section-header h2 {
+    font-size: 18px;
+  }
+
+  .settings-option-card {
+    padding: 15px;
+  }
+
+  .settings-option-left {
+    gap: 11px;
+  }
+
+  .settings-option-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .settings-option-card p {
+    line-height: 1.4;
+  }
+
+  .settings-save-container {
+    justify-content: stretch;
+  }
+
+  .settings-save-button {
+    width: 100%;
+  }
+
+}
