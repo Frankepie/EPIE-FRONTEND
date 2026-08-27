@@ -1827,13 +1827,16 @@ export const getAdminNotifications = async (
 ) => {
 
   const response = await fetch(
-    `${API_URL}/notifications`,
+    `${API_URL}/api/notifications`,
     {
       method: "GET",
 
       headers: {
         Authorization:
-          `Bearer ${token}`
+          `Bearer ${token}`,
+
+        "Content-Type":
+          "application/json"
       }
     }
   );
@@ -1851,7 +1854,9 @@ export const getAdminNotifications = async (
 };
 
 
+// ==========================================
 // MARK NOTIFICATION AS READ
+// ==========================================
 
 export const markNotificationAsRead = async (
   token,
@@ -1859,13 +1864,16 @@ export const markNotificationAsRead = async (
 ) => {
 
   const response = await fetch(
-    `${API_URL}/notifications/${notificationId}/read`,
+    `${API_URL}/api/notifications/${notificationId}/read`,
     {
       method: "PUT",
 
       headers: {
         Authorization:
-          `Bearer ${token}`
+          `Bearer ${token}`,
+
+        "Content-Type":
+          "application/json"
       }
     }
   );
@@ -1883,20 +1891,25 @@ export const markNotificationAsRead = async (
 };
 
 
+// ==========================================
 // MARK ALL NOTIFICATIONS AS READ
+// ==========================================
 
 export const markAllNotificationsAsRead = async (
   token
 ) => {
 
   const response = await fetch(
-    `${API_URL}/notifications/read-all`,
+    `${API_URL}/api/notifications/read-all`,
     {
       method: "PUT",
 
       headers: {
         Authorization:
-          `Bearer ${token}`
+          `Bearer ${token}`,
+
+        "Content-Type":
+          "application/json"
       }
     }
   );
