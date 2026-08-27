@@ -8,7 +8,7 @@ import WhyChooseUs from "../components/WhyChooseUs";
 import InstructorsSection from "../components/InstructorsSection";
 import TestimonialsSection from "../components/TestimonialsSection";
 import HomeCTA from "../components/HomeCTA";
-
+import HomeFooter from "../components/HomeFooter"
 import "../styles/Home.css";
 const Home = () => {
   return (
@@ -53,7 +53,7 @@ const Home = () => {
         <HomeCTA />
 
       </main>
-
+     <HomeFooter />
     </div>
   );
 };

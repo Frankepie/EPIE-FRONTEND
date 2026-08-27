@@ -27,6 +27,7 @@ export const registerUser = async (userData) => {
     }
   );
 
+  
   const data = await response.json();
 
   if (!response.ok) {

@@ -37,7 +37,7 @@ const StudentBottomNav = () => {
 
 
       {/* =====================================
-          COURSES
+          MY COURSES
       ===================================== */}
 
       <NavLink
@@ -47,13 +47,36 @@ const StudentBottomNav = () => {
             ? "student-bottom-nav-item active"
             : "student-bottom-nav-item"
         }
-        aria-label="Courses"
+        aria-label="My Courses"
       >
 
         <i className="fa-solid fa-book"></i>
 
         <span>
           Courses
+        </span>
+
+      </NavLink>
+
+
+      {/* =====================================
+          POPULAR COURSES
+      ===================================== */}
+
+      <NavLink
+        to="/student/popular-courses"
+        className={({ isActive }) =>
+          isActive
+            ? "student-bottom-nav-item active"
+            : "student-bottom-nav-item"
+        }
+        aria-label="Popular Courses"
+      >
+
+        <i className="fa-solid fa-fire"></i>
+
+        <span>
+          Popular
         </span>
 
       </NavLink>

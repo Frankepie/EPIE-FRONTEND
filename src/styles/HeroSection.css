@@ -1,608 +1,338 @@
-/* =========================================
-   HERO SECTION
-========================================= */
+/* HeroSection.css */
 
 .hero-section {
-  min-height: calc(100vh - 76px);
-
+  padding: 80px 0;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  min-height: 100vh;
   display: flex;
-
   align-items: center;
-
-  background:
-    linear-gradient(
-      135deg,
-      #f8faff 0%,
-      #eef2ff 100%
-    );
-
-  overflow: hidden;
 }
-
 
 .hero-container {
-  width: 100%;
-
   max-width: 1200px;
-
   margin: 0 auto;
-
-  padding: 80px 30px;
-
+  padding: 0 20px;
   display: grid;
-
-  grid-template-columns:
-    1fr 1fr;
-
-  gap: 70px;
-
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
   align-items: center;
-
-  box-sizing: border-box;
 }
 
-
-/* =========================================
-   HERO CONTENT
-========================================= */
-
+/* LEFT SIDE - Content */
 .hero-content {
-  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
-
 
 .hero-badge {
   display: inline-block;
-
-  padding: 8px 14px;
-
-  margin-bottom: 20px;
-
-  border-radius: 30px;
-
-  background: #e0e7ff;
-
-  color: #4f46e5;
-
-  font-size: 13px;
-
-  font-weight: 700;
-
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 8px 20px;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  width: fit-content;
   letter-spacing: 0.5px;
-
-  text-transform: uppercase;
 }
-
 
 .hero-content h1 {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  line-height: 1.2;
   margin: 0;
-
-  font-size: clamp(
-    42px,
-    5vw,
-    68px
-  );
-
-  line-height: 1.05;
-
-  letter-spacing: -2px;
-
-  color: #111827;
 }
-
 
 .hero-content h1 span {
   display: block;
-
-  color: #6366f1;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
-
 
 .hero-description {
-  max-width: 540px;
-
-  margin: 25px 0 30px;
-
-  color: #6b7280;
-
-  font-size: 17px;
-
+  font-size: 1.1rem;
+  color: #4a4a6a;
   line-height: 1.8;
+  max-width: 500px;
+  margin: 0;
 }
-
-
-/* =========================================
-   HERO BUTTONS
-========================================= */
 
 .hero-buttons {
   display: flex;
-
-  align-items: center;
-
-  gap: 13px;
-
-  margin-bottom: 40px;
+  gap: 15px;
+  margin-top: 10px;
+  flex-wrap: wrap;
 }
-
-
-.hero-primary-button,
-.hero-secondary-button {
-  display: inline-flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  padding: 14px 24px;
-
-  border-radius: 9px;
-
-  text-decoration: none;
-
-  font-size: 15px;
-
-  font-weight: 650;
-
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
-}
-
 
 .hero-primary-button {
-  background: #6366f1;
-
-  color: #ffffff;
-
-  box-shadow:
-    0 8px 20px
-    rgba(99, 102, 241, 0.25);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 14px 35px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: inline-block;
 }
-
 
 .hero-primary-button:hover {
-  transform: translateY(-2px);
-
-  box-shadow:
-    0 12px 25px
-    rgba(99, 102, 241, 0.3);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+  color: white;
 }
-
 
 .hero-secondary-button {
-  background: #ffffff;
-
-  color: #4f46e5;
-
-  border: 1px solid #c7d2fe;
+  background: transparent;
+  color: #1a1a2e;
+  padding: 14px 35px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  border: 2px solid #1a1a2e;
+  transition: all 0.3s ease;
+  display: inline-block;
 }
-
 
 .hero-secondary-button:hover {
-  transform: translateY(-2px);
-
-  background: #f8faff;
+  background: #1a1a2e;
+  color: white;
+  transform: translateY(-3px);
 }
-
-
-/* =========================================
-   HERO STATS
-========================================= */
 
 .hero-features {
   display: flex;
-
-  gap: 35px;
+  gap: 40px;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 2px solid rgba(0,0,0,0.05);
 }
-
 
 .hero-features div {
   display: flex;
-
   flex-direction: column;
-
-  gap: 3px;
+  align-items: center;
 }
-
 
 .hero-features strong {
-  font-size: 23px;
-
-  color: #111827;
+  font-size: 1.8rem;
+  color: #1a1a2e;
+  font-weight: 700;
 }
-
 
 .hero-features span {
-  color: #6b7280;
-
-  font-size: 13px;
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: 2px;
 }
 
-
-/* =========================================
-   VIDEO CARD
-========================================= */
-
+/* RIGHT SIDE - Video */
 .hero-video-wrapper {
-  position: relative;
+  display: flex;
+  justify-content: center;
 }
-
 
 .hero-video-card {
-  position: relative;
-
-  max-width: 500px;
-
-  margin-left: auto;
-
-  background: #ffffff;
-
-  border-radius: 22px;
-
-  padding: 12px;
-
-  box-shadow:
-    0 25px 60px
-    rgba(30, 41, 59, 0.15);
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+  max-width: 550px;
 }
 
+.hero-video-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 25px 70px rgba(0,0,0,0.15);
+}
 
 .hero-video {
   position: relative;
-
-  height: 380px;
-
-  border-radius: 15px;
-
+  background: #000;
   overflow: hidden;
-
-  background:
-    linear-gradient(
-      135deg,
-      #312e81,
-      #6366f1,
-      #818cf8
-    );
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
 }
 
-
-/*
-  Visual learning background.
-  This can later be replaced
-  with your real video.
-*/
-
-.hero-video::before {
-  content: "";
-
-  position: absolute;
-
-  width: 260px;
-  height: 260px;
-
-  border-radius: 50%;
-
-  background:
-    rgba(255, 255, 255, 0.08);
-
-  top: -80px;
-  right: -70px;
+/* Video Player Styles */
+.hero-video-player {
+  width: 100%;
+  height: auto;
+  display: block;
+  aspect-ratio: 16/9;
+  background: #1a1a2e;
+  cursor: pointer;
 }
 
-
-.hero-video::after {
-  content: "";
-
-  position: absolute;
-
-  width: 180px;
-  height: 180px;
-
-  border-radius: 50%;
-
-  background:
-    rgba(255, 255, 255, 0.07);
-
-  bottom: -70px;
-  left: -40px;
-}
-
-
-/* =========================================
-   VIDEO PLAY BUTTON
-========================================= */
-
+/* Video Overlay */
 .hero-video-overlay {
-  position: relative;
-
-  z-index: 2;
-
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
   display: flex;
-
   align-items: center;
-
   justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
 }
 
+.hero-video:hover .hero-video-overlay {
+  opacity: 1;
+}
 
 .hero-play-button {
-  width: 72px;
-  height: 72px;
-
-  border: none;
-
+  width: 70px;
+  height: 70px;
   border-radius: 50%;
-
-  background: #ffffff;
-
-  color: #6366f1;
-
-  font-size: 25px;
-
-  padding-left: 5px;
-
+  background: rgba(102, 126, 234, 0.9);
+  border: none;
+  color: white;
+  font-size: 30px;
   cursor: pointer;
-
-  box-shadow:
-    0 10px 30px
-    rgba(0, 0, 0, 0.2);
-
-  transition:
-    transform 0.2s ease;
+  transition: transform 0.3s ease, background 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
 }
-
 
 .hero-play-button:hover {
-  transform: scale(1.08);
+  transform: scale(1.1);
+  background: #667eea;
 }
 
-
-/* =========================================
-   VIDEO LABEL
-========================================= */
-
+/* Video Label */
 .hero-video-label {
   position: absolute;
-
-  z-index: 3;
-
-  left: 25px;
-
-  bottom: 25px;
-
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
   display: flex;
-
   flex-direction: column;
-
   gap: 5px;
-
-  color: #ffffff;
+  color: white;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.7);
+  pointer-events: none;
 }
-
 
 .hero-video-label span {
-  font-size: 11px;
-
-  font-weight: 700;
-
+  font-size: 0.8rem;
   text-transform: uppercase;
-
   letter-spacing: 1px;
-
-  opacity: 0.8;
+  opacity: 0.9;
 }
-
 
 .hero-video-label strong {
-  font-size: 20px;
-
-  line-height: 1.3;
+  font-size: 1.1rem;
+  font-weight: 600;
 }
 
-
-/* =========================================
-   VIDEO TEXT
-========================================= */
-
+/* Video Text */
 .hero-video-text {
-  padding: 20px 14px 12px;
+  padding: 20px 25px 25px;
 }
 
-
-.hero-video-text > span {
-  font-size: 11px;
-
+.hero-video-text span {
+  font-size: 0.7rem;
+  color: #667eea;
   font-weight: 700;
-
-  color: #6366f1;
-
-  letter-spacing: 1px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
 }
-
 
 .hero-video-text h3 {
-  margin: 7px 0;
-
-  font-size: 20px;
-
-  color: #111827;
+  font-size: 1.2rem;
+  color: #1a1a2e;
+  margin: 5px 0 8px;
 }
-
 
 .hero-video-text p {
-  margin: 0;
-
-  color: #6b7280;
-
-  font-size: 14px;
-
+  color: #666;
   line-height: 1.6;
+  margin: 0;
+  font-size: 0.95rem;
 }
 
-
-/* =========================================
-   TABLET
-========================================= */
-
-@media (max-width: 950px) {
-
-  .hero-container {
-    gap: 40px;
-
-    padding:
-      65px 30px;
-  }
-
-
-  .hero-content h1 {
-    font-size: 48px;
-  }
-
-
-  .hero-video {
-    height: 330px;
-  }
-
-}
-
-
-/* =========================================
-   MOBILE
-========================================= */
-
-@media (max-width: 720px) {
-
-  .hero-section {
-    min-height: auto;
-  }
-
-
+/* Responsive Design */
+@media (max-width: 992px) {
   .hero-container {
     grid-template-columns: 1fr;
-
-    gap: 45px;
-
-    padding:
-      55px 20px 70px;
+    gap: 40px;
   }
-
-
+  
   .hero-content {
-    max-width: none;
-
     text-align: center;
+    align-items: center;
   }
-
-
-  .hero-badge {
-    margin-bottom: 17px;
-  }
-
-
-  .hero-content h1 {
-    font-size: 42px;
-
-    letter-spacing: -1.5px;
-  }
-
-
+  
   .hero-description {
-    margin:
-      20px auto 27px;
-
-    font-size: 15px;
-
-    line-height: 1.7;
+    max-width: 100%;
   }
-
-
+  
   .hero-buttons {
     justify-content: center;
-
-    flex-wrap: wrap;
-
-    margin-bottom: 32px;
   }
-
-
+  
   .hero-features {
     justify-content: center;
-
-    gap: 25px;
   }
-
-
-  .hero-features strong {
-    font-size: 20px;
-  }
-
-
-  .hero-video-wrapper {
-    width: 100%;
-  }
-
-
+  
   .hero-video-card {
+    max-width: 600px;
     margin: 0 auto;
-
-    width: 100%;
-
-    box-sizing: border-box;
   }
-
-
-  .hero-video {
-    height: 300px;
-  }
-
 }
 
-
-/* =========================================
-   SMALL MOBILE
-========================================= */
-
-@media (max-width: 420px) {
-
-  .hero-content h1 {
-    font-size: 36px;
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 60px 0;
   }
+  
+  .hero-content h1 {
+    font-size: 2.5rem;
+  }
+  
+  .hero-play-button {
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+  }
+}
 
-
+@media (max-width: 480px) {
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+  
   .hero-buttons {
     flex-direction: column;
-
     width: 100%;
   }
-
-
+  
   .hero-primary-button,
   .hero-secondary-button {
+    text-align: center;
     width: 100%;
-
-    box-sizing: border-box;
   }
-
-
+  
   .hero-features {
-    gap: 18px;
+    gap: 20px;
+    flex-wrap: wrap;
   }
-
-
-  .hero-video {
-    height: 260px;
+  
+  .hero-features strong {
+    font-size: 1.3rem;
   }
-
-
-  .hero-video-label strong {
-    font-size: 17px;
+  
+  .hero-play-button {
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
   }
-
 }

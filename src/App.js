@@ -73,13 +73,14 @@ import VerifyOTP  from "./pages/auth/VerifyOTP";
 import ForgotPassword from "./pages/auth/ForgotPassword";
 import ResetPassword from "./pages/auth/ResetPassword";
 import "./App.css";
-
+import BackButton from "./components/BackButton";
 import CourseCommunication from "./pages/student/CourseCommunication";
 
 import InstructorDashboardLayout  from "./pages/instructor/InstructorDashboardLayout";
 import StudentProfile from "./pages/student/StudentProfile";
 import {LanguageProvider} from "./context/LanguageContext";
 // import LaunchRouter from "./pages/LaunchRouter";
+import PopularCourses from "./pages/student/PopularCourses";
 
 // ==========================================
 // LAUNCH ROUTER
@@ -144,7 +145,7 @@ function App() {
   <AuthProvider>
 
     <LanguageProvider>
-
+         <BackButton />
       <Routes>
 
           {/* =====================================
@@ -717,6 +718,12 @@ function App() {
               path="courses"
               element={<MyCourses />}
             />
+       {/* POPULAR COURSES */}
+
+  <Route
+    path="popular-courses"
+    element={<PopularCourses />}
+  />      
 {/* COURSE DETAILS */}
 
 <Route
