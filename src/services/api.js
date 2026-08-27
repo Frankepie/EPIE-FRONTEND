@@ -1822,9 +1822,7 @@ export const getAdminDashboard = async (
 // ADMIN NOTIFICATIONS
 // ==========================================
 
-export const getAdminNotifications = async (
-  token
-) => {
+export const getAdminNotifications = async (token) => {
 
   const response = await fetch(
     `${API_URL}/api/notifications`,
@@ -1832,11 +1830,7 @@ export const getAdminNotifications = async (
       method: "GET",
 
       headers: {
-        Authorization:
-          `Bearer ${token}`,
-
-        "Content-Type":
-          "application/json"
+        Authorization: `Bearer ${token}`
       }
     }
   );
@@ -1855,7 +1849,7 @@ export const getAdminNotifications = async (
 
 
 // ==========================================
-// MARK NOTIFICATION AS READ
+// MARK ONE NOTIFICATION AS READ
 // ==========================================
 
 export const markNotificationAsRead = async (
@@ -1869,11 +1863,7 @@ export const markNotificationAsRead = async (
       method: "PUT",
 
       headers: {
-        Authorization:
-          `Bearer ${token}`,
-
-        "Content-Type":
-          "application/json"
+        Authorization: `Bearer ${token}`
       }
     }
   );
@@ -1905,11 +1895,7 @@ export const markAllNotificationsAsRead = async (
       method: "PUT",
 
       headers: {
-        Authorization:
-          `Bearer ${token}`,
-
-        "Content-Type":
-          "application/json"
+        Authorization: `Bearer ${token}`
       }
     }
   );
@@ -2002,4 +1988,95 @@ export const updateSettings = async (
 
   return data;
 
+};
+// ==========================================
+// ADMIN COURSES
+// ==========================================
+
+export const getAdminCourses = async (token) => {
+
+  const response = await fetch(
+    `${API_URL}/api/admin/courses`,
+    {
+      method: "GET",
+
+      headers: {
+        Authorization:
+          `Bearer ${token}`
+      }
+    }
+  );
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      data.message ||
+      "Failed to load admin courses"
+    );
+  }
+
+  return data;
+};
+
+
+// ==========================================
+// ADMIN ENROLLMENTS
+// ==========================================
+
+export const getAdminEnrollments = async (token) => {
+
+  const response = await fetch(
+    `${API_URL}/api/admin/enrollments`,
+    {
+      method: "GET",
+
+      headers: {
+        Authorization:
+          `Bearer ${token}`
+      }
+    }
+  );
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      data.message ||
+      "Failed to load admin enrollments"
+    );
+  }
+
+  return data;
+};
+
+
+// ==========================================
+// ADMIN CERTIFICATES
+// ==========================================
+
+export const getAdminCertificates = async (token) => {
+
+  const response = await fetch(
+    `${API_URL}/api/admin/certificates`,
+    {
+      method: "GET",
+
+      headers: {
+        Authorization:
+          `Bearer ${token}`
+      }
+    }
+  );
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      data.message ||
+      "Failed to load admin certificates"
+    );
+  }
+
+  return data;
 };

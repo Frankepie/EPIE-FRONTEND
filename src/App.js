@@ -524,6 +524,23 @@ function App() {
     </ProtectedRoute>
   }
 >
+  <Route
+  path="/admin/enrollments"
+  element={
+    <ProtectedRoute role="admin">
+      <AdminEnrollments />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/admin/certificates"
+  element={
+    <ProtectedRoute role="admin">
+      <AdminCertificates />
+    </ProtectedRoute>
+  }
+/>
 
   {/* /admin → /admin/dashboard */}
 
