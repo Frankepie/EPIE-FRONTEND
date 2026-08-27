@@ -252,3 +252,32 @@
   }
 
 }
+
+/* ==========================================
+   SPLASH MOBILE LOGO
+========================================== */
+
+.splash-logo-mobile {
+  display: none;
+}
+
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 768px) {
+
+  .splash-logo-desktop {
+    display: none;
+  }
+
+  .splash-logo-mobile {
+    display: block;
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+    margin: 0 auto;
+  }
+
+}

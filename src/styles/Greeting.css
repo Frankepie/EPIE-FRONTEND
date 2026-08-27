@@ -322,3 +322,31 @@
   }
 
 }
+/* ==========================================
+   MOBILE LOGO
+========================================== */
+
+.greeting-logo-mobile {
+  display: none;
+}
+
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 768px) {
+
+  .greeting-logo-desktop {
+    display: none;
+  }
+
+  .greeting-logo-mobile {
+    display: block;
+    width: 110px;
+    height: 110px;
+    object-fit: contain;
+    margin: 0 auto;
+  }
+
+}

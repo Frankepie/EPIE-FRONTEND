@@ -624,12 +624,10 @@ export const deleteModule = async (
 // ==========================================
 
 // GET MODULE LESSONS
-
 export const getModuleLessons = async (
   moduleId,
   token
 ) => {
-
   const response = await fetch(
     `${API_URL}/api/lessons/module/${moduleId}`,
     {
@@ -642,7 +640,8 @@ export const getModuleLessons = async (
     }
   );
 
-  const data = await response.json();
+  const data =
+    await response.json();
 
   if (!response.ok) {
     throw new Error(
@@ -656,78 +655,60 @@ export const getModuleLessons = async (
 
 
 // CREATE LESSON
+export const createLesson = async (
+  lessonData,
+  token
+) => {
+  const response = await fetch(
+    `${API_URL}/api/lessons`,
+    {
+      method: "POST",
 
-export const createLesson =
-  async (
-    lessonData,
-    token
-  ) => {
+      headers: {
+        Authorization:
+          `Bearer ${token}`
+      },
 
-    const response =
-      await fetch(
-        `${API_URL}/api/lessons`,
-        {
-
-          method: "POST",
-
-          headers: {
-
-            Authorization:
-              `Bearer ${token}`
-
-          },
-
-          body:
-            lessonData
-
-        }
-      );
-
-
-    const data =
-      await response.json();
-
-
-    if (!response.ok) {
-
-      throw new Error(
-        data.message ||
-        "Failed to create lesson"
-      );
-
+      body: lessonData
     }
+  );
 
+  const data =
+    await response.json();
 
-    return data;
+  if (!response.ok) {
+    throw new Error(
+      data.message ||
+      "Failed to create lesson"
+    );
+  }
 
-  };
+  return data;
+};
 
 
 // UPDATE LESSON
-
 export const updateLesson = async (
   lessonId,
   lessonData,
   token
 ) => {
-
   const response = await fetch(
     `${API_URL}/api/lessons/${lessonId}`,
     {
       method: "PUT",
 
       headers: {
-        "Content-Type": "application/json",
-
         Authorization:
           `Bearer ${token}`
       },
 
-      body: JSON.stringify(lessonData)
+      body: lessonData
     }
   );
 
-  const data = await response.json();
+  const data =
+    await response.json();
 
   if (!response.ok) {
     throw new Error(
@@ -741,12 +722,10 @@ export const updateLesson = async (
 
 
 // DELETE LESSON
-
 export const deleteLesson = async (
   lessonId,
   token
 ) => {
-
   const response = await fetch(
     `${API_URL}/api/lessons/${lessonId}`,
     {
@@ -759,7 +738,8 @@ export const deleteLesson = async (
     }
   );
 
-  const data = await response.json();
+  const data =
+    await response.json();
 
   if (!response.ok) {
     throw new Error(

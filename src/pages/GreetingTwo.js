@@ -5,14 +5,8 @@ const GreetingTwo = () => {
 
   const navigate = useNavigate();
 
-  const handleGetStarted = () => {
-
-  sessionStorage.setItem(
-    "greetingTwoSeen",
-    "true"
-  );
-
-  navigate("/splash");
+const handleGetStarted = () => {
+  navigate("/home");
 };
 
   return (
@@ -20,17 +14,27 @@ const GreetingTwo = () => {
 
       <div className="greeting-container">
 
-        <div className="greeting-logo">
+      <div className="greeting-logo">
 
-          <div className="greeting-logo-icon">
-            E
-          </div>
+  {/* Desktop logo */}
+  <div className="greeting-logo-desktop">
+    <div className="greeting-logo-icon">
+      E
+    </div>
 
-          <span>
-            EduLearn
-          </span>
+    <span>
+      EduLearn
+    </span>
+  </div>
 
-        </div>
+  {/* Mobile logo */}
+  <img
+    src="/logo192.png"
+    alt="EduLearn"
+    className="greeting-logo-mobile"
+  />
+
+</div>
 
 
         <div className="greeting-visual">

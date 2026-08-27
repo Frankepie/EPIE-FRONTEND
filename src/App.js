@@ -1,4 +1,8 @@
 import {
+  useEffect,
+  useState
+} from "react";
+import {
   BrowserRouter,
   Routes,
   Route,
@@ -75,7 +79,63 @@ import CourseCommunication from "./pages/student/CourseCommunication";
 import InstructorDashboardLayout  from "./pages/instructor/InstructorDashboardLayout";
 import StudentProfile from "./pages/student/StudentProfile";
 import {LanguageProvider} from "./context/LanguageContext";
+// import LaunchRouter from "./pages/LaunchRouter";
 
+// ==========================================
+// LAUNCH ROUTER
+// ==========================================
+
+const LaunchRouter = () => {
+
+  const [isMobile, setIsMobile] = useState(
+    window.innerWidth <= 768
+  );
+
+  useEffect(() => {
+
+    const handleResize = () => {
+
+      setIsMobile(
+        window.innerWidth <= 768
+      );
+
+    };
+
+    window.addEventListener(
+      "resize",
+      handleResize
+    );
+
+    return () => {
+      window.removeEventListener(
+        "resize",
+        handleResize
+      );
+    };
+
+  }, []);
+
+
+  if (isMobile) {
+
+    return (
+      <Navigate
+        to="/splash"
+        replace
+      />
+    );
+
+  }
+
+
+  return (
+    <Navigate
+      to="/greeting-one"
+      replace
+    />
+  );
+
+};
 function App() {
 
   return (
@@ -93,9 +153,12 @@ function App() {
 
 <Route
   path="/"
+  element={<LaunchRouter />}
+/>
+<Route
+  path="/home"
   element={<Home />}
 />
-
 <Route
   path="/greeting-one"
   element={<GreetingOne />}

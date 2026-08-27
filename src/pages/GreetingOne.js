@@ -5,15 +5,9 @@ const GreetingOne = () => {
 
   const navigate = useNavigate();
 
-  const handleNext = () => {
-
-    sessionStorage.setItem(
-      "greetingOneSeen",
-      "true"
-    );
-
-    navigate("/greeting-two");
-  };
+ const handleNext = () => {
+  navigate("/greeting-two");
+};
 
   return (
     <div className="greeting-page greeting-one">
@@ -22,15 +16,25 @@ const GreetingOne = () => {
 
         <div className="greeting-logo">
 
-          <div className="greeting-logo-icon">
-            E
-          </div>
+  {/* Desktop logo */}
+  <div className="greeting-logo-desktop">
+    <div className="greeting-logo-icon">
+      E
+    </div>
 
-          <span>
-            EduLearn
-          </span>
+    <span>
+      EduLearn
+    </span>
+  </div>
 
-        </div>
+  {/* Mobile logo */}
+  <img
+    src="/logo192.png"
+    alt="EduLearn"
+    className="greeting-logo-mobile"
+  />
+
+</div>
 
 
         <div className="greeting-visual">
