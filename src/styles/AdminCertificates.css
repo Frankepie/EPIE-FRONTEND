@@ -1,0 +1,285 @@
+
+/* ==========================================
+   ADMIN CERTIFICATES
+========================================== */
+
+.admin-certificates-page {
+  width: 100%;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+.admin-certificates-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.admin-certificates-header h1 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.admin-certificates-header p {
+  margin: 6px 0 0;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+/* ==========================================
+   STATS
+========================================== */
+
+.admin-certificates-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-bottom: 24px;
+}
+
+.admin-certificates-stat-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.admin-certificates-stat-card h3 {
+  margin: 0 0 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #6b7280;
+}
+
+.admin-certificates-stat-card strong {
+  display: block;
+  font-size: 28px;
+  color: #30269b;
+}
+
+/* ==========================================
+   CERTIFICATE CONTAINER
+========================================== */
+
+.admin-certificates-container {
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+}
+
+.admin-certificates-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.admin-certificates-toolbar h2 {
+  margin: 0;
+  font-size: 18px;
+  color: #1f2937;
+}
+
+/* ==========================================
+   SEARCH
+========================================== */
+
+.admin-certificates-search {
+  width: 260px;
+  padding: 10px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  outline: none;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.admin-certificates-search:focus {
+  border-color: #30269b;
+  box-shadow: 0 0 0 2px rgba(48, 38, 155, 0.1);
+}
+
+/* ==========================================
+   TABLE
+========================================== */
+
+.admin-certificates-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.admin-certificates-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 800px;
+}
+
+.admin-certificates-table th {
+  text-align: left;
+  padding: 14px 18px;
+  background: #f9fafb;
+  color: #6b7280;
+  font-size: 13px;
+  font-weight: 700;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.admin-certificates-table td {
+  padding: 16px 18px;
+  color: #374151;
+  font-size: 14px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.admin-certificates-table tbody tr:hover {
+  background: #fafafa;
+}
+
+/* ==========================================
+   CERTIFICATE ID
+========================================== */
+
+.admin-certificate-id {
+  font-family: monospace;
+  font-size: 13px;
+  font-weight: 600;
+  color: #30269b;
+  background: #f5f3ff;
+  padding: 6px 8px;
+  border-radius: 6px;
+}
+
+/* ==========================================
+   STUDENT
+========================================== */
+
+.admin-certificate-student {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.admin-certificate-student-name {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.admin-certificate-student-email {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+/* ==========================================
+   COURSE
+========================================== */
+
+.admin-certificate-course {
+  font-weight: 600;
+  color: #374151;
+}
+
+/* ==========================================
+   DATE
+========================================== */
+
+.admin-certificate-date {
+  color: #6b7280;
+  white-space: nowrap;
+}
+
+/* ==========================================
+   VALID BADGE
+========================================== */
+
+.admin-certificate-status {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 10px;
+  border-radius: 20px;
+  background: #dcfce7;
+  color: #166534;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* ==========================================
+   ACTION BUTTON
+========================================== */
+
+.admin-certificate-view-button {
+  border: none;
+  background: #30269b;
+  color: #ffffff;
+  padding: 8px 12px;
+  border-radius: 7px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  transition: opacity 0.2s ease;
+}
+
+.admin-certificate-view-button:hover {
+  opacity: 0.88;
+}
+
+/* ==========================================
+   EMPTY / LOADING / ERROR
+========================================== */
+
+.admin-certificates-message {
+  padding: 50px 20px;
+  text-align: center;
+  color: #6b7280;
+}
+
+.admin-certificates-error {
+  padding: 16px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  background: #fee2e2;
+  color: #991b1b;
+  font-size: 14px;
+}
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 768px) {
+
+  .admin-certificates-page {
+    padding: 16px;
+  }
+
+  .admin-certificates-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .admin-certificates-header h1 {
+    font-size: 23px;
+  }
+
+  .admin-certificates-stats {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .admin-certificates-toolbar {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .admin-certificates-search {
+    width: 100%;
+  }
+}

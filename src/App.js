@@ -81,7 +81,8 @@ import StudentProfile from "./pages/student/StudentProfile";
 import {LanguageProvider} from "./context/LanguageContext";
 // import LaunchRouter from "./pages/LaunchRouter";
 import PopularCourses from "./pages/student/PopularCourses";
-
+import AdminEnrollments from "./pages/admin/AdminEnrollments"
+import AdminCertificates from "./pages/admin/AdminCertificates";
 // ==========================================
 // LAUNCH ROUTER
 // ==========================================

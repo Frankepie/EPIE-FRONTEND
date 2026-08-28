@@ -1,0 +1,272 @@
+
+/* ==========================================
+   ADMIN ENROLLMENTS
+========================================== */
+
+.admin-enrollment-page {
+  width: 100%;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+.admin-enrollment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.admin-enrollment-header h1 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.admin-enrollment-header p {
+  margin: 6px 0 0;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+/* ==========================================
+   STATS
+========================================== */
+
+.admin-enrollment-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-bottom: 24px;
+}
+
+.admin-enrollment-stat-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.admin-enrollment-stat-card h3 {
+  margin: 0 0 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #6b7280;
+}
+
+.admin-enrollment-stat-card strong {
+  display: block;
+  font-size: 28px;
+  color: #30269b;
+}
+
+/* ==========================================
+   TABLE CONTAINER
+========================================== */
+
+.admin-enrollment-table-container {
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+}
+
+.admin-enrollment-table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.admin-enrollment-table-header h2 {
+  margin: 0;
+  font-size: 18px;
+  color: #1f2937;
+}
+
+/* ==========================================
+   SEARCH
+========================================== */
+
+.admin-enrollment-search {
+  width: 260px;
+  padding: 10px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  outline: none;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.admin-enrollment-search:focus {
+  border-color: #30269b;
+  box-shadow: 0 0 0 2px rgba(48, 38, 155, 0.1);
+}
+
+/* ==========================================
+   TABLE
+========================================== */
+
+.admin-enrollment-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.admin-enrollment-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 750px;
+}
+
+.admin-enrollment-table th {
+  text-align: left;
+  padding: 14px 18px;
+  background: #f9fafb;
+  color: #6b7280;
+  font-size: 13px;
+  font-weight: 700;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.admin-enrollment-table td {
+  padding: 16px 18px;
+  color: #374151;
+  font-size: 14px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.admin-enrollment-table tbody tr:hover {
+  background: #fafafa;
+}
+
+/* ==========================================
+   STUDENT
+========================================== */
+
+.admin-enrollment-student {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.admin-enrollment-student-name {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.admin-enrollment-student-email {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+/* ==========================================
+   PROGRESS
+========================================== */
+
+.admin-enrollment-progress {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.admin-enrollment-progress-bar {
+  width: 100px;
+  height: 7px;
+  background: #e5e7eb;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.admin-enrollment-progress-fill {
+  height: 100%;
+  background: #30269b;
+  border-radius: 20px;
+  transition: width 0.3s ease;
+}
+
+.admin-enrollment-progress-value {
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+}
+
+/* ==========================================
+   STATUS
+========================================== */
+
+.admin-enrollment-status {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.admin-enrollment-status.completed {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.admin-enrollment-status.in-progress {
+  background: #ede9fe;
+  color: #5b21b6;
+}
+
+/* ==========================================
+   EMPTY / LOADING / ERROR
+========================================== */
+
+.admin-enrollment-message {
+  padding: 50px 20px;
+  text-align: center;
+  color: #6b7280;
+}
+
+.admin-enrollment-error {
+  padding: 16px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  background: #fee2e2;
+  color: #991b1b;
+  font-size: 14px;
+}
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 768px) {
+
+  .admin-enrollment-page {
+    padding: 16px;
+  }
+
+  .admin-enrollment-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .admin-enrollment-header h1 {
+    font-size: 23px;
+  }
+
+  .admin-enrollment-stats {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .admin-enrollment-table-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .admin-enrollment-search {
+    width: 100%;
+  }
+}
