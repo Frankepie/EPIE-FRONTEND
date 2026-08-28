@@ -183,30 +183,44 @@ const AdminDashboard = () => {
   =====================================
   */
 
-  const totalUsers =
-    Number(
-      dashboard?.totalUsers || 0
-    );
+  const stats =
+  dashboard?.stats || {};
 
 
-  const totalStudents =
-    Number(
-      dashboard?.totalStudents || 0
-    );
+const totalUsers =
+  Number(
+    stats.totalUsers || 0
+  );
 
 
-  const totalInstructors =
-    Number(
-      dashboard?.totalInstructors || 0
-    );
+const totalStudents =
+  Number(
+    stats.totalStudents || 0
+  );
 
 
-  const totalCourses =
-    Number(
-      dashboard?.totalCourses || 0
-    );
+const totalInstructors =
+  Number(
+    stats.totalInstructors || 0
+  );
 
 
+const totalCourses =
+  Number(
+    stats.totalCourses || 0
+  );
+
+
+const totalEnrollments =
+  Number(
+    stats.totalEnrollments || 0
+  );
+
+
+const totalCertificates =
+  Number(
+    stats.totalCertificates || 0
+  );
   /*
   =====================================
   REAL CHART DATA

@@ -1993,7 +1993,9 @@ export const updateSettings = async (
 // ADMIN COURSES
 // ==========================================
 
-export const getAdminCourses = async (token) => {
+export const getAdminCourses = async (
+  token
+) => {
 
   const response = await fetch(
     `${API_URL}/api/admin/courses`,
@@ -2007,16 +2009,23 @@ export const getAdminCourses = async (token) => {
     }
   );
 
-  const data = await response.json();
+
+  const data =
+    await response.json();
+
 
   if (!response.ok) {
+
     throw new Error(
       data.message ||
       "Failed to load admin courses"
     );
+
   }
 
+
   return data;
+
 };
 
 
@@ -2024,7 +2033,9 @@ export const getAdminCourses = async (token) => {
 // ADMIN ENROLLMENTS
 // ==========================================
 
-export const getAdminEnrollments = async (token) => {
+export const getAdminEnrollments = async (
+  token
+) => {
 
   const response = await fetch(
     `${API_URL}/api/admin/enrollments`,
@@ -2038,16 +2049,23 @@ export const getAdminEnrollments = async (token) => {
     }
   );
 
-  const data = await response.json();
+
+  const data =
+    await response.json();
+
 
   if (!response.ok) {
+
     throw new Error(
       data.message ||
       "Failed to load admin enrollments"
     );
+
   }
 
+
   return data;
+
 };
 
 
@@ -2055,7 +2073,9 @@ export const getAdminEnrollments = async (token) => {
 // ADMIN CERTIFICATES
 // ==========================================
 
-export const getAdminCertificates = async (token) => {
+export const getAdminCertificates = async (
+  token
+) => {
 
   const response = await fetch(
     `${API_URL}/api/admin/certificates`,
@@ -2069,14 +2089,59 @@ export const getAdminCertificates = async (token) => {
     }
   );
 
-  const data = await response.json();
+
+  const data =
+    await response.json();
+
 
   if (!response.ok) {
+
     throw new Error(
       data.message ||
       "Failed to load admin certificates"
     );
+
   }
 
+
   return data;
+
+};
+// ==========================================
+// ADMIN USERS
+// ==========================================
+
+export const getAdminUsers = async (
+  token
+) => {
+
+  const response = await fetch(
+    `${API_URL}/api/admin/users`,
+    {
+      method: "GET",
+
+      headers: {
+        Authorization:
+          `Bearer ${token}`
+      }
+    }
+  );
+
+
+  const data =
+    await response.json();
+
+
+  if (!response.ok) {
+
+    throw new Error(
+      data.message ||
+      "Failed to load users"
+    );
+
+  }
+
+
+  return data;
+
 };
