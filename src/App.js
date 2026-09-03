@@ -11,7 +11,7 @@ import {
 
 import { AuthProvider } from "./context/AuthContext";
 import Home from "./pages/Home";
-import Login from "./pages/auth/Login";
+// import Login from "./pages/auth/Login"; this my crash
 import Register from "./pages/auth/Register";
 import SplashScreen from "./pages/SplashScreen";
 
@@ -50,10 +50,10 @@ import InstructorAssignmentSubmissions from "./pages/instructor/InstructorAssign
 import CreateAssignment from "./pages/instructor/CreateAssignment";
 import InstructorAssignments from "./pages/instructor/InstructorAssignments";
 import EditAssignment from "./pages/instructor/EditAssignment";
-
+import StudentChat from "./pages/student/StudentChat";
 import StudentAssignments from "./pages/student/StudentAssignments";
 import StudentAssignmentDetails from "./pages/student/StudentAssignmentDetails";
-
+import StudentCommunication from "./pages/student/StudentCommunication";
 import StudentDashboardLayout from "./pages/student/StudentDashboardLayout";
 import Settings from "./pages/Settings";
 import Notifications from "./pages/Notifications";
@@ -75,7 +75,9 @@ import ResetPassword from "./pages/auth/ResetPassword";
 import "./App.css";
 import BackButton from "./components/BackButton";
 import CourseCommunication from "./pages/student/CourseCommunication";
-
+import InstructorCommunication
+  from "./pages/instructor/InstructorCommunication";
+  import InstructorChat from "./pages/instructor/InstructorChat";
 import InstructorDashboardLayout  from "./pages/instructor/InstructorDashboardLayout";
 import StudentProfile from "./pages/student/StudentProfile";
 import {LanguageProvider} from "./context/LanguageContext";
@@ -83,6 +85,7 @@ import {LanguageProvider} from "./context/LanguageContext";
 import PopularCourses from "./pages/student/PopularCourses";
 import AdminEnrollments from "./pages/admin/AdminEnrollments"
 import AdminCertificates from "./pages/admin/AdminCertificates";
+
 // ==========================================
 // LAUNCH ROUTER
 // ==========================================
@@ -254,7 +257,18 @@ function App() {
     }
   />
 
-
+<Route
+  path="communication"
+  element={
+    <InstructorCommunication />
+  }
+/>
+<Route
+  path="communication/:conversationId"
+  element={
+    <InstructorChat />
+  }
+/>
   {/* =================================
       INSTRUCTOR COURSES
   ================================= */}
@@ -694,19 +708,39 @@ function App() {
             }
           >
 
-          <Route
+<Route
   path="bookmarks"
   element={<MyBookmarks />}
 />
+
 <Route
   path="ai-assistant"
   element={<AIAssistant />}
 />
 
+{/* =================================
+    COMMUNICATION
+================================= */}
+
+<Route
+  path="communication"
+  element={
+    <StudentCommunication />
+  }
+/>
+
+{/* COURSE COMMUNICATION */}
+
 <Route
   path="courses/:courseId/communication"
   element={
     <CourseCommunication />
+  }
+/>
+<Route
+  path="communication/:conversationId"
+  element={
+    <StudentChat />
   }
 />
             {/* /student → /student/dashboard */}

@@ -13,7 +13,8 @@ import {
   FaMoneyBillWave,
   FaUser,
   FaCog,
-  FaSignOutAlt
+  FaSignOutAlt,
+  FaCommentDots
 } from "react-icons/fa";
 
 import {
@@ -69,6 +70,10 @@ const InstructorSidebar = () => {
       <nav className="instructor-navigation">
 
 
+        {/* ==================================
+            DASHBOARD
+        ================================== */}
+
         <NavLink
           to="/instructor/dashboard"
           className={({ isActive }) =>
@@ -86,6 +91,10 @@ const InstructorSidebar = () => {
 
         </NavLink>
 
+
+        {/* ==================================
+            MY COURSES
+        ================================== */}
 
         <NavLink
           to="/instructor/courses"
@@ -105,6 +114,10 @@ const InstructorSidebar = () => {
         </NavLink>
 
 
+        {/* ==================================
+            STUDENTS
+        ================================== */}
+
         <NavLink
           to="/instructor/students"
           className={({ isActive }) =>
@@ -122,6 +135,10 @@ const InstructorSidebar = () => {
 
         </NavLink>
 
+
+        {/* ==================================
+            ASSIGNMENTS
+        ================================== */}
 
         <NavLink
           to="/instructor/assignments"
@@ -141,6 +158,10 @@ const InstructorSidebar = () => {
         </NavLink>
 
 
+        {/* ==================================
+            LESSONS
+        ================================== */}
+
         <NavLink
           to="/instructor/courses"
           className={({ isActive }) =>
@@ -159,6 +180,32 @@ const InstructorSidebar = () => {
         </NavLink>
 
 
+        {/* ==================================
+            COMMUNICATION
+        ================================== */}
+
+        <NavLink
+          to="/instructor/communication"
+          className={({ isActive }) =>
+            isActive
+              ? "instructor-nav-item active"
+              : "instructor-nav-item"
+          }
+        >
+
+          <FaCommentDots />
+
+          <span>
+            Communication
+          </span>
+
+        </NavLink>
+
+
+        {/* ==================================
+            DISCUSSIONS
+        ================================== */}
+
         <NavLink
           to="/instructor/discussions"
           className={({ isActive }) =>
@@ -176,6 +223,10 @@ const InstructorSidebar = () => {
 
         </NavLink>
 
+
+        {/* ==================================
+            EARNINGS
+        ================================== */}
 
         <NavLink
           to="/instructor/earnings"
@@ -198,6 +249,10 @@ const InstructorSidebar = () => {
         <div className="instructor-sidebar-divider" />
 
 
+        {/* ==================================
+            PROFILE
+        ================================== */}
+
         <NavLink
           to="/instructor/profile"
           className={({ isActive }) =>
@@ -215,6 +270,10 @@ const InstructorSidebar = () => {
 
         </NavLink>
 
+
+        {/* ==================================
+            SETTINGS
+        ================================== */}
 
         <NavLink
           to="/instructor/settings"
@@ -268,3 +327,4 @@ const InstructorSidebar = () => {
 
 
 export default InstructorSidebar;
+

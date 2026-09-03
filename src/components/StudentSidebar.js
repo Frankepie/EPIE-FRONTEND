@@ -1,3 +1,4 @@
+
 import {
   NavLink,
   useNavigate
@@ -6,19 +7,26 @@ import {
 import {
   useAuth
 } from "../context/AuthContext";
+
 import {
   useLanguage
 } from "../context/LanguageContext";
+
 import "../styles/StudentSidebar.css";
 
 
 const StudentSidebar = () => {
-const {
-  t
-} = useLanguage();
-  const navigate = useNavigate();
 
-  const { logout } = useAuth();
+  const {
+    t
+  } = useLanguage();
+
+  const navigate =
+    useNavigate();
+
+  const {
+    logout
+  } = useAuth();
 
 
   const handleLogout = () => {
@@ -59,7 +67,9 @@ const {
       <nav className="student-sidebar-nav">
 
 
-        {/* DASHBOARD */}
+        {/* ==================================
+            DASHBOARD
+        ================================== */}
 
         <NavLink
           to="/student/dashboard"
@@ -72,11 +82,16 @@ const {
 
           <i className="fa-regular fa-house"></i>
 
-        <span>{t("dashboard")}</span>
+          <span>
+            {t("dashboard")}
+          </span>
+
         </NavLink>
 
 
-        {/* MY COURSES */}
+        {/* ==================================
+            MY COURSES
+        ================================== */}
 
         <NavLink
           to="/student/courses"
@@ -89,12 +104,16 @@ const {
 
           <i className="fa-solid fa-book"></i>
 
-         <span>{t("myCourses")}</span>
+          <span>
+            {t("myCourses")}
+          </span>
 
         </NavLink>
 
 
-        {/* ASSIGNMENTS */}
+        {/* ==================================
+            ASSIGNMENTS
+        ================================== */}
 
         <NavLink
           to="/student/assignments"
@@ -106,11 +125,17 @@ const {
         >
 
           <i className="fa-solid fa-clipboard-list"></i>
-<span>{t("assignments")}</span>
+
+          <span>
+            {t("assignments")}
+          </span>
+
         </NavLink>
 
 
-        {/* MY PROGRESS */}
+        {/* ==================================
+            MY PROGRESS
+        ================================== */}
 
         <NavLink
           to="/student/progress"
@@ -123,12 +148,16 @@ const {
 
           <i className="fa-solid fa-bars-progress"></i>
 
-         <span>{t("myProgress")}</span>
+          <span>
+            {t("myProgress")}
+          </span>
 
         </NavLink>
 
 
-        {/* CERTIFICATES */}
+        {/* ==================================
+            CERTIFICATES
+        ================================== */}
 
         <NavLink
           to="/student/certificates"
@@ -141,12 +170,16 @@ const {
 
           <i className="fa-solid fa-trophy"></i>
 
-         <span>{t("certificates")}</span>
+          <span>
+            {t("certificates")}
+          </span>
 
         </NavLink>
 
 
-        {/* BOOKMARKS */}
+        {/* ==================================
+            BOOKMARKS
+        ================================== */}
 
         <NavLink
           to="/student/bookmarks"
@@ -159,12 +192,16 @@ const {
 
           <i className="fa-solid fa-bookmark"></i>
 
-         <span>{t("bookmarks")}</span>
+          <span>
+            {t("bookmarks")}
+          </span>
 
         </NavLink>
 
 
-        {/* NOTIFICATIONS */}
+        {/* ==================================
+            NOTIFICATIONS
+        ================================== */}
 
         <NavLink
           to="/student/notifications"
@@ -177,12 +214,38 @@ const {
 
           <i className="fa-solid fa-bell"></i>
 
-          <span>{t("notifications")}</span>
+          <span>
+            {t("notifications")}
+          </span>
 
         </NavLink>
 
 
-        {/* DISCUSSIONS */}
+        {/* ==================================
+            COMMUNICATION
+        ================================== */}
+
+        <NavLink
+          to="/student/communication"
+          className={({ isActive }) =>
+            isActive
+              ? "student-nav-link active"
+              : "student-nav-link"
+          }
+        >
+
+          <i className="fa-solid fa-comments"></i>
+
+          <span>
+            {t("communication") || "Communication"}
+          </span>
+
+        </NavLink>
+
+
+        {/* ==================================
+            DISCUSSIONS
+        ================================== */}
 
         <NavLink
           to="/student/discussions"
@@ -195,12 +258,16 @@ const {
 
           <i className="fa-solid fa-message"></i>
 
-          <span>{t("discussions")}</span>
+          <span>
+            {t("discussions")}
+          </span>
 
         </NavLink>
 
 
-        {/* AI ASSISTANT */}
+        {/* ==================================
+            AI ASSISTANT
+        ================================== */}
 
         <NavLink
           to="/student/ai-assistant"
@@ -213,7 +280,9 @@ const {
 
           <i className="fa-solid fa-robot"></i>
 
-          <span>{t("aiAssistant")}</span>
+          <span>
+            {t("aiAssistant")}
+          </span>
 
         </NavLink>
 
@@ -221,7 +290,9 @@ const {
         <div className="student-sidebar-divider" />
 
 
-        {/* PROFILE */}
+        {/* ==================================
+            PROFILE
+        ================================== */}
 
         <NavLink
           to="/student/profile"
@@ -234,12 +305,16 @@ const {
 
           <i className="fa-solid fa-user"></i>
 
-          <span>{t("profile")}</span>
+          <span>
+            {t("profile")}
+          </span>
 
         </NavLink>
 
 
-        {/* SETTINGS */}
+        {/* ==================================
+            SETTINGS
+        ================================== */}
 
         <NavLink
           to="/student/settings"
@@ -252,7 +327,9 @@ const {
 
           <i className="fa-solid fa-gear"></i>
 
-          <span>{t("settings")}</span>
+          <span>
+            {t("settings")}
+          </span>
 
         </NavLink>
 
@@ -274,8 +351,8 @@ const {
           <i className="fa-solid fa-right-from-bracket"></i>
 
           <span>
-  {t("logout")}
-</span>
+            {t("logout")}
+          </span>
 
         </button>
 
@@ -290,3 +367,4 @@ const {
 
 
 export default StudentSidebar;
+

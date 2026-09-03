@@ -1,0 +1,106 @@
+/* ==========================================
+   INSTRUCTOR COMMUNICATION
+========================================== */
+
+.instructor-communication-page {
+  min-height: 100vh;
+  padding: 24px;
+  background: #f5f7fb;
+}
+
+.instructor-communication-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.instructor-communication-header h1 {
+  margin: 0;
+  font-size: 28px;
+}
+
+.instructor-communication-content {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 20px;
+}
+
+.instructor-communication-panel {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+}
+
+.instructor-communication-panel h2 {
+  margin-top: 0;
+}
+
+.instructor-communication-student {
+  width: 100%;
+  border: none;
+  background: transparent;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  text-align: left;
+  border-radius: 8px;
+}
+
+.instructor-communication-student:hover {
+  background: #f1f4f9;
+}
+
+.instructor-communication-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e8eefc;
+  overflow: hidden;
+  font-weight: 600;
+}
+
+.instructor-communication-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.instructor-communication-empty {
+  text-align: center;
+  padding: 50px 20px;
+  color: #777;
+}
+
+.instructor-communication-loading {
+  text-align: center;
+  padding: 50px;
+}
+
+.instructor-communication-error {
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  background: #fff0f0;
+  color: #c62828;
+}
+
+@media (max-width: 768px) {
+  .instructor-communication-page {
+    padding: 15px;
+  }
+
+  .instructor-communication-content {
+    grid-template-columns: 1fr;
+  }
+
+  .instructor-communication-header h1 {
+    font-size: 22px;
+  }
+}
