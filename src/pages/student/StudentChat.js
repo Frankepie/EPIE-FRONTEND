@@ -16,7 +16,9 @@ import {
   FaPhone,
   FaVideo,
   FaEllipsisV,
-  FaComments
+  FaComments,
+  FaUserGraduate,
+  FaChalkboardTeacher
 } from "react-icons/fa";
 
 import { io } from "socket.io-client";
@@ -96,7 +98,7 @@ const StudentChat = () => {
 
 
   // ==========================================
-  // LOAD CONVERSATION + CONNECT SOCKET
+  // LOAD FORUM + CONNECT SOCKET
   // ==========================================
 
   useEffect(() => {
@@ -112,17 +114,18 @@ const StudentChat = () => {
     let mounted = true;
 
 
-    const loadConversation =
+    const loadForum =
       async () => {
 
         try {
 
           setLoading(true);
+
           setError("");
 
 
           // ====================================
-          // LOAD EXISTING CONVERSATION
+          // LOAD FORUM MESSAGES
           // ====================================
 
           const response =
@@ -147,7 +150,7 @@ const StudentChat = () => {
 
             throw new Error(
               data.message ||
-              "Failed to load conversation"
+              "Failed to load course forum"
             );
 
           }
@@ -192,7 +195,7 @@ const StudentChat = () => {
             () => {
 
               console.log(
-                "Student Socket.IO connected:",
+                "Student Forum Socket.IO connected:",
                 socket.id
               );
 
@@ -203,7 +206,7 @@ const StudentChat = () => {
 
 
               // ================================
-              // JOIN CONVERSATION ROOM
+              // JOIN COURSE FORUM ROOM
               // ================================
 
               socket.emit(
@@ -216,16 +219,16 @@ const StudentChat = () => {
 
 
           // ====================================
-          // CONVERSATION JOINED
+          // FORUM JOINED
           // ====================================
 
           socket.on(
             "conversation_joined",
-            data => {
+            socketData => {
 
               console.log(
-                "Conversation joined:",
-                data
+                "Course forum joined:",
+                socketData
               );
 
             }
@@ -241,17 +244,13 @@ const StudentChat = () => {
             newMessage => {
 
               console.log(
-                "New message received:",
+                "New forum message received:",
                 newMessage
               );
 
 
               setMessages(
                 previousMessages => {
-
-                  // ==========================
-                  // PREVENT DUPLICATES
-                  // ==========================
 
                   const alreadyExists =
                     previousMessages.some(
@@ -283,7 +282,7 @@ const StudentChat = () => {
 
 
           // ====================================
-          // COMMUNICATION ERROR
+          // FORUM ERROR
           // ====================================
 
           socket.on(
@@ -291,14 +290,14 @@ const StudentChat = () => {
             socketError => {
 
               console.error(
-                "Socket communication error:",
+                "Forum socket error:",
                 socketError
               );
 
 
               setError(
                 socketError?.message ||
-                "Communication error"
+                "Forum communication error"
               );
 
               setSending(false);
@@ -316,9 +315,10 @@ const StudentChat = () => {
             reason => {
 
               console.log(
-                "Student Socket.IO disconnected:",
+                "Student Forum Socket.IO disconnected:",
                 reason
               );
+
 
               setSocketConnected(
                 false
@@ -337,7 +337,7 @@ const StudentChat = () => {
             socketError => {
 
               console.error(
-                "Socket connection error:",
+                "Forum socket connection error:",
                 socketError
               );
 
@@ -347,7 +347,7 @@ const StudentChat = () => {
               );
 
               setError(
-                "Unable to connect to real-time chat."
+                "Unable to connect to the course forum."
               );
 
             }
@@ -356,7 +356,7 @@ const StudentChat = () => {
         } catch (err) {
 
           console.error(
-            "Load student conversation error:",
+            "Load student forum error:",
             err
           );
 
@@ -365,7 +365,7 @@ const StudentChat = () => {
 
             setError(
               err.message ||
-              "Failed to load conversation."
+              "Failed to load course forum."
             );
 
           }
@@ -383,7 +383,7 @@ const StudentChat = () => {
       };
 
 
-    loadConversation();
+    loadForum();
 
 
     // ==========================================
@@ -435,14 +435,28 @@ const StudentChat = () => {
 
 
   // ==========================================
-  // GET OTHER PARTICIPANT
+  // FIND INSTRUCTOR
   // ==========================================
 
   const instructor =
     conversation?.participants?.find(
       participant =>
-        participant._id !== user?._id
+        participant?.role?.toLowerCase() ===
+        "instructor"
     );
+
+
+  // ==========================================
+  // COURSE INFORMATION
+  // ==========================================
+
+  const course =
+    conversation?.course;
+
+
+  const courseTitle =
+    course?.title ||
+    "Course Forum";
 
 
   // ==========================================
@@ -475,7 +489,7 @@ const StudentChat = () => {
       ) {
 
         setError(
-          "Chat is not connected. Please wait a moment and try again."
+          "Forum is not connected. Please wait a moment and try again."
         );
 
         return;
@@ -484,11 +498,12 @@ const StudentChat = () => {
 
 
       setSending(true);
+
       setError("");
 
 
       // ========================================
-      // SEND TO BACKEND
+      // SEND MESSAGE
       // ========================================
 
       socketRef.current.emit(
@@ -535,7 +550,7 @@ const StudentChat = () => {
           <FaComments />
 
           <p>
-            Loading conversation...
+            Loading course forum...
           </p>
 
         </div>
@@ -565,7 +580,7 @@ const StudentChat = () => {
           <FaComments />
 
           <h2>
-            Unable to open chat
+            Unable to open forum
           </h2>
 
           <p>
@@ -580,7 +595,7 @@ const StudentChat = () => {
               )
             }
           >
-            Back to Communication
+            Back to Forum
           </button>
 
         </div>
@@ -593,7 +608,7 @@ const StudentChat = () => {
 
 
   // ==========================================
-  // CHAT PAGE
+  // FORUM PAGE
   // ==========================================
 
   return (
@@ -622,51 +637,37 @@ const StudentChat = () => {
         </button>
 
 
+        {/* ====================================
+            FORUM ICON
+        ==================================== */}
+
         <div className="student-chat-user-avatar">
 
-          {instructor?.profileImage ? (
-
-            <img
-              src={
-                instructor.profileImage
-              }
-              alt={
-                instructor.name
-              }
-            />
-
-          ) : (
-
-            <span>
-              {(instructor?.name ||
-                "I")
-                .charAt(0)
-                .toUpperCase()}
-            </span>
-
-          )}
+          <FaComments />
 
         </div>
 
 
+        {/* ====================================
+            FORUM INFORMATION
+        ==================================== */}
+
         <div className="student-chat-user-info">
 
           <h2>
-            {instructor?.name ||
-              "Instructor"}
+            {courseTitle}
           </h2>
 
           <span>
-            {instructor?.email ||
-              "Course Instructor"}
+            Course Forum
           </span>
 
         </div>
 
 
-        {/* ==================================
+        {/* ====================================
             SOCKET STATUS
-        ================================== */}
+        ==================================== */}
 
         <div
           className={
@@ -685,9 +686,9 @@ const StudentChat = () => {
         </div>
 
 
-        {/* ==================================
+        {/* ====================================
             CALL BUTTONS
-        ================================== */}
+        ==================================== */}
 
         <div className="student-chat-header-actions">
 
@@ -731,16 +732,21 @@ const StudentChat = () => {
 
 
       {/* ======================================
-          COURSE BAR
+          COURSE / INSTRUCTOR BAR
       ====================================== */}
 
       <div className="student-chat-course-bar">
 
-        <FaComments />
+        <FaChalkboardTeacher />
 
         <span>
-          {conversation.course?.title ||
-            "Course Communication"}
+
+          Instructor:{" "}
+
+          {instructor?.name ||
+            instructor?.email ||
+            "Course Instructor"}
+
         </span>
 
       </div>
@@ -774,12 +780,13 @@ const StudentChat = () => {
             <FaComments />
 
             <h3>
-              Start a conversation
+              Welcome to the Course Forum
             </h3>
 
             <p>
-              Send a message to your
-              instructor.
+              Start a discussion with your
+              instructor and fellow enrolled
+              students.
             </p>
 
           </div>
@@ -789,11 +796,14 @@ const StudentChat = () => {
           messages.map(
             currentMessage => {
 
+              const senderId =
+                currentMessage.sender?._id ||
+                currentMessage.sender;
+
+
               const isMine =
-                currentMessage.sender?._id ===
-                  user?._id ||
-                currentMessage.sender ===
-                  user?._id;
+                senderId?.toString() ===
+                user?._id?.toString();
 
 
               return (
@@ -808,6 +818,28 @@ const StudentChat = () => {
                       : "student-chat-message-row"
                   }
                 >
+
+                  {/* ============================
+                      OTHER USER
+                  ============================ */}
+
+                  {!isMine && (
+
+                    <div className="student-chat-message-sender">
+
+                      <FaUserGraduate />
+
+                      <span>
+                        {
+                          currentMessage.sender?.name ||
+                          "Forum Member"
+                        }
+                      </span>
+
+                    </div>
+
+                  )}
+
 
                   <div
                     className={
@@ -830,7 +862,8 @@ const StudentChat = () => {
 
                       <p>
                         {
-                          currentMessage.type
+                          currentMessage.type ||
+                          "Message"
                         }
                       </p>
 
@@ -878,7 +911,7 @@ const StudentChat = () => {
 
 
       {/* ======================================
-          INPUT
+          MESSAGE INPUT
       ====================================== */}
 
       <form
@@ -888,15 +921,15 @@ const StudentChat = () => {
         }
       >
 
+        {/* ====================================
+            VOICE MESSAGE
+        ==================================== */}
+
         <button
           type="button"
           className="student-chat-input-action"
           title="Voice message"
-          onClick={() =>
-            console.log(
-              "Voice messages will be added in the audio phase"
-            )
-          }
+          disabled
         >
 
           <FaMicrophone />
@@ -904,9 +937,13 @@ const StudentChat = () => {
         </button>
 
 
+        {/* ====================================
+            TEXT INPUT
+        ==================================== */}
+
         <input
           type="text"
-          placeholder="Type a message..."
+          placeholder="Write something to the forum..."
           value={
             message
           }
@@ -921,6 +958,10 @@ const StudentChat = () => {
           }
         />
 
+
+        {/* ====================================
+            SEND
+        ==================================== */}
 
         <button
           type="submit"
@@ -946,4 +987,3 @@ const StudentChat = () => {
 
 
 export default StudentChat;
-

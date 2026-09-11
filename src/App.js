@@ -11,7 +11,7 @@ import {
 
 import { AuthProvider } from "./context/AuthContext";
 import Home from "./pages/Home";
-// import Login from "./pages/auth/Login"; this my crash
+import Login from "./pages/auth/Login"; 
 import Register from "./pages/auth/Register";
 import SplashScreen from "./pages/SplashScreen";
 

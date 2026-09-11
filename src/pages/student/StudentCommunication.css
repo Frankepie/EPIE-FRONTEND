@@ -1,5 +1,5 @@
 /* ==========================================
-   STUDENT COMMUNICATION
+   STUDENT FORUM
 ========================================== */
 
 .student-communication-page {
@@ -8,88 +8,447 @@
   background: #f5f7fb;
 }
 
+
+/* ==========================================
+   HEADER
+========================================== */
+
 .student-communication-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
   margin-bottom: 24px;
 }
 
-.student-communication-header h1 {
-  margin: 0;
-  font-size: 28px;
-}
-
-.student-communication-course {
-  background: #fff;
+.student-communication-header-icon {
+  width: 48px;
+  height: 48px;
   border-radius: 12px;
-  padding: 20px;
-  margin-bottom: 20px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
-}
-
-.student-communication-instructor {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-.student-communication-avatar {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  overflow: hidden;
   background: #e8eefc;
+  color: #3157c8;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 600;
+  font-size: 21px;
+  flex-shrink: 0;
 }
 
-.student-communication-avatar img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.student-communication-header h2 {
+  margin: 0;
+  font-size: 28px;
+  color: #202633;
 }
 
-.student-communication-list {
+.student-communication-header p {
+  margin: 5px 0 0;
+  color: #777;
+  font-size: 14px;
+}
+
+
+/* ==========================================
+   BACK BUTTON
+========================================== */
+
+.student-communication-back {
+  width: 42px;
+  height: 42px;
+  border: none;
+  border-radius: 10px;
+  background: #fff;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  transition: 0.2s ease;
+}
+
+.student-communication-back:hover {
+  background: #eef2ff;
+  color: #3157c8;
+}
+
+
+/* ==========================================
+   ERROR
+========================================== */
+
+.student-communication-error {
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  background: #fff0f0;
+  color: #c62828;
+  font-size: 14px;
+}
+
+
+/* ==========================================
+   COURSE LIST
+========================================== */
+
+.student-communication-courses {
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
-.student-communication-conversation {
+.student-communication-courses-title {
+  margin-bottom: 6px;
+}
+
+.student-communication-courses-title h3 {
+  margin: 0;
+  font-size: 20px;
+  color: #202633;
+}
+
+.student-communication-courses-title p {
+  margin: 5px 0 12px;
+  color: #777;
+  font-size: 14px;
+}
+
+
+/* ==========================================
+   COURSE ITEM
+========================================== */
+
+.student-communication-course {
   width: 100%;
   border: none;
   background: #fff;
   padding: 16px;
-  border-radius: 10px;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   gap: 14px;
   cursor: pointer;
   text-align: left;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
 }
 
-.student-communication-conversation:hover {
-  background: #f8f9fc;
+.student-communication-course:hover {
+  background: #fafbff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
 }
 
-.student-communication-empty {
+.student-communication-course:active {
+  transform: translateY(0);
+}
+
+.student-communication-course-icon {
+  width: 54px;
+  height: 54px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #e8eefc;
+  color: #3157c8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 21px;
+}
+
+.student-communication-course-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.student-communication-course-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.student-communication-course-info h4 {
+  margin: 0;
+  color: #202633;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.student-communication-course-info p {
+  margin: 5px 0 0;
+  color: #777;
+  font-size: 13px;
+}
+
+.student-communication-course-arrow {
+  color: #9aa2b1;
+  font-size: 15px;
+  flex-shrink: 0;
+}
+
+
+/* ==========================================
+   COURSE INFORMATION CARD
+========================================== */
+
+.student-forum-course-card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 14px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+}
+
+.student-forum-course-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #e8eefc;
+  color: #3157c8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 23px;
+}
+
+.student-forum-course-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.student-forum-course-info {
+  min-width: 0;
+}
+
+.student-forum-course-info h3 {
+  margin: 0;
+  color: #202633;
+  font-size: 19px;
+}
+
+.student-forum-course-info p {
+  margin: 5px 0 0;
+  color: #777;
+  font-size: 14px;
+}
+
+
+/* ==========================================
+   INSTRUCTOR CARD
+========================================== */
+
+.student-forum-instructor-card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.student-forum-section-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #e8eefc;
+  color: #3157c8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.student-forum-instructor-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.student-forum-instructor-info span {
+  font-size: 12px;
+  color: #888;
+}
+
+.student-forum-instructor-info strong {
+  color: #202633;
+  font-size: 15px;
+}
+
+
+/* ==========================================
+   FORUM CONTENT
+========================================== */
+
+.student-forum-content {
+  background: #fff;
+  border-radius: 14px;
+  padding: 22px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+}
+
+.student-forum-title {
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+  margin-bottom: 20px;
+}
+
+.student-forum-title-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: #e8eefc;
+  color: #3157c8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.student-forum-title h3 {
+  margin: 0;
+  color: #202633;
+  font-size: 18px;
+}
+
+.student-forum-title p {
+  margin: 5px 0 0;
+  color: #777;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+
+/* ==========================================
+   OPEN FORUM CARD
+========================================== */
+
+.student-forum-open-card {
+  border: 1px solid #edf0f6;
+  border-radius: 12px;
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.student-forum-open-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 10px;
+  background: #f0f3ff;
+  color: #3157c8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.student-forum-open-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.student-forum-open-info h4 {
+  margin: 0;
+  color: #202633;
+  font-size: 16px;
+}
+
+.student-forum-open-info p {
+  margin: 5px 0 0;
+  color: #777;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.student-forum-open-button {
+  border: none;
+  border-radius: 8px;
+  padding: 10px 18px;
+  background: #3157c8;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+  white-space: nowrap;
+}
+
+.student-forum-open-button:hover {
+  background: #2648ad;
+}
+
+
+/* ==========================================
+   EMPTY STATE
+========================================== */
+
+.student-communication-empty,
+.student-forum-empty {
   text-align: center;
   padding: 50px 20px;
   color: #777;
 }
 
-.student-communication-loading {
-  text-align: center;
-  padding: 50px;
+.student-communication-empty svg,
+.student-forum-empty svg {
+  font-size: 36px;
+  color: #aab3c5;
+  margin-bottom: 12px;
 }
 
-.student-communication-error {
-  padding: 15px;
-  border-radius: 8px;
-  background: #fff0f0;
-  color: #c62828;
+.student-communication-empty h3,
+.student-forum-empty h4 {
+  margin: 0 0 8px;
+  color: #444;
 }
+
+.student-communication-empty p,
+.student-forum-empty p {
+  margin: 0;
+  font-size: 14px;
+}
+
+
+/* ==========================================
+   LOADING
+========================================== */
+
+.student-communication-loading,
+.student-forum-loading {
+  text-align: center;
+  padding: 50px 20px;
+  color: #777;
+}
+
+.student-communication-loading svg,
+.student-forum-loading svg {
+  font-size: 30px;
+  color: #3157c8;
+  margin-bottom: 12px;
+}
+
+.student-communication-loading p,
+.student-forum-loading p {
+  margin: 0;
+  font-size: 14px;
+}
+
+
+/* ==========================================
+   MOBILE
+========================================== */
 
 @media (max-width: 768px) {
 
@@ -97,8 +456,104 @@
     padding: 15px;
   }
 
-  .student-communication-header h1 {
+  .student-communication-header {
+    margin-bottom: 18px;
+  }
+
+  .student-communication-header h2 {
     font-size: 22px;
+  }
+
+  .student-communication-header p {
+    font-size: 13px;
+  }
+
+  .student-communication-header-icon {
+    width: 42px;
+    height: 42px;
+    font-size: 18px;
+  }
+
+  .student-communication-course {
+    padding: 14px;
+  }
+
+  .student-communication-course-icon {
+    width: 48px;
+    height: 48px;
+  }
+
+  .student-communication-course-info h4 {
+    font-size: 15px;
+  }
+
+  .student-forum-course-card {
+    padding: 15px;
+  }
+
+  .student-forum-course-icon {
+    width: 54px;
+    height: 54px;
+  }
+
+  .student-forum-course-info h3 {
+    font-size: 17px;
+  }
+
+  .student-forum-content {
+    padding: 17px;
+  }
+
+  .student-forum-open-card {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .student-forum-open-info {
+    flex: 1;
+  }
+
+  .student-forum-open-button {
+    width: 100%;
+    margin-top: 4px;
+  }
+
+}
+
+
+/* ==========================================
+   SMALL MOBILE
+========================================== */
+
+@media (max-width: 480px) {
+
+  .student-communication-page {
+    padding: 12px;
+  }
+
+  .student-forum-course-card {
+    align-items: flex-start;
+  }
+
+  .student-forum-instructor-card {
+    padding: 14px;
+  }
+
+  .student-forum-title {
+    gap: 10px;
+  }
+
+  .student-forum-title-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .student-forum-title h3 {
+    font-size: 16px;
+  }
+
+  .student-forum-title p {
+    font-size: 13px;
   }
 
 }

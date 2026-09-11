@@ -10,7 +10,8 @@ import {
 import {
   FaComments,
   FaUser,
-  FaArrowLeft
+  FaArrowLeft,
+  FaBook
 } from "react-icons/fa";
 
 import {
@@ -31,18 +32,16 @@ import "../../styles/StudentCommunication.css";
 
 const StudentCommunication = () => {
 
+  const navigate = useNavigate();
+
   const {
-    user,
     token
   } = useAuth();
 
-  const navigate =
-    useNavigate();
 
-
-  // ==========================================
+  // =====================================
   // STATE
-  // ==========================================
+  // =====================================
 
   const [
     courses,
@@ -55,9 +54,9 @@ const StudentCommunication = () => {
   ] = useState(null);
 
   const [
-    conversations,
-    setConversations
-  ] = useState([]);
+    forum,
+    setForum
+  ] = useState(null);
 
   const [
     loadingCourses,
@@ -65,8 +64,8 @@ const StudentCommunication = () => {
   ] = useState(true);
 
   const [
-    loadingConversations,
-    setLoadingConversations
+    loadingForum,
+    setLoadingForum
   ] = useState(false);
 
   const [
@@ -75,381 +74,538 @@ const StudentCommunication = () => {
   ] = useState("");
 
 
-  // ==========================================
-  // LOAD STUDENT COURSES
-  // ==========================================
+  // =====================================
+  // LOAD ENROLLED COURSES
+  // =====================================
 
   useEffect(() => {
 
-    const loadCourses =
-      async () => {
-
-        try {
-
-          setLoadingCourses(true);
-          setError("");
-
-          const data =
-            await getMyCourses(token);
-
-          const enrolledCourses =
-            data?.enrollments || [];
-
-          setCourses(
-            enrolledCourses
-          );
-
-        } catch (err) {
-
-          console.error(
-            "Load communication courses error:",
-            err
-          );
-
-          setError(
-            err.message ||
-            "Failed to load your courses."
-          );
-
-        } finally {
-
-          setLoadingCourses(false);
-
-        }
-
-      };
-
-
-    if (token) {
-
-      loadCourses();
-
-    }
-
-  }, [
-    token
-  ]);
-
-
-  // ==========================================
-  // GET COURSE OBJECT
-  // ==========================================
-
-  const getCourseObject =
-    (enrollment) => {
-
-      return (
-        enrollment?.course ||
-        enrollment
-      );
-
-    };
-
-
-  // ==========================================
-  // LOAD COURSE COMMUNICATION
-  // ==========================================
-
-  const handleCourseSelect =
-    async (enrollment) => {
-
-      const course =
-        getCourseObject(
-          enrollment
-        );
-
-
-      if (!course?._id) {
-        return;
-      }
-
+    const loadCourses = async () => {
 
       try {
 
-        setSelectedCourse(
-          course
-        );
-
-        setConversations([]);
-
-        setLoadingConversations(
-          true
-        );
-
+        setLoadingCourses(true);
         setError("");
 
-
         const data =
-          await getCourseCommunication(
-            course._id,
-            token
-          );
+          await getMyCourses(token);
 
+        const enrollments =
+          data?.enrollments || [];
 
-        setConversations(
-          data?.conversations || []
-        );
-
+        setCourses(enrollments);
 
       } catch (err) {
 
         console.error(
-          "Load course communication error:",
+          "Load student courses error:",
           err
         );
 
         setError(
           err.message ||
-          "Failed to load communication."
+          "Failed to load your courses."
         );
 
       } finally {
 
-        setLoadingConversations(
-          false
+        setLoadingCourses(false);
+
+      }
+    };
+
+
+    if (token) {
+      loadCourses();
+    }
+
+  }, [token]);
+
+
+  // =====================================
+  // GET COURSE OBJECT
+  // =====================================
+
+  const getCourseObject = (
+    enrollment
+  ) => {
+
+    return (
+      enrollment?.course ||
+      enrollment
+    );
+
+  };
+
+
+  // =====================================
+  // OPEN COURSE FORUM
+  // =====================================
+
+  const handleSelectCourse = async (
+    enrollment
+  ) => {
+
+    const course =
+      getCourseObject(enrollment);
+
+    if (!course?._id) {
+      return;
+    }
+
+    try {
+
+      setSelectedCourse(course);
+
+      setForum(null);
+
+      setLoadingForum(true);
+
+      setError("");
+
+
+      // ---------------------------------
+      // First check whether forum exists
+      // ---------------------------------
+
+      const communicationData =
+        await getCourseCommunication(
+          course._id,
+          token
         );
 
-      }
 
-    };
-
-
-  // ==========================================
-  // GET OTHER PARTICIPANT
-  // ==========================================
-
-  const getOtherParticipant =
-    (conversation) => {
-
-      if (
-        !conversation ||
-        !Array.isArray(
-          conversation.participants
-        )
-      ) {
-
-        return null;
-
-      }
+      let conversations =
+        communicationData?.conversations || [];
 
 
-      return conversation.participants.find(
-        participant => {
+      // ---------------------------------
+      // If no forum exists yet,
+      // create/get the shared forum
+      // ---------------------------------
 
-          const participantId =
-            participant?._id ||
-            participant;
+      if (conversations.length === 0) {
 
-          return (
-            participantId?.toString() !==
-            user?._id?.toString()
-          );
-
-        }
-      );
-
-    };
-
-
-  // ==========================================
-  // OPEN CHAT
-  // ==========================================
-
-  const openConversation =
-    (conversation) => {
-
-      if (!conversation?._id) {
-        return;
-      }
-
-
-      navigate(
-        `/student/chat/${conversation._id}`
-      );
-
-    };
-
-
-  // ==========================================
-  // START NEW CONVERSATION
-  // ==========================================
-
-  const startConversation =
-    async () => {
-
-      if (
-        !selectedCourse ||
-        !selectedCourse.instructor
-      ) {
-
-        setError(
-          "Course instructor could not be found."
-        );
-
-        return;
-
-      }
-
-
-      try {
-
-        setError("");
-
-
-        const instructor =
-          selectedCourse.instructor;
-
-
-        const instructorId =
-          instructor?._id ||
-          instructor;
-
-
-        const data =
+        const forumData =
           await createConversation(
-            selectedCourse._id,
-            instructorId,
+            course._id,
             token
           );
 
+        if (forumData?.conversation) {
 
-        const conversation =
-          data?.conversation;
-
-
-        if (!conversation?._id) {
-
-          throw new Error(
-            "Conversation was not created."
+          setForum(
+            forumData.conversation
           );
+
+        } else {
+
+          setForum(null);
 
         }
 
+      } else {
 
-        setConversations(
-          previous => {
+        // ---------------------------------
+        // Shared course forum
+        // ---------------------------------
 
-            const exists =
-              previous.some(
-                item =>
-                  item._id ===
-                  conversation._id
-              );
-
-
-            if (exists) {
-
-              return previous;
-
-            }
-
-
-            return [
-              conversation,
-              ...previous
-            ];
-
-          }
-        );
-
-
-        // ====================================
-        // OPEN STUDENT CHAT PAGE
-        // ====================================
-
-        navigate(
-          `/student/chat/${conversation._id}`
-        );
-
-
-      } catch (err) {
-
-        console.error(
-          "Create conversation error:",
-          err
-        );
-
-        setError(
-          err.message ||
-          "Failed to start conversation."
+        setForum(
+          conversations[0]
         );
 
       }
 
-    };
+    } catch (err) {
 
-
-  // ==========================================
-  // BACK TO DASHBOARD
-  // ==========================================
-
-  const handleBack =
-    () => {
-
-      navigate(
-        "/student/dashboard"
+      console.error(
+        "Open course forum error:",
+        err
       );
 
-    };
+      setError(
+        err.message ||
+        "Failed to open course forum."
+      );
+
+    } finally {
+
+      setLoadingForum(false);
+
+    }
+
+  };
 
 
-  // ==========================================
-  // RENDER
-  // ==========================================
+  // =====================================
+  // OPEN FORUM CHAT
+  // =====================================
 
-  return (
+  const handleOpenForum = () => {
 
-    <div className="student-communication">
+    if (!forum?._id) {
+      return;
+    }
 
+    navigate(
+      `/student/chat/${forum._id}`
+    );
 
-      {/* ======================================
-          HEADER
-      ====================================== */}
-
-      <div className="communication-header">
-
-        <button
-          type="button"
-          className="communication-back-button"
-          onClick={
-            handleBack
-          }
-        >
-
-          <FaArrowLeft />
-
-          <span>
-            Back
-          </span>
-
-        </button>
+  };
 
 
-        <div>
+  // =====================================
+  // BACK TO COURSE LIST
+  // =====================================
 
-          <h1>
-            Communication
-          </h1>
+  const handleBack = () => {
+
+    setSelectedCourse(null);
+
+    setForum(null);
+
+    setError("");
+
+  };
+
+
+  // =====================================
+  // COURSE TITLE
+  // =====================================
+
+  const getCourseTitle = (
+    course
+  ) => {
+
+    return (
+      course?.title ||
+      course?.name ||
+      "Untitled Course"
+    );
+
+  };
+
+
+  // =====================================
+  // INSTRUCTOR NAME
+  // =====================================
+
+  const getInstructorName = (
+    course
+  ) => {
+
+    const instructor =
+      course?.instructor;
+
+    if (!instructor) {
+      return "Course Instructor";
+    }
+
+    if (
+      typeof instructor === "string"
+    ) {
+      return "Course Instructor";
+    }
+
+    return (
+      instructor.name ||
+      instructor.email ||
+      "Course Instructor"
+    );
+
+  };
+
+
+  // =====================================
+  // LOADING COURSES
+  // =====================================
+
+  if (loadingCourses) {
+
+    return (
+      <div className="student-communication-page">
+
+        <div className="student-communication-loading">
+
+          <FaComments />
 
           <p>
-            Connect with your course instructors.
+            Loading your forums...
           </p>
 
         </div>
 
+      </div>
+    );
 
-        <FaComments />
+  }
+
+
+  // =====================================
+  // SELECTED COURSE / FORUM
+  // =====================================
+
+  if (selectedCourse) {
+
+    return (
+      <div className="student-communication-page">
+
+        {/* =================================
+            HEADER
+        ================================= */}
+
+        <div className="student-communication-header">
+
+          <button
+            type="button"
+            className="student-communication-back"
+            onClick={handleBack}
+          >
+            <FaArrowLeft />
+          </button>
+
+          <div>
+
+            <h2>
+              Forum
+            </h2>
+
+            <p>
+              Course discussion forum
+            </p>
+
+          </div>
+
+        </div>
+
+
+        {/* =================================
+            ERROR
+        ================================= */}
+
+        {error && (
+
+          <div className="student-communication-error">
+
+            {error}
+
+          </div>
+
+        )}
+
+
+        {/* =================================
+            COURSE INFORMATION
+        ================================= */}
+
+        <div className="student-forum-course-card">
+
+          <div className="student-forum-course-icon">
+
+            {courseImage(selectedCourse) ? (
+
+              <img
+                src={courseImage(selectedCourse)}
+                alt={getCourseTitle(selectedCourse)}
+              />
+
+            ) : (
+
+              <FaBook />
+
+            )}
+
+          </div>
+
+
+          <div className="student-forum-course-info">
+
+            <h3>
+              {getCourseTitle(selectedCourse)}
+            </h3>
+
+            <p>
+              Enrolled course forum
+            </p>
+
+          </div>
+
+        </div>
+
+
+        {/* =================================
+            INSTRUCTOR
+        ================================= */}
+
+        <div className="student-forum-instructor-card">
+
+          <div className="student-forum-section-icon">
+
+            <FaUser />
+
+          </div>
+
+
+          <div className="student-forum-instructor-info">
+
+            <span>
+              Instructor
+            </span>
+
+            <strong>
+              {getInstructorName(
+                selectedCourse
+              )}
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        {/* =================================
+            FORUM
+        ================================= */}
+
+        <div className="student-forum-content">
+
+          <div className="student-forum-title">
+
+            <div className="student-forum-title-icon">
+
+              <FaComments />
+
+            </div>
+
+            <div>
+
+              <h3>
+                {getCourseTitle(selectedCourse)} Forum
+              </h3>
+
+              <p>
+                Discuss this course with your instructor
+                and other enrolled students.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          {loadingForum ? (
+
+            <div className="student-forum-loading">
+
+              <FaComments />
+
+              <p>
+                Opening forum...
+              </p>
+
+            </div>
+
+          ) : forum ? (
+
+            <div className="student-forum-open-card">
+
+              <div className="student-forum-open-icon">
+
+                <FaComments />
+
+              </div>
+
+              <div className="student-forum-open-info">
+
+                <h4>
+                  Course Forum
+                </h4>
+
+                <p>
+                  Join the discussion with your
+                  instructor and classmates.
+                </p>
+
+              </div>
+
+              <button
+                type="button"
+                className="student-forum-open-button"
+                onClick={handleOpenForum}
+              >
+                Open Forum
+              </button>
+
+            </div>
+
+          ) : (
+
+            <div className="student-forum-empty">
+
+              <FaComments />
+
+              <h4>
+                Forum unavailable
+              </h4>
+
+              <p>
+                This course forum could not be opened.
+                Please try again.
+              </p>
+
+            </div>
+
+          )}
+
+        </div>
+
+      </div>
+    );
+
+  }
+
+
+  // =====================================
+  // COURSE LIST
+  // =====================================
+
+  return (
+    <div className="student-communication-page">
+
+      {/* =================================
+          HEADER
+      ================================= */}
+
+      <div className="student-communication-header">
+
+        <div className="student-communication-header-icon">
+
+          <FaComments />
+
+        </div>
+
+        <div>
+
+          <h2>
+            Forum
+          </h2>
+
+          <p>
+            Discuss your enrolled courses.
+          </p>
+
+        </div>
 
       </div>
 
 
-      {/* ======================================
+      {/* =================================
           ERROR
-      ====================================== */}
+      ================================= */}
 
       {error && (
 
-        <div className="communication-error">
+        <div className="student-communication-error">
 
           {error}
 
@@ -458,317 +614,139 @@ const StudentCommunication = () => {
       )}
 
 
-      {/* ======================================
-          MAIN CONTAINER
-      ====================================== */}
+      {/* =================================
+          NO COURSES
+      ================================= */}
 
-      <div className="communication-container">
+      {courses.length === 0 ? (
 
+        <div className="student-communication-empty">
 
-        {/* ====================================
-            COURSE PANEL
-        ==================================== */}
+          <FaBook />
 
-        <aside className="course-panel">
+          <h3>
+            No enrolled courses
+          </h3>
 
-          <div className="panel-title">
+          <p>
+            Enroll in a course to access its forum.
+          </p>
 
-            <h2>
-              My Courses
-            </h2>
+        </div>
 
-            <span>
-              {courses.length}
-            </span>
+      ) : (
+
+        <div className="student-communication-courses">
+
+          <div className="student-communication-courses-title">
+
+            <h3>
+              My Course Forums
+            </h3>
+
+            <p>
+              Select an enrolled course to open its forum.
+            </p>
 
           </div>
 
 
-          {loadingCourses ? (
+          {courses.map(
+            (
+              enrollment,
+              index
+            ) => {
 
-            <div className="communication-loading">
+              const course =
+                getCourseObject(
+                  enrollment
+                );
 
-              Loading courses...
+              if (!course?._id) {
+                return null;
+              }
 
-            </div>
+              return (
 
-          ) : courses.length === 0 ? (
-
-            <div className="communication-empty">
-
-              <FaComments />
-
-              <p>
-                You are not enrolled in any courses yet.
-              </p>
-
-            </div>
-
-          ) : (
-
-            <div className="course-list">
-
-              {courses.map(
-                enrollment => {
-
-                  const course =
-                    getCourseObject(
-                      enrollment
-                    );
-
-
-                  if (!course?._id) {
-                    return null;
+                <button
+                  type="button"
+                  key={
+                    course._id ||
+                    enrollment._id ||
+                    index
                   }
+                  className="student-communication-course"
+                  onClick={() =>
+                    handleSelectCourse(
+                      enrollment
+                    )
+                  }
+                >
+
+                  <div className="student-communication-course-icon">
+
+                    {courseImage(course) ? (
+
+                      <img
+                        src={courseImage(course)}
+                        alt={getCourseTitle(course)}
+                      />
+
+                    ) : (
+
+                      <FaBook />
+
+                    )}
+
+                  </div>
 
 
-                  const isSelected =
-                    selectedCourse?._id ===
-                    course._id;
+                  <div className="student-communication-course-info">
+
+                    <h4>
+                      {getCourseTitle(course)}
+                    </h4>
+
+                    <p>
+                      Course Forum
+                    </p>
+
+                  </div>
 
 
-                  return (
+                  <FaComments
+                    className="student-communication-course-arrow"
+                  />
 
-                    <button
-                      type="button"
-                      key={course._id}
-                      className={
-                        `course-item ${
-                          isSelected
-                            ? "active"
-                            : ""
-                        }`
-                      }
-                      onClick={() =>
-                        handleCourseSelect(
-                          enrollment
-                        )
-                      }
-                    >
+                </button>
 
-                      <div className="course-icon">
+              );
 
-                        <FaComments />
-
-                      </div>
-
-
-                      <div>
-
-                        <strong>
-                          {
-                            course.title ||
-                            "Untitled Course"
-                          }
-                        </strong>
-
-                        <span>
-                          Course communication
-                        </span>
-
-                      </div>
-
-                    </button>
-
-                  );
-
-                }
-              )}
-
-            </div>
-
+            }
           )}
 
-        </aside>
+        </div>
 
-
-        {/* ====================================
-            CONVERSATIONS PANEL
-        ==================================== */}
-
-        <section className="conversation-panel">
-
-          {!selectedCourse ? (
-
-            <div className="select-course-message">
-
-              <FaComments />
-
-              <h2>
-                Select a course
-              </h2>
-
-              <p>
-                Choose one of your enrolled courses
-                to view its communication.
-              </p>
-
-            </div>
-
-          ) : (
-
-            <>
-
-              {/* COURSE HEADER */}
-
-              <div className="panel-title">
-
-                <div>
-
-                  <h2>
-                    {selectedCourse.title}
-                  </h2>
-
-                  <span>
-                    Instructor conversations
-                  </span>
-
-                </div>
-
-              </div>
-
-
-              {/* CONVERSATIONS */}
-
-              {loadingConversations ? (
-
-                <div className="communication-loading">
-
-                  Loading conversations...
-
-                </div>
-
-              ) : conversations.length === 0 ? (
-
-                <div className="communication-empty">
-
-                  <FaUser />
-
-                  <p>
-                    You haven't started a conversation
-                    with your instructor yet.
-                  </p>
-
-
-                  <button
-                    type="button"
-                    className="start-conversation-button"
-                    onClick={
-                      startConversation
-                    }
-                  >
-
-                    Start Conversation
-
-                  </button>
-
-                </div>
-
-              ) : (
-
-                <div className="conversation-list">
-
-                  {conversations.map(
-                    conversation => {
-
-                      const instructor =
-                        getOtherParticipant(
-                          conversation
-                        );
-
-
-                      return (
-
-                        <button
-                          type="button"
-                          key={
-                            conversation._id
-                          }
-                          className="conversation-item"
-                          onClick={() =>
-                            openConversation(
-                              conversation
-                            )
-                          }
-                        >
-
-                          {/* AVATAR */}
-
-                          <div className="avatar">
-
-                            {instructor?.profileImage ? (
-
-                              <img
-                                src={
-                                  instructor.profileImage
-                                }
-                                alt={
-                                  instructor.name ||
-                                  "Instructor"
-                                }
-                              />
-
-                            ) : (
-
-                              <FaUser />
-
-                            )}
-
-                          </div>
-
-
-                          {/* INFO */}
-
-                          <div className="conversation-info">
-
-                            <strong>
-
-                              {
-                                instructor?.name ||
-                                "Instructor"
-                              }
-
-                            </strong>
-
-                            <span>
-
-                              Instructor
-
-                            </span>
-
-                          </div>
-
-
-                          {/* ARROW */}
-
-                          <div className="conversation-arrow">
-
-                            →
-
-                          </div>
-
-                        </button>
-
-                      );
-
-                    }
-                  )}
-
-                </div>
-
-              )}
-
-            </>
-
-          )}
-
-        </section>
-
-
-      </div>
+      )}
 
     </div>
+  );
 
+};
+
+
+// =====================================
+// COURSE IMAGE HELPER
+// =====================================
+
+const courseImage = (
+  course
+) => {
+
+  return (
+    course?.image ||
+    course?.courseImage ||
+    ""
   );
 
 };

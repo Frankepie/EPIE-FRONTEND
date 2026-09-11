@@ -4,7 +4,7 @@ const API_URL =
 
 
 // ==========================================
-// GET COURSE COMMUNICATION
+// GET COURSE FORUM
 // ==========================================
 
 export const getCourseCommunication = async (
@@ -25,19 +25,23 @@ export const getCourseCommunication = async (
       }
     );
 
+
   const data =
     await response.json();
+
 
   if (!response.ok) {
 
     throw new Error(
       data.message ||
-      "Failed to load course communication"
+      "Failed to load course forum"
     );
 
   }
 
+
   return data;
+
 };
 
 
@@ -63,8 +67,10 @@ export const getCourseStudents = async (
       }
     );
 
+
   const data =
     await response.json();
+
 
   if (!response.ok) {
 
@@ -75,17 +81,18 @@ export const getCourseStudents = async (
 
   }
 
+
   return data;
+
 };
 
 
 // ==========================================
-// CREATE CONVERSATION
+// CREATE / GET COURSE FORUM
 // ==========================================
 
 export const createConversation = async (
   courseId,
-  participantId,
   token
 ) => {
 
@@ -107,33 +114,35 @@ export const createConversation = async (
 
         body: JSON.stringify({
 
-          courseId,
-
-          participantId
+          courseId
 
         })
 
       }
     );
 
+
   const data =
     await response.json();
+
 
   if (!response.ok) {
 
     throw new Error(
       data.message ||
-      "Failed to create conversation"
+      "Failed to open course forum"
     );
 
   }
 
+
   return data;
+
 };
 
 
 // ==========================================
-// GET CONVERSATION MESSAGES
+// GET FORUM MESSAGES
 // ==========================================
 
 export const getConversationMessages = async (
@@ -143,7 +152,7 @@ export const getConversationMessages = async (
 
   const response =
     await fetch(
-      `${API_URL}/api/communication/conversation/${conversationId}/messages`,
+      `${API_URL}/api/communication/conversation/${conversationId}`,
       {
         method: "GET",
 
@@ -154,24 +163,28 @@ export const getConversationMessages = async (
       }
     );
 
+
   const data =
     await response.json();
+
 
   if (!response.ok) {
 
     throw new Error(
       data.message ||
-      "Failed to load messages"
+      "Failed to load forum messages"
     );
 
   }
 
+
   return data;
+
 };
 
 
 // ==========================================
-// SEND MESSAGE
+// SEND TEXT MESSAGE
 // ==========================================
 
 export const sendMessage = async (
@@ -209,8 +222,10 @@ export const sendMessage = async (
       }
     );
 
+
   const data =
     await response.json();
+
 
   if (!response.ok) {
 
@@ -221,5 +236,7 @@ export const sendMessage = async (
 
   }
 
+
   return data;
+
 };
