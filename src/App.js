@@ -743,6 +743,10 @@ function App() {
     <StudentChat />
   }
 />
+<Route
+  path="/student/chat/:conversationId"
+  element={<StudentChat />}
+/>
             {/* /student → /student/dashboard */}
 
             <Route
